@@ -1,7 +1,5 @@
 'use strict'
 
-const APIKEY = 'apiKey=3fe9c7b3838b43f59e74004c2179d228';
-
 // date/time object from luxon.
 const dt = luxon.DateTime;
 
