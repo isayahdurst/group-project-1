@@ -175,26 +175,18 @@ const generatePreferenceOptions = function (option) {
                         item.style.backgroundColor = 'var(--active-preference';
                     }
                 })
+            } else if (option === intolerances) {
+                intolerances.toInclude.forEach(function(intolerance) {
+                    if (intolerance === value) {
+                        item.style.backgroundColor = 'var(--active-preference';
+                    }
+                })
             }
 
             preferenceItems.appendChild(item);
         }
     }
 }
-
-// When diet item is selected, it's added or removed from included API items.
-dietFilter.addEventListener('click', function (event) {
-    const target = event.target;
-    if (target.tagName.toLowerCase() === 'li') {
-        if (diets.toInclude.includes(diets[target.getAttribute('data-key')])) {
-            target.style.color = 'black';
-            diets.toInclude = diets.toInclude.filter((value) => value!=diets[target.getAttribute('data-key')]);
-        } else {
-            target.style.color = 'red';
-            diets.toInclude.push(diets[target.getAttribute('data-key')]);
-        }
-    }
-})
 
 mainPreferenceOptions.addEventListener('click', function (event) {
     console.log(event.target);
