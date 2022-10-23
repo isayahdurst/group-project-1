@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
@@ -35,7 +41,36 @@
       <div class="preference-items"></div>
     </div>
     <div class="overlay hidden"></div>
-    <!-- Modal Window End -->
+    <!-- Preferences Modal Window End -->
+
+    <section class="meal-details">
+      <div class="meal-details-header">
+        <div><img id="meal-image" src="" alt="" srcset="" /></div>
+        <div class="meal-details-wrapper">
+          <div class="meal-details-left">
+            <div class="meal-title">
+              <h2>Smoked Salmon with Honey Mustard Glaze</h2>
+            </div>
+            <div class="tags">
+              <ul class="tag-list">
+                <li class="tag-item">Vegan</li>
+                <li class="tag-item">Peanut-free</li>
+              </ul>
+            </div>
+          </div>
+          <div class="meal-details-right">
+            <div>
+              <h3>Cooking Time:</h3>
+              <h3 class="cooking-time">20-30 minutes</h3>
+            </div>
+            <div>
+              <h3>Nutrition Per Serving:</h3>
+              <h3 class="nutrition-information">960 Cals</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
     <script src="./assets/js/script.js"></script>
