@@ -11,6 +11,25 @@
     <div>
       <ul class="diets"></ul>
     </div>
+    <button class="show-modal">Edit Preferences</button>
+    <!-- Preferences Modal Window -->
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1>Edit Preferences</h1>
+      <div class="preference-options">
+        <button class="preference-category active" id="pref-diets">Diets</button
+        ><button class="preference-category" id="pref-cuisines">Cuisines</button
+        ><button class="preference-category" id="pref-intolerances">
+          Intolerances</button
+        ><button class="preference-category" id="pref-ingredients">
+          Ingredients
+        </button>
+      </div>
+      <div class="preference-items"></div>
+    </div>
+    <div class="overlay hidden"></div>
+    <!-- Modal Window End -->
+
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>

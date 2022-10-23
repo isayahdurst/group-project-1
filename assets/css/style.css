@@ -1,0 +1,128 @@
+:root {
+    --active: orangered;
+    --active-preference: rgba(144, 238, 144, 1);
+    --inactive-preference: rgba(144, 238, 144, 0.2);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* MODAL WINDOW STYLING */
+
+.close-modal {
+    position: absolute;
+    top: 19.2px;
+    right: 32px;
+    font-size: 80px;
+    color: #333;
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
+  
+  h1 {
+    font-size: 40px;
+    margin-bottom: 32px;
+  }
+  
+  p {
+    font-size: 28.8px;
+  }
+  
+  /* -------------------------- */
+  /* CLASSES TO MAKE MODAL WORK */
+  .hidden {
+    display: none;
+  }
+  
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+  
+    background-color: white;
+    padding: 96px;
+    border-radius: 5px;
+    box-shadow: 0 48px 80px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
+
+  .modal div {
+    margin-bottom: 20px;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 5;
+  }
+
+  .preference-options {
+    width: 100%;
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: space-evenly;
+    background-color: oldlace;
+    border-radius: 20px;
+    padding: 20px 20px;
+  }
+
+  .preference-category {
+    min-width: 200px;
+    padding: 20px 10px;
+    font-size: 28.8px;
+    border: 0px;
+    border-radius: 20px;
+    background-color: orange;
+    outline: none;
+    transition: all 0.3s;
+    border: 1px solid black;
+  }
+
+  .preference-category:hover {
+    background-color: var(--active);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .active {
+    background-color: var(--active);
+  }
+
+  .preference-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    width: 100%;
+    background-color: oldlace;
+    padding: 20px 20px;
+    border-radius: 20px;
+  }
+
+  .preference-items button {
+    min-width: 150px;
+    padding: 10px 15px;
+    font-size: 22px;
+    border: 1px solid black; 
+    border-radius: 10px;
+    background-color: var(--inactive-preference);
+    margin-bottom: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+
+  .preference-items button:hover {
+    background-color: var(--active-preference);
+    transform: scale(1.1);
+  }
