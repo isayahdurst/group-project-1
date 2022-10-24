@@ -243,3 +243,11 @@ closeModalBtn.addEventListener('click', closePrefModal);
 
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
+
+const redirect = document.querySelector('.redirect');
+
+redirect.addEventListener('click', function () {
+    console.log('clicked');
+    window.location.replace('./meal.html');
+    console.log(diets);
+})

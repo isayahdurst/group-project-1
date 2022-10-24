@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meal Planner</title>
+    <title>View Meal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,60 +14,50 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <div>
-      <ul class="diets"></ul>
-    </div>
-    <button class="show-modal">Edit Preferences</button>
-    <!-- Preferences Modal Window -->
-    <div class="modal hidden">
-      <button class="close-modal">&times;</button>
-      <h1>Edit Preferences</h1>
-      <div class="preference-options">
-        <button class="preference-category active" id="pref-diets">Diets</button
-        ><button class="preference-category" id="pref-cuisines">Cuisines</button
-        ><button class="preference-category" id="pref-intolerances">
-          Intolerances</button
-        ><button class="preference-category" id="pref-ingredients">
-          Ingredients
-        </button>
-      </div>
-      <div class="preference-items"></div>
-    </div>
-    <div class="overlay hidden"></div>
-    <!-- Preferences Modal Window End -->
-
-    <!-- <section class="meal-details">
+    <section class="meal-details">
       <div class="meal-details-header">
-        <div><img id="meal-image" src="" alt="" srcset="" /></div>
+        <div class="meal-image">
+          <div class="meal-title">
+            <h2>Smoked Salmon with Honey Mustard Glaze</h2>
+          </div>
+        </div>
         <div class="meal-details-wrapper">
           <div class="meal-details-left">
-            <div class="meal-title">
-              <h2>Smoked Salmon with Honey Mustard Glaze</h2>
-            </div>
             <div class="tags">
               <ul class="tag-list">
                 <li class="tag-item">Vegan</li>
                 <li class="tag-item">Peanut-free</li>
               </ul>
             </div>
+            <div class="meal-description">
+              <h3>Meal Summary:</h3>
+              <p id="meal-description">
+                Enjoy your fish and veggies in a jiff with this simple sheet pan
+                supper! We coat tilapia filets in Tex-Mex spices and broil the
+                delicate white fish along with sweet peppers and onions. Green
+                chiles flavor steamy jasmine rice before we toss in fresh
+                cilantro. A tangy avocado crema is the ultimate condiment for
+                this fresh and light supper that’s as easy to make as it is to
+                enjoy.
+              </p>
+            </div>
           </div>
           <div class="meal-details-right">
             <div>
               <h3>Cooking Time:</h3>
-              <h3 class="cooking-time">20-30 minutes</h3>
+              <p class="cooking-time">20-30 minutes</p>
             </div>
             <div>
               <h3>Nutrition Per Serving:</h3>
-              <h3 class="nutrition-information">960 Cals</h3>
+              <p class="nutrition-information">960 Cals</p>
             </div>
           </div>
         </div>
       </div>
-    </section> -->
-
-    <button class="redirect">Redirect</button>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
     <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/meal-script.js"></script>
   </body>
 </html>
