@@ -163,7 +163,6 @@ const generatePreferenceOptions = function (option) {
             }
 
             if (option === diets) {
-                console.log('true');
                 diets.toInclude.forEach(function (diet) {
                     if (diet === value) {
                         item.style.backgroundColor = 'var(--active-preference)';
