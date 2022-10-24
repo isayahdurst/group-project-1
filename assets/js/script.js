@@ -11,6 +11,7 @@ const dietFilter = document.querySelector('.diets');
 
 /* Modal */
 const preferenceModal = document.querySelector('.modal');
+const signUpModal = document.querySelector('.modalSignUp');
 const overlay = document.querySelector('.overlay');
 
 /* Modal Buttons */
@@ -26,6 +27,9 @@ const ingredientsBtn = document.querySelector('#pref-ingredients');
 /* Preference Options */
 const mainPreferenceOptions = document.querySelector('.preference-options');
 const preferenceItems = document.querySelector('.preference-items');
+
+/* Sign up Button */
+const signUpButton = document.querySelector('#signup');
 
 const diets = {
     noPreference: 'No Preference',
@@ -103,6 +107,16 @@ const openPrefModal = function () {
 }
 
 const closePrefModal = function () {
+    preferenceModal.classList.add('hidden');
+    overlay.classList.add('hidden');
+}
+
+const openSignUpfModal = function () {
+    signUpModal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+}
+
+const closeSignUpfModal = function () {
     preferenceModal.classList.add('hidden');
     overlay.classList.add('hidden');
 }
@@ -240,6 +254,8 @@ preferenceItems.addEventListener('click', function (event) {
 
 editPreferencesBtn.addEventListener('click', openPrefModal);
 closeModalBtn.addEventListener('click', closePrefModal);
-
+signUpButton.addEventListener('click', openSignUpfModal);
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
+
+// 

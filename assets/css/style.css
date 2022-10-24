@@ -60,6 +60,20 @@ body {
     z-index: 10;
   }
 
+  .modalSignUp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    background-color: white;
+    padding: 96px;
+    border-radius: 5px;
+    box-shadow: 0 48px 80px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+
+  }
+
   .modal div {
     margin-bottom: 20px;
   }
@@ -174,6 +188,7 @@ body {
   transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
   background: #fff;
   color: #222222;
+  margin-left: 10px;
 }
 
 #signup:hover {
@@ -192,27 +207,39 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 15em;
-  height: 75%;
+  height: 65%;
   align-self: center;
   background-repeat: no-repeat;
   background-size: cover;
   align-items: center;
   justify-content: center;
-  margin: 0 150px;
-  background-blend-mode: darken;
 }
 
-.hero-column {
+
+.hero-body {
+  display: flex;
+  color:#000;
+  flex-direction: column;
+  align-self:flex-start;
+  margin: 0 150px 20px 150px;
   background-color: var(--primary-accent);
-  margin-left: 50px;
   padding: 50px;
+  width: 25.33%;
 }
-.hero-column h1 {
+/* .hero-column {
+  background-color: var(--primary-accent);
+  margin-left: 150px;
+  padding: 50px;
+} */
+.title {
   font-weight: 900;
+
   margin-bottom: 15px;
 }
-.hero-column p{
-line-height: 1.4;
+.subtitle{
+  line-height: 1.5;
+  margin-bottom: 25px;
+
 }
 
 #get-started {
@@ -220,11 +247,11 @@ line-height: 1.4;
   align-items: center;
   outline: none;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 20px;
   font-weight: 600;
   border-radius: 8px;
-  width:65%;
+  width:75%;
   padding: 13px 23px;
   border: 1px solid #222222;
   transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
@@ -248,13 +275,27 @@ line-height: 1.4;
 }
 
 .row .col.s4 {
-  width: 37.3333333333%;
+  width: 33.3333333333%;
   margin-right: auto;
   left: auto;
   right: auto;
 }
 
+
+/* Style for header media screen size */
 @media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
+
+/* Style for hero screen size */
+@media screen and (max-width: 1407PX) {
   .header a {
     float: none;
     display: block;
