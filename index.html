@@ -11,20 +11,32 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
     <div class="header">
-      <a href="#default" class="brand">Company</a>
+      <a href="#default" class="brand">Taylor's Kitchen</a>
       <div class="header-right">
         <a id="#contact">Login</a>
         <a id="signup">Sign up</a>
       </div>
     </div> 
+
+    <div class="row hero">
+      <div class="col s4">
+        <div class="hero-column">
+        <h1>Meal prepping. Made easy.</h1>
+        <p> Get well portioned ingredients for the best recipes directly at your fingertips!</p>
+        <br>
+        <a class="show-modal" id="get-started">Get started now  <i class=" material-icons">arrow_forward</i></a>
+      </div>
+    </div>
+    </div>
     <div>
       <ul class="diets"></ul>
     </div>
-    <button class="show-modal">Edit Preferences</button>
+    <!-- <button class="show-modal">Edit Preferences</button> -->
     <!-- Preferences Modal Window -->
     <div class="modal hidden">
       <button class="close-modal">&times;</button>
@@ -42,7 +54,7 @@
     </div>
     <div class="overlay hidden"></div>
     <!-- Preferences Modal Window End -->
-
+<!-- 
     <section class="meal-details">
       <div class="meal-details-header">
         <div><img id="meal-image" src="" alt="" srcset="" /></div>
@@ -70,7 +82,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
     <script src="./assets/js/script.js"></script>
