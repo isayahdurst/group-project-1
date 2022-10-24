@@ -163,7 +163,6 @@ const generatePreferenceOptions = function (option) {
             }
 
             if (option === diets) {
-                console.log('true');
                 diets.toInclude.forEach(function (diet) {
                     if (diet === value) {
                         item.style.backgroundColor = 'var(--active-preference)';
@@ -243,11 +242,3 @@ closeModalBtn.addEventListener('click', closePrefModal);
 
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
-
-const redirect = document.querySelector('.redirect');
-
-redirect.addEventListener('click', function () {
-    console.log('clicked');
-    window.location.replace('./meal.html');
-    console.log(diets);
-})
