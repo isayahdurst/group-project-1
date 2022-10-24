@@ -1,8 +1,10 @@
 :root {
     --active: orangered;
+    --primary-accent: #FFE056;
     --active-preference: rgba(144, 238, 144, 1);
     --inactive-preference: rgba(144, 238, 144, 0.2);
 }
+
 
 * {
     margin: 0;
@@ -12,6 +14,9 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: rgb(246, 246, 246);
+    height:100vh;
+
 }
 
 /* MODAL WINDOW STYLING */
@@ -29,7 +34,6 @@ body {
   
   h1 {
     font-size: 40px;
-    margin-bottom: 32px;
   }
   
   p {
@@ -130,3 +134,133 @@ body {
     background-color: var(--active-preference);
     transform: scale(1.1);
   }
+
+/* Style the header with a white background and some padding */
+.header {
+  overflow: hidden;
+  background-color: #fff;
+  padding: 20px 150px;
+}
+
+.header a.brand {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+/* Style the header links */
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+
+/* Style the active/current link*/
+#signup {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 13px 23px;
+  border: 1px solid #222222;
+  transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+  background: #fff;
+  color: #222222;
+}
+
+#signup:hover {
+  border-color: #000000;
+  background: #f7f7f7;
+}
+
+/* Float the link section to the right */
+.header-right {
+  float: right;
+}
+
+/* Style for hero Hero */
+.hero {
+  background-image: url("https://marleyspoon.com/images/ms/home/us/desktop_tablet/02_Homepage_Dishes@2x-c2928e2581.webp");
+  display: flex;
+  flex-direction: column;
+  min-height: 15em;
+  height: 75%;
+  align-self: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+  margin: 0 150px;
+  background-blend-mode: darken;
+}
+
+.hero-column {
+  background-color: var(--primary-accent);
+  margin-left: 50px;
+  padding: 50px;
+}
+.hero-column h1 {
+  font-weight: 900;
+  margin-bottom: 15px;
+}
+.hero-column p{
+line-height: 1.4;
+}
+
+#get-started {
+  display: flex;
+  align-items: center;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  width:65%;
+  padding: 13px 23px;
+  border: 1px solid #222222;
+  transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+  background: #fff;
+  color: #222222;
+}
+
+#get-started:hover {
+  border-color: #000000;
+  background: #f7f7f7;
+}
+
+/* Float the link section to the right */
+.header-right {
+  float: right;
+}
+
+.row {
+
+  margin-bottom: 20px;
+}
+
+.row .col.s4 {
+  width: 37.3333333333%;
+  margin-right: auto;
+  left: auto;
+  right: auto;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
