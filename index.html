@@ -1,251 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meal Planner</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
-  <body>
-    <div class="header">
-      <a href="#default" class="brand">Taylor's Kitchen</a>
-      <div class="header-right">
-        <a id="#contact">Login</a>
-        <a id="signup">Sign up</a>
-      </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meal Planner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
+  <div class="header">
+    <a href="#default" class="brand">Taylor's Kitchen</a>
+    <div class="header-right">
+      <button onclick="document.getElementById('Login').style.display='block'">Login</button>
+      <a id="signup">Sign up</a>
+    </div>
+  </div>
+  <!-- Login Modal -->
+  <div hidden id="Login" class="modal">
+    <span onclick="document.getElementById('Login').style.display='none'" class="close"
+      title="Close Modal">&times;</span>
+
+    <!-- Modal Content -->
+    <div class onclick="container">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <button type="submit">Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
     </div>
 
-    <div class="row hero">
-      <div class="col s4">
-        <div class="hero-column">
-          <h1>Meal prepping. Made easy.</h1>
-          <p>
-            Get well portioned ingredients for the best recipes directly at your
-            fingertips!
-          </p>
-          <br />
-          <a class="show-modal" id="get-started"
-            >Get started now <i class="material-icons">arrow_forward</i></a
-          >
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('Login').style.display='none'"
+        class="cancelbtn">Cancel</button>
+      <span class="psw"> <a href="#">Forgot password</a>?</span>
+    </div>
+    </form>
+  </div>
+  <div class="row hero">
+    <div class="col s4">
+      <div class="hero-column">
+        <h1>Meal prepping. Made easy.</h1>
+        <p>
+          Get well portioned ingredients for the best recipes directly at your
+          fingertips!
+        </p>
+        <br />
+        <a class="show-modal" id="get-started">Get started now <i class="material-icons">arrow_forward</i></a>
+      </div>
+    </div>
+  </div>
+  <div>
+    <ul class="diets"></ul>
+  </div>
+  <!-- <button class="show-modal">Edit Preferences</button> -->
+  <!-- Preferences Modal Window -->
+  <div class="modal hidden">
+    <button class="close-modal">&times;</button>
+    <h1>Edit Preferences</h1>
+    <div class="preference-options">
+      <button class="preference-category active" id="pref-diets">Diets</button><button class="preference-category"
+        id="pref-cuisines">Cuisines</button><button class="preference-category" id="pref-intolerances">
+        Intolerances</button><button class="preference-category" id="pref-ingredients">
+        Ingredients
+      </button>
+    </div>
+    <div class="preference-items"></div>
+  </div>
+  <div class="overlay hidden"></div>
+  <!-- Preferences Modal Window End -->
+
+  <!-- Meal Details Start -->
+  <section class="meal-details">
+    <div class="meal-details-header">
+      <div class="meal-image">
+        <div class="meal-title">
+          <h2>Smoked Salmon with Honey Mustard Glaze</h2>
         </div>
       </div>
-    </div>
-    <div>
-      <ul class="diets"></ul>
-    </div>
-    <!-- <button class="show-modal">Edit Preferences</button> -->
-    <!-- Preferences Modal Window -->
-    <div class="modal hidden">
-      <button class="close-modal">&times;</button>
-      <h1>Edit Preferences</h1>
-      <div class="preference-options">
-        <button class="preference-category active" id="pref-diets">Diets</button
-        ><button class="preference-category" id="pref-cuisines">Cuisines</button
-        ><button class="preference-category" id="pref-intolerances">
-          Intolerances</button
-        ><button class="preference-category" id="pref-ingredients">
-          Ingredients
-        </button>
+      <div class="tags">
+        <ul class="tag-list">
+          <li class="tag-item">Vegan</li>
+          <li class="tag-item">Peanut-free</li>
+        </ul>
       </div>
-      <div class="preference-items"></div>
-    </div>
-    <div class="overlay hidden"></div>
-    <!-- Preferences Modal Window End -->
-
-    <!-- Meal Details Start -->
-    <section class="meal-details">
-      <div class="meal-details-header">
-        <div class="meal-image">
-          <div class="meal-title">
-            <h2>Smoked Salmon with Honey Mustard Glaze</h2>
+      <div class="meal-details-wrapper">
+        <div class="meal-details-left">
+          <div class="meal-description">
+            <h3>Meal Summary:</h3>
+            <p id="meal-description">
+              Enjoy your fish and veggies in a jiff with this simple sheet pan
+              supper! We coat tilapia filets in Tex-Mex spices and broil the
+              delicate white fish along with sweet peppers and onions. Green
+              chiles flavor steamy jasmine rice before we toss in fresh
+              cilantro. A tangy avocado crema is the ultimate condiment for
+              this fresh and light supper that’s as easy to make as it is to
+              enjoy.
+            </p>
           </div>
         </div>
-        <div class="tags">
-          <ul class="tag-list">
-            <li class="tag-item">Vegan</li>
-            <li class="tag-item">Peanut-free</li>
-          </ul>
-        </div>
-        <div class="meal-details-wrapper">
-          <div class="meal-details-left">
-            <div class="meal-description">
-              <h3>Meal Summary:</h3>
-              <p id="meal-description">
-                Enjoy your fish and veggies in a jiff with this simple sheet pan
-                supper! We coat tilapia filets in Tex-Mex spices and broil the
-                delicate white fish along with sweet peppers and onions. Green
-                chiles flavor steamy jasmine rice before we toss in fresh
-                cilantro. A tangy avocado crema is the ultimate condiment for
-                this fresh and light supper that’s as easy to make as it is to
-                enjoy.
-              </p>
-            </div>
+        <div class="meal-details-right">
+          <div>
+            <h3>Cooking Time:</h3>
+            <p class="cooking-time">20 - 30 minutes</p>
           </div>
-          <div class="meal-details-right">
-            <div>
-              <h3>Cooking Time:</h3>
-              <p class="cooking-time">20 - 30 minutes</p>
-            </div>
-            <div>
-              <h3>Nutrition Per Serving:</h3>
-              <p class="nutrition-information">
-                960 Calories, Fat 17.1g, Protein 30.0g, Carbs 81.0g
-              </p>
-            </div>
+          <div>
+            <h3>Nutrition Per Serving:</h3>
+            <p class="nutrition-information">
+              960 Calories, Fat 17.1g, Protein 30.0g, Carbs 81.0g
+            </p>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="meal-ingredients">
-      <div class="meal-ingredients-wrapper">
-        <div class="meal-ingredients-left">
-          <h3>Ingredients:</h3>
-          <ul class="meal-required-ingredients">
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/egg.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
+  <section class="meal-ingredients">
+    <div class="meal-ingredients-wrapper">
+      <div class="meal-ingredients-left">
+        <h3>Ingredients:</h3>
+        <ul class="meal-required-ingredients">
+          <li class="meal-ingredient-item">
+            <div class="image-slot">
+              <img src="https://spoonacular.com/cdn/ingredients_100x100/egg.png" alt="" class="meal-ingredient-image" />
+            </div>
 
-              <h4 class="meal-ingredient-name">4 Large Eggs</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/tortilla-chips.jpg"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">7 Ounces Corn Tortilla Chips</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/cherry-tomatoes.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">10 Cherry Tomatoes</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/mozzarella.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                  title="8 ounces fresh mozzarella cheese, thinly sliced"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">
-                8 ounces fresh mozzarella cheese,
-              </h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/egg.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">
-                4 Large Eggs, preferably organic if you prefer runny eggs
-              </h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/tortilla-chips.jpg"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">
-                7 ounces corn tortilla chips, approximately half of a
-                store-bought bag, or, if prepared fresh, use 15 corn tortillas,
-                each cut into 6 triangles
-              </h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/cherry-tomatoes.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">10 cherry tomatoes, halved</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/mozzarella.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                  title="8 ounces fresh mozzarella cheese, thinly sliced"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">
-                8 ounces fresh mozzarella cheese, thinly sliced
-              </h4>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <section class="meal-recipe">
-      <div class="meal-recipe-wrapper">
-        <div class="meal-recipe-title"><h3>Cooking Instructions:</h3></div>
-        <ul class="meal-recipe-list">
-          <li class="meal-recipe-step-card">
-            <div class="meal-recipe-step-number">1.</div>
-            <div class="meal-recipe-step">Preheat the oven to 350°F.</div>
+            <h4 class="meal-ingredient-name">4 Large Eggs</h4>
           </li>
-          <li class="meal-recipe-step-card">
-            <div class="meal-recipe-step-number">2.</div>
-            <div class="meal-recipe-step">
-              Heat a sauté pan over medium heat until hot.
+          <li class="meal-ingredient-item">
+            <div class="image-slot">
+              <img src="https://spoonacular.com/cdn/ingredients_100x100/tortilla-chips.jpg" alt=""
+                class="meal-ingredient-image" />
             </div>
+
+            <h4 class="meal-ingredient-name">7 Ounces Corn Tortilla Chips</h4>
           </li>
-          <li class="meal-recipe-step-card">
-            <div class="meal-recipe-step-number">3.</div>
-            <div class="meal-recipe-step">
-              Add 1 tablespoon of the olive oil to the pan and swirl to coat.
+          <li class="meal-ingredient-item">
+            <div class="image-slot">
+              <img src="https://spoonacular.com/cdn/ingredients_100x100/cherry-tomatoes.png" alt=""
+                class="meal-ingredient-image" />
             </div>
+
+            <h4 class="meal-ingredient-name">10 Cherry Tomatoes</h4>
+          </li>
+          <li class="meal-ingredient-item">
+            <div class="image-slot">
+              <img src="https://spoonacular.com/cdn/ingredients_100x100/mozzarella.png" alt=""
+                class="meal-ingredient-image" title="8 ounces fresh mozzarella cheese, thinly sliced" />
+            </div>
+
+            <h4 class="meal-ingredient-name">
+              8 ounces fresh mozzarella cheese,
+            </h4>
+          </li>
+          <li class="meal-ingredient-item">
+            <div class="image-slot">
+              <img src="https://spoonacular.com/cdn/ingredients_100x100/egg.png" alt="" class="meal-ingredient-image" />
+            </div>
+
+            <h4 class="meal-ingredient-name">
+              4 Large Eggs, preferably organic if you prefer runny eggs
+            </h4>
+          </li>
+          <li class="meal-ingredient-item">
+            <div class="image-slot">
+              <img src="https://spoonacular.com/cdn/ingredients_100x100/tortilla-chips.jpg" alt=""
+                class="meal-ingredient-image" />
+            </div>
+
+            <h4 class="meal-ingredient-name">
+              7 ounces corn tortilla chips, approximately half of a
+              store-bought bag, or, if prepared fresh, use 15 corn tortillas,
+              each cut into 6 triangles
+            </h4>
+          </li>
+          <li class="meal-ingredient-item">
+            <div class="image-slot">
+              <img src="https://spoonacular.com/cdn/ingredients_100x100/cherry-tomatoes.png" alt=""
+                class="meal-ingredient-image" />
+            </div>
+
+            <h4 class="meal-ingredient-name">10 cherry tomatoes, halved</h4>
+          </li>
+          <li class="meal-ingredient-item">
+            <div class="image-slot">
+              <img src="https://spoonacular.com/cdn/ingredients_100x100/mozzarella.png" alt=""
+                class="meal-ingredient-image" title="8 ounces fresh mozzarella cheese, thinly sliced" />
+            </div>
+
+            <h4 class="meal-ingredient-name">
+              8 ounces fresh mozzarella cheese, thinly sliced
+            </h4>
           </li>
         </ul>
       </div>
-    </section>
+    </div>
+  </section>
+  <section class="meal-recipe">
+    <div class="meal-recipe-wrapper">
+      <div class="meal-recipe-title">
+        <h3>Cooking Instructions:</h3>
+      </div>
+      <ul class="meal-recipe-list">
+        <li class="meal-recipe-step-card">
+          <div class="flex-container" class="meal-recipe-step-number">1.</div>
+          <div class="meal-recipe-step">Preheat the oven to 350°F.</div>
+        </li>
+        <li class="meal-recipe-step-card">
+          <div class="flex-container" class="meal-recipe-step-number">2.</div>
+          <div class="meal-recipe-step">
+            Heat a sauté pan over medium heat until hot.
+          </div>
+        </li>
+        <li class="meal-recipe-step-card">
+          <div class="flex-container" class="meal-recipe-step-number">3.</div>
+          <div class="meal-recipe-step">
+            Add 1 tablespoon of the olive oil to the pan and swirl to coat.
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-    <!-- Meal Details End -->
+  <!-- Meal Details End -->
 
-    <div class="spacer"></div>
+  <div class="spacer"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
-    <script src="./assets/js/script.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+</body>
+
 </html>
