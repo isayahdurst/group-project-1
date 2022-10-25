@@ -241,3 +241,4 @@ closeModalBtn.addEventListener('click', closePrefModal);
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
 
+// test
