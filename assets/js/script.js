@@ -7,8 +7,6 @@ const dt = luxon.DateTime;
 // Enter as diet @param in API request (ex. https://foodapi?diet=diets.glutenFree)
 // Options sourced from https://spoonacular.com/food-api/docs#Diets
 
-const dietFilter = document.querySelector('.diets');
-
 /* Modal */
 const preferenceModal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
@@ -243,17 +241,3 @@ closeModalBtn.addEventListener('click', closePrefModal);
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
 
-const alphabet = 'abcdefghijklmnopqrstuvwxyz';
-
-const isPanagram = function (string) {
-    let tf = true;
-    [...string].forEach(function (value) {
-        console.log(alphabet.indexOf(value));
-        if (alphabet.indexOf(value) < 0) {
-            tf = false;
-        }
-    })
-    return tf;
-}
-
-console.log(isPanagram('hello'));
