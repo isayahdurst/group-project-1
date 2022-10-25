@@ -401,28 +401,37 @@ position: relative;
   background-image: url("https://marleyspoon.com/images/ms/home/us/desktop_tablet/02_Homepage_Dishes@2x-c2928e2581.webp");
   display: flex;
   flex-direction: column;
-  min-height: 15em;
-  height: 75%;
+  height: 65%;
   align-self: center;
   background-repeat: no-repeat;
   background-size: cover;
   align-items: center;
   justify-content: center;
-  margin: 0 150px;
-  background-blend-mode: darken;
 }
 
-.hero-column {
+
+.hero-body {
+  display: flex;
+  color:#000;
+  flex-direction: column;
+  align-self:flex-start;
+  margin: 0 150px 20px 150px;
   background-color: var(--primary-accent);
-  margin-left: 50px;
   padding: 50px;
+  width: 25.33%;
 }
-.hero-column h1 {
+
+.title {
   font-weight: 900;
+
   margin-bottom: 15px;
 }
-.hero-column p{
-line-height: 1.4;
+.subtitle{
+  line-height: 1.5;
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 100;
+
 }
 
 #get-started {
