@@ -242,3 +242,18 @@ closeModalBtn.addEventListener('click', closePrefModal);
 
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
+
+const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
+const isPanagram = function (string) {
+    let tf = true;
+    [...string].forEach(function (value) {
+        console.log(alphabet.indexOf(value));
+        if (alphabet.indexOf(value) < 0) {
+            tf = false;
+        }
+    })
+    return tf;
+}
+
+console.log(isPanagram('hello'));

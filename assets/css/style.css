@@ -190,7 +190,7 @@ margin-bottom: 30px;
     flex-wrap: wrap;
 }
 
-.tag-item {
+.tag-item, .meal-favorite-button button {
     display: inline-block;
     list-style: none;
     padding: 10px;
@@ -199,6 +199,24 @@ margin-bottom: 30px;
     border-radius: 10px;
     margin: 20px 0px;
     margin-left: 20px;
+}
+
+.meal-favorite-button {
+    margin-right: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.meal-favorite-button button {
+    margin-left: 0;
+    margin-bottom: 10px;
+    background-color: rgba(255, 224, 86, 0.8);
+    font-size: large;
+}
+
+.meal-favorite-button button:hover {
+    background-color: rgba(255, 224, 86, 1);
 }
 
 .meal-image {
@@ -289,6 +307,7 @@ position: relative;
 
 .meal-ingredient-item h4 {
     font-weight: normal;
+    text-align: center;
 }
 
 .meal-recipe-wrapper {
