@@ -5,6 +5,28 @@
     --inactive-preference: rgba(144, 238, 144, 0.2);
 }
 
+/* Set a style for login button */
+button {
+  display: hidden;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 13px 23px;
+  border: 1px solid #222222;
+  transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+  background: #fff;
+  color: #222222;
+}
+
+/* Add a hover effect for login button */
+button:hover {
+  opacity: 0.8;
+  border-color: #000000;
+  background: #f7f7f7;
+}
 
 * {
     margin: 0;
@@ -26,6 +48,7 @@ body {
     top: 19.2px;
     right: 32px;
     font-size: 80px;
+    font-family: 'Roboto', sans-serif;
     color: #333;
     cursor: pointer;
     border: none;
