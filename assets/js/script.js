@@ -72,7 +72,7 @@ const cuisines = {
     thai: 'Thai',
     vietnamese: 'Vietnamese',
     toExclude: [],
-}
+};
 
 // Search API can filter intolerances.
 
@@ -90,7 +90,18 @@ const intolerances = {
     treeNut: 'Tree Nut',
     wheat: 'Wheat',
     toInclude: [],
-}
+};
+
+
+// API pull URL
+const urlAPI = 'https://api.spoonacular.com/recipes/complexSearch/';
+
+
+// mealType object that allows you to select breakfast or lunch/dinner options in the API call
+const mealType = {
+    breakfast:'breakfast,morning meal,brunch',
+    lunchDinner:'lunch,dinner,main course,main dish,side dish',
+};
 
 // To generate a weekly meal plan, Spoonacular needs to have a username/password/hash generated
 // for each individual user. We can't store that information on a server (yet) but
@@ -149,6 +160,73 @@ const setActiveButton = function (activeButton) {
         }
     })
 }
+
+
+// Formats preferences/diets/cuisines/intolerances lists into API call format
+
+const generateAPICallURL = function(mealTypeString) { //mealType is an object with keys of breakfast or lunchDinner
+    
+    const addRecipeInformationP = 'addRecipeInformation=true';
+    const addRecipeNutritionP = 'addRecipeNutrition=true';
+    const instructionsRequiredP = 'instructionsRequired=true';
+    const numberP = 'number=7';
+    const typeP = `type=${mealTypeString}`;
+
+    // Genereate string for excludeCuisine
+    let excludeCuisineP = 'excludeCuisine=';
+    for(let i = 0; i < cuisines.toExclude.length; i++){
+        if(i === 0){
+            excludeCuisineP = cuisines.toExclude[i];
+        }
+        else{
+            excludeCuisineP = `${excludeCuisineP},${cuisines.toExclude[i]}`
+        }
+    }
+
+    // Generate string for diet -- commas in the search represent AND. e.g. paleolithic,gluten free = paleolithic AND gluten free
+    let dietP = 'diet=';
+    for(let i = 0; i < diets.toInclude.length; i++){
+        if(i === 0){
+            dietP = diets.toInclude[i];
+        }
+        else{
+            dietP = `${dietP},${diets.toInclude[i]}`
+        }
+    }
+
+    // Generate string for intolerances -- commas in the search represent AND. e.g. egg,dairy = egg AND dairy
+    let intolerancesP = 'intolerances=';
+    for(let i = 0; i < intolerances.toInclude.length; i++){
+        if(i === 0){
+            intolerancesP = intolerances.toInclude[i];
+        }
+        else{
+            intolerancesP = `${intolerancesP},${intolerances.toInclude[i]}`
+        }
+    }
+
+    let finalURL = `${urlAPI}?${addRecipeInformationP}&${addRecipeNutritionP}&${instructionsRequiredP}&${typeP}&${numberP}&${excludeCuisineP}&${dietP}&${intolerancesP}`;
+    finalURL = encodeURI(finalURL);
+    return finalURL;
+
+
+
+    
+    //cuisine
+    //excludeCuisine -- done
+    //diet -- done
+    //intolerances -- done
+    //includeIngredients
+    //excludeIngredients
+    //instructionsRequired -- done
+    //addRecipeInformation -- done
+    //addRecipeNutrition -- done
+    //number -- done
+    //type --done //need to generate 2 API calls -- one for breakfast and one for main course(lunch and dinner)
+}
+
+
+
 
 const generatePreferenceOptions = function (option) {
     preferenceItems.innerHTML = "";
