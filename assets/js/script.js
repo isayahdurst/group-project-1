@@ -336,16 +336,25 @@ const recipeType = {
     main: 'lunch, dinner, main dish, main course'
 }
 
-const getRecipe = async function (number, type) {
+// const getRecipe = async function (number, type) {
     
-    const cuisineParam = cuisines.toExclude;
-    const dietsParam = diets.toInclude;
-    const intoleranceParam = intolerances.toInclude;
-    const instReq = true;
-    const sort = 'random';
-    const sortDirection = 'asc';
+//     const cuisineParam = cuisines.toExclude;
+//     const dietsParam = diets.toInclude;
+//     const intoleranceParam = intolerances.toInclude;
+//     const instReq = true;
+//     const sort = 'random';
+//     const sortDirection = 'asc';
 
-    const response = await fetch(encodeURI(`${complexSearchURL}excludeCuisine=${cuisineParam}&diet=${dietsParam}&intolerances=${intoleranceParam}&instructionsRequired=${instReq}&sort=${sort}&sortDirection=${sortDirection}&number=${number}&${type}&apiKey=${apiKey}`));
+//     const response = await fetch(encodeURI(`${complexSearchURL}excludeCuisine=${cuisineParam}&diet=${dietsParam}&intolerances=${intoleranceParam}&instructionsRequired=${instReq}&sort=${sort}&sortDirection=${sortDirection}&number=${number}&${type}&apiKey=${apiKey}`));
+//     const recipe = await response.json();
+
+//     console.log(recipe);
+//     // This method will return a recipe.
+// }
+
+const getRecipe = async function (number, mealType) {
+
+    const response = await fetch(generateAPICallURL(2, type));
     const recipe = await response.json();
 
     console.log(recipe);
@@ -353,8 +362,3 @@ const getRecipe = async function (number, type) {
 }
 
 
-// getRecipe(5, recipeType.main);
-
-const arr = ['test test'];
-
-console.log(arr.join(''));
