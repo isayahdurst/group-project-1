@@ -164,12 +164,12 @@ const setActiveButton = function (activeButton) {
 
 // Formats preferences/diets/cuisines/intolerances lists into API call format
 
-const generateAPICallURL = function(mealTypeString) { //mealType is an object with keys of breakfast or lunchDinner
+const generateAPICallURL = function(mealTypeString,numResults) { //mealType is an object with keys of breakfast or lunchDinner
     
     const addRecipeInformationP = 'addRecipeInformation=true';
     const addRecipeNutritionP = 'addRecipeNutrition=true';
     const instructionsRequiredP = 'instructionsRequired=true';
-    const numberP = 'number=7';
+    const numberP = `number=${numResults}`;
     const typeP = `type=${mealTypeString}`;
 
     // Genereate string for excludeCuisine
