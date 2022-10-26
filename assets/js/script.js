@@ -1,13 +1,15 @@
 'use strict'
 
+
+const apiKey = '3fe9c7b3838b43f59e74004c2179d228';
+const complexSearchURL = 'https://api.spoonacular.com/recipes/complexSearch?';
+
 // date/time object from luxon.
 const dt = luxon.DateTime;
 
 // List of diets that can be specified in meal plan API request:
 // Enter as diet @param in API request (ex. https://foodapi?diet=diets.glutenFree)
 // Options sourced from https://spoonacular.com/food-api/docs#Diets
-
-const dietFilter = document.querySelector('.diets');
 
 /* Modal */
 const preferenceModal = document.querySelector('.modal');
@@ -320,3 +322,43 @@ closeModalBtn.addEventListener('click', closePrefModal);
 
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
+
+/* Initial Weekly Meal Plan Generation */
+
+
+
+// Simple function, only two parameters.
+// number = number of results to return
+// type = breakfast or lunch
+
+const recipeType = {
+    breakfast: 'breakfast,brunch,morning meal',
+    main: 'lunch, dinner, main dish, main course'
+}
+
+// const getRecipe = async function (number, type) {
+    
+//     const cuisineParam = cuisines.toExclude;
+//     const dietsParam = diets.toInclude;
+//     const intoleranceParam = intolerances.toInclude;
+//     const instReq = true;
+//     const sort = 'random';
+//     const sortDirection = 'asc';
+
+//     const response = await fetch(encodeURI(`${complexSearchURL}excludeCuisine=${cuisineParam}&diet=${dietsParam}&intolerances=${intoleranceParam}&instructionsRequired=${instReq}&sort=${sort}&sortDirection=${sortDirection}&number=${number}&${type}&apiKey=${apiKey}`));
+//     const recipe = await response.json();
+
+//     console.log(recipe);
+//     // This method will return a recipe.
+// }
+
+const getRecipe = async function (number, mealType) {
+
+    const response = await fetch(generateAPICallURL(2, type));
+    const recipe = await response.json();
+
+    console.log(recipe);
+    // This method will return a recipe.
+}
+
+
