@@ -121,7 +121,7 @@ const closePrefModal = function () {
 }
 
 const connectUser = async function (userName, firstName, lastName, email) {
-    const response = await fetch(`https://api.spoonacular.com/users/connect?${APIKEY}`, {
+    const response = await fetch(`https://api.spoonacular.com/users/connect?apiKey=${apiKey}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -325,15 +325,75 @@ closeModalBtn.addEventListener('click', closePrefModal);
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
 
-/* Initial Weekly Meal Plan Generation */
-
+/* Gets a specified number of recipes based on user preferences and the type of meal requested */
 const getRecipe = async function (number, mealType) {
-
+    
     const response = await fetch(generateAPICallURL(number, mealType));
     const recipe = await response.json();
-
-    console.log(recipe);
+    
+    return recipe;
     // This method will return a recipe.
 }
 
-getRecipe(2, mealType.breakfast);
+/* Initial Weekly Meal Plan Generation */
+const initializeMealPlan = async function () {
+
+    const breakfastRecipes = await getRecipe(7, mealType.breakfast);
+    const mainRecipes = await getRecipe(14, mealType.lunchDinner);
+    const mealPlan = [];
+    let timeInterval = 0;
+
+    breakfastRecipes.results.forEach(function(meal, index) {
+        localStorage.setItem(meal.id, JSON.stringify(meal));
+        mealPlan[index] = {
+            date: Math.floor(dt.now().ts / 1000) + timeInterval,
+            slot: 1,
+            position: 1,
+            type: 'RECIPE',
+            value: {
+                id: meal.id,
+                servings: meal.servings,
+                title: meal.title,
+                imageType: meal.imageType
+            }
+        }
+        timeInterval+=86400;
+    })
+
+    timeInterval = 1;
+
+    mainRecipes.results.forEach(function(meal, index) {
+        localStorage.setItem(meal.id, JSON.stringify(meal));
+        // let date = Math.floor(dt.now().ts / 1000);
+        index % 2 === 0 ? timeInterval = (index / 2) * 86_400 : null;
+        mealPlan.push({
+            date: Math.floor(dt.now(). ts / 1000) + timeInterval,
+            slot: index % 2 === 0 ? 2 : 3, // Alternates slot positions between lunch and dinner for each item
+            position: index % 2 === 0 ? 2 : 3, // Alternates positions of meals evenly
+            type: 'RECIPE',
+            value: {
+                id: meal.id,
+                servings: meal.servings,
+                title: meal.title,
+                imageType: meal.imageType
+            }
+        });
+        // index + 1 % 3 === 0 ? timeInterval += 86400 : timeInterval=timeInterval;
+        // index % 2 === 0 && index != 1 ? timeInterval *= (index/2) : null;
+    })
+
+    console.table(mealPlan);
+
+    const {username, hash} = JSON.parse(localStorage.getItem('userInfo'));
+    const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`;
+
+    const response = await fetch(mealURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(mealPlan),
+    })
+
+}
+
