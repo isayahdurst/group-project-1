@@ -1,5 +1,9 @@
 'use strict'
 
+
+const apiKey = '3fe9c7b3838b43f59e74004c2179d228';
+const complexSearchURL = 'https://api.spoonacular.com/recipes/complexSearch?';
+
 // date/time object from luxon.
 const dt = luxon.DateTime;
 
@@ -241,4 +245,38 @@ closeModalBtn.addEventListener('click', closePrefModal);
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
 
-// test
+/* Initial Weekly Meal Plan Generation */
+
+
+
+// Simple function, only two parameters.
+// number = number of results to return
+// type = breakfast or lunch
+
+const recipeType = {
+    breakfast: 'breakfast,brunch,morning meal',
+    main: 'lunch, dinner, main dish, main course'
+}
+
+const getRecipe = async function (number, type) {
+    
+    const cuisineParam = cuisines.toExclude;
+    const dietsParam = diets.toInclude;
+    const intoleranceParam = intolerances.toInclude;
+    const instReq = true;
+    const sort = 'random';
+    const sortDirection = 'asc';
+
+    const response = await fetch(encodeURI(`${complexSearchURL}excludeCuisine=${cuisineParam}&diet=${dietsParam}&intolerances=${intoleranceParam}&instructionsRequired=${instReq}&sort=${sort}&sortDirection=${sortDirection}&number=${number}&${type}&apiKey=${apiKey}`));
+    const recipe = await response.json();
+
+    console.log(recipe);
+    // This method will return a recipe.
+}
+
+
+// getRecipe(5, recipeType.main);
+
+const arr = ['test test'];
+
+console.log(arr.join(''));
