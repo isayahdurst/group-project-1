@@ -173,6 +173,7 @@ const generateAPICallURL = function(numResults, mealTypeString) { //mealType is 
     const instructionsRequiredP = 'instructionsRequired=true';
     const numberP = `number=${numResults}`;
     const typeP = `type=${mealTypeString}`;
+    const apiKeyP = `apiKey=${apiKey}`;
 
     // Genereate string for excludeCuisine
     let excludeCuisineP = 'excludeCuisine=';
@@ -207,8 +208,9 @@ const generateAPICallURL = function(numResults, mealTypeString) { //mealType is 
         }
     }
 
-    let finalURL = `${urlAPI}?${addRecipeInformationP}&${addRecipeNutritionP}&${instructionsRequiredP}&${typeP}&${numberP}&${excludeCuisineP}&${dietP}&${intolerancesP}`;
+    let finalURL = `${urlAPI}?${addRecipeInformationP}&${addRecipeNutritionP}&${instructionsRequiredP}&${typeP}&${numberP}&${excludeCuisineP}&${dietP}&${intolerancesP}&${apiKeyP}`;
     finalURL = encodeURI(finalURL);
+    console.log(finalURL);
     return finalURL;
 
 
