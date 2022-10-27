@@ -522,7 +522,8 @@ position: relative;
   margin: 0;
   text-align: center;
 }
-button {
+
+.menu-btn {
   display: inline-block;
   outline: 0;
   text-align: center;
