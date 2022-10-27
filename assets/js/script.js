@@ -76,6 +76,8 @@ const cuisines = {
     toExclude: [],
 };
 
+// Activates all cuisines by default (first tine loading app)
+
 // Search API can filter intolerances.
 
 const intolerances = {
@@ -163,6 +165,57 @@ const setActiveButton = function (activeButton) {
     })
 }
 
+// const savePreferences = function () {
+//     localStorage.setItem('diets', JSON.stringify(diets.toInclude));
+// }
+
+// const loadPreferences = function () {
+//     if (localStorage.getItem('diets')) {
+//         const dietPref = JSON.parse(localStorage.getItem('diets'));
+//         diets.toInclude = dietPref;
+//     }
+//     return diets.toInclude;
+// }
+
+// loadPreferences(); // loads preferences from local storage
+
+// console.log(loadPreferences())
+
+// const test = function () {
+//     const testObj = {key1: 'item1', key2: 'item2' };
+//     localStorage.setItem('test', JSON.stringify(testObj));
+// }
+
+// const test2 = function () {
+//     const {key1, key2} = JSON.parse(localStorage.getItem('test'));
+//     console.log(key1, key2);
+// }
+
+const savePreferences = function () {
+    // const preferences = {
+    //     diets: diets.toInclude,
+    //     cuisines: cuisines.toExclude,
+    //     intolerances: intolerances.toInclude,
+    // }
+
+    localStorage.setItem('userPreferances', JSON.stringify({
+        dietsPref : diets.toInclude, 
+        intolerancesPref: intolerances.toInclude,
+        cuisinePref: cuisines.toExclude
+    }));
+
+}
+
+const loadPreferences = function () {
+    if (localStorage.getItem('userPreferances')) {
+        const {diets, cuisines, intolerances} = JSON.parse(localStorage.getItem('userPreferances'));
+        diets.toInclude = diets;
+        cuisines.toExclude = cuisines;
+        intolerances.toInclude = intolerances;
+    }
+    return diets.toInclude;
+}
+
 
 // Formats preferences/diets/cuisines/intolerances lists into API call format
 
@@ -229,9 +282,6 @@ const generateAPICallURL = function(numResults, mealTypeString) { //mealType is 
     //type --done //need to generate 2 API calls -- one for breakfast and one for main course(lunch and dinner)
 }
 
-
-
-
 const generatePreferenceOptions = function (option) {
     preferenceItems.innerHTML = "";
     for (let [key, value] of Object.entries(option)) {
@@ -263,7 +313,6 @@ const generatePreferenceOptions = function (option) {
                     }
                 })
             }
-
             preferenceItems.appendChild(item);
         }
     }
@@ -315,6 +364,7 @@ preferenceItems.addEventListener('click', function (event) {
                 }
             }
         })
+        savePreferences();
     // console.log(cuisines.toExclude);
     }
 })
@@ -335,7 +385,11 @@ const getRecipe = async function (number, mealType) {
     // This method will return a recipe.
 }
 
-/* Initial Weekly Meal Plan Generation */
+/* Initial Weekly Meal Plan Generation
+Function generates 21 meals and assigns 1 breakfast and 2 regular meals for each day based on user prefereneces.
+This covers 7 full days and is the initial meal plan for the user.
+Meal Plan Data is sent to Spoonacular and stored in their DB. Info can be retreived with GET MEAL PLAN WEEK API Call.
+Recipes returned are saved in local storage. */
 const initializeMealPlan = async function () {
 
     const breakfastRecipes = await getRecipe(7, mealType.breakfast);
@@ -365,7 +419,7 @@ const initializeMealPlan = async function () {
     mainRecipes.results.forEach(function(meal, index) {
         localStorage.setItem(meal.id, JSON.stringify(meal));
         // let date = Math.floor(dt.now().ts / 1000);
-        index % 2 === 0 ? timeInterval = (index / 2) * 86_400 : null;
+        index % 2 === 0 ? timeInterval = (index / 2) * 86_400 : null; // Adds 1 day to date, only on every other iteration.
         mealPlan.push({
             date: Math.floor(dt.now(). ts / 1000) + timeInterval,
             slot: index % 2 === 0 ? 2 : 3, // Alternates slot positions between lunch and dinner for each item
@@ -378,16 +432,12 @@ const initializeMealPlan = async function () {
                 imageType: meal.imageType
             }
         });
-        // index + 1 % 3 === 0 ? timeInterval += 86400 : timeInterval=timeInterval;
-        // index % 2 === 0 && index != 1 ? timeInterval *= (index/2) : null;
     })
 
-    console.table(mealPlan);
+    const {username, hash} = JSON.parse(localStorage.getItem('userInfo')); //gets username and hash from localStorage
+    const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`; 
 
-    const {username, hash} = JSON.parse(localStorage.getItem('userInfo'));
-    const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`;
-
-    const response = await fetch(mealURL, {
+    const response = await fetch(mealURL, { // Sends Meal Plan to Spoonacular
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'
@@ -395,5 +445,6 @@ const initializeMealPlan = async function () {
         body: JSON.stringify(mealPlan),
     })
 
+    console.log(response);
 }
 

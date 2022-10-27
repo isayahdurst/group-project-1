@@ -1,8 +1,8 @@
 :root {
-    --active: orangered;
-    --primary-accent: #FFE056;
-    --active-preference: rgba(144, 238, 144, 1);
-    --inactive-preference: rgba(144, 238, 144, 0.2);
+    --active: var(--primary-accent);
+    --primary-accent: #ffe056;
+    --active-preference: rgb(255, 224, 86, .8);
+    --inactive-preference: white;
 }
 
 
@@ -43,7 +43,7 @@ font-size: 28.8px;
 /* -------------------------- */
 /* CLASSES TO MAKE MODAL WORK */
 .hidden {
-display: none;
+display: none !important;
 }
 
 .modal {
@@ -81,27 +81,25 @@ display: grid;
 column-gap: 20px;
 grid-template-columns: repeat(4, 1fr);
 justify-content: space-evenly;
-background-color: oldlace;
 border-radius: 20px;
 padding: 20px 20px;
 }
 
 .preference-category {
 min-width: 200px;
-padding: 20px 10px;
+padding: 13px 23px;
 font-size: 28.8px;
 border: 0px;
-border-radius: 20px;
-background-color: orange;
+border-radius: 8px;
+background-color: white;
 outline: none;
-transition: all 0.3s;
-border: 1px solid black;
+transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s, -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
+border: 1px solid #222222;
 }
 
 .preference-category:hover {
-background-color: var(--active);
-color: white;
-transform: scale(1.1);
+  border-color: #000000;
+  background: #f7f7f7;
 }
 
 .active {
@@ -113,17 +111,16 @@ display: grid;
 grid-template-columns: repeat(4, 1fr);
 column-gap: 20px;
 width: 100%;
-background-color: oldlace;
 padding: 20px 20px;
 border-radius: 20px;
 }
 
 .preference-items button {
-min-width: 150px;
-padding: 10px 15px;
+min-width: 100px;
+padding: 13px 23px;
 font-size: 22px;
-border: 1px solid black; 
-border-radius: 10px;
+border: 1px solid #222222;
+border-radius: 8px;
 background-color: var(--inactive-preference);
 margin-bottom: 10px;
 margin-right: 10px;
@@ -132,7 +129,6 @@ cursor: pointer;
 
 .preference-items button:hover {
 background-color: var(--active-preference);
-transform: scale(1.1);
 }
 
 /* MEAL MODAL */
