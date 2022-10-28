@@ -519,3 +519,29 @@ position: relative;
   margin: 0;
   text-align: center;
 }
+
+.menu-btn {
+  display: inline-block;
+  outline: 0;
+  text-align: center;
+  cursor: pointer;
+  height: 34px;
+  padding: 0 20px;
+  vertical-align: top;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  transition: all .3s ease;
+  background: #fff;
+  border-color: #e8e8e8;
+  color: #000;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 16px;
+  font-size: 11px;
+  
+}
+
+button:hover {
+  background: #e8e8e8;
+  color: #3d3d3d;
+}
