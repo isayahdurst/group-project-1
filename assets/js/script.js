@@ -431,3 +431,46 @@ for (const [key, value] of Object.entries(intolerances)) {
     console.log(key, value);
 }
 
+// Login Modal EventListener
+const loginModal = document.getElementById('Login Modal');
+const loginBtn = document.getElementById("#contact");
+const span = document.getElementsByClassName("close")[0];
+loginBtn.onclick = function (event) {
+    loginModal.style.display = "block"
+    if (event.target == loginModal) {
+        loginModal.style.display = "none";
+    }
+    function Login() {
+        document.getElementById("Login Modal");
+
+        event.preventDefault();
+    };
+    window.onclick = function (event) {
+        if (event.target == loginModal) {
+            loginModal.style.display = "none";
+        }
+    }
+    loginModal.addEventListener("click", Login());
+};
+
+// Sign Up Modal Event Listener
+const signUpModal = document.getElementById('SignUp Modal');
+const signUpBtn = document.getElementById("signup");
+const span2 = document.getElementsByClassName("close")[0];
+signUpBtn.onclick = function (event) {
+    signUpModal.style.display = "block"
+    if (event.target == signUpModal) {
+        signUpModal.style.display = "none";
+    }
+    function signup() {
+        document.getElementById("SignUp Modal");
+
+        event.preventDefault();
+    };
+    window.onclick = function (event) {
+        if (event.target == signUpModal) {
+            signUpModal.style.display = "none";
+        }
+    }
+    signUpModal.addEventListener("click", signup());
+};
