@@ -99,6 +99,8 @@ const intolerances = {
 const urlAPI = 'https://api.spoonacular.com/recipes/complexSearch/';
 
 
+
+
 // mealType object that allows you to select breakfast or lunch/dinner options in the API call
 const mealType = {
     breakfast:'breakfast,morning meal,brunch',
@@ -257,6 +259,100 @@ const generateAPICallURL = function(numResults, mealTypeString) { //mealType is 
     //type --done //need to generate 2 API calls -- one for breakfast and one for main course(lunch and dinner)
 }
 
+
+
+// Checks to see if a full day has passed since the meal plan was created. If so, remove the current days meal plan, shift all meal plans over by one day, then add a new day's meals
+
+const checkIfDayPassed = async function() {
+    
+    let mealPlanTable = await getMealPlan();
+    let numDaysToAdd = 7 - mealPlanTable.days.length;
+    let newMealPlanTable = [];
+
+    if(numDaysToAdd === 0){
+        console.log('no change');
+        return 'no change';
+    }
+
+    // For loop to populate a newMealPlanTable with the days and recipes that have not yet expired/passed
+    mealPlanTable.days.forEach(function(meal,index){
+        for(let i = 0; i < 3; i++){
+            newMealPlanTable.push({
+                date: meal.date,
+                slot: meal.items[i].slot,
+                position: meal.items[i].position,
+                type: 'RECIPE',
+                value: meal.items[i].value,
+            })
+        }
+        
+    })
+
+    // Generate new recipes and add them to the list -- Code from initializeMealPlan() ----------------------------------------------
+    const breakfastRecipes = await getRecipe(numDaysToAdd, mealType.breakfast);
+    const mainRecipes = await getRecipe(numDaysToAdd*2, mealType.lunchDinner);
+    let latestTime = newMealPlanTable.slice(-1)[0].date + 86400; // Grab the latest date and add 1 to it
+    let timeInterval = 0;
+
+    breakfastRecipes.results.forEach(function(meal, index) {
+        localStorage.setItem(meal.id, JSON.stringify(meal));
+        newMealPlanTable.push({
+            date: latestTime + timeInterval,
+            slot: 1,
+            position: 1,
+            type: 'RECIPE',
+            value: {
+                id: meal.id,
+                servings: meal.servings,
+                title: meal.title,
+                imageType: meal.imageType
+            }
+        })
+        timeInterval+=86400;
+    })
+
+    timeInterval = 1;
+
+    mainRecipes.results.forEach(function(meal, index) {
+        localStorage.setItem(meal.id, JSON.stringify(meal));
+        index % 2 === 0 ? timeInterval = (index / 2) * 86_400 : null; // Adds 1 day to date, only on every other iteration.
+        console.log(timeInterval);
+        newMealPlanTable.push({
+            date: latestTime + timeInterval,
+            slot: index % 2 === 0 ? 2 : 3, // Alternates slot positions between lunch and dinner for each item
+            position: index % 2 === 0 ? 2 : 3, // Alternates positions of meals evenly
+            type: 'RECIPE',
+            value: {
+                id: meal.id,
+                servings: meal.servings,
+                title: meal.title,
+                imageType: meal.imageType
+            }
+        });
+    })
+
+    console.log(newMealPlanTable);
+
+    const {username, hash} = JSON.parse(localStorage.getItem('userInfo')); //gets username and hash from localStorage
+    const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`; 
+    
+    const response = await fetch(mealURL, { // Sends Meal Plan to Spoonacular
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify(newMealPlanTable),
+    })
+
+    console.log(response);
+};
+
+
+
+
+
+
+
 // Populates each preference category (i.E. Diets, Cuisines, Intolerances) with preference options.
 const generatePreferenceOptions = function (option) {
     preferenceItems.innerHTML = "";
@@ -364,6 +460,21 @@ const getRecipe = async function (number, mealType) {
     // This method will return a recipe.
 }
 
+
+// Gets the current meal plan in the user's Spoonacular profile
+
+const getMealPlan = async function() {
+    const {username, hash} = JSON.parse(localStorage.getItem('userInfo'));
+    const creationDate = dt.now().toFormat('yyyy-MM-dd');
+    const mealPlanURL = `https://api.spoonacular.com/mealplanner/${username}/week/${creationDate}?hash=${hash}&apiKey=${apiKey}`;
+    
+    const response = await fetch(mealPlanURL);
+    const mealPlan = await response.json();
+    
+    return mealPlan;
+}
+
+
 /* Initial Weekly Meal Plan Generation
 Function generates 21 meals and assigns 1 breakfast and 2 regular meals for each day based on user prefereneces.
 This covers 7 full days and is the initial meal plan for the user.
@@ -431,3 +542,15 @@ for (const [key, value] of Object.entries(intolerances)) {
     console.log(key, value);
 }
 
+
+// Initialize function
+const init = async function(){
+    // Set Interval of 10 minutes to see if a new day is here and the meal plan needs to be updated
+    checkIfDayPassed();
+    setTimeout(function(){
+        checkIfDayPassed();
+        init();
+    }, 600000);
+}
+
+//init();
