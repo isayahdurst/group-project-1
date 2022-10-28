@@ -541,7 +541,8 @@ position: relative;
   
 }
 
-button:hover {
+.menu-btn:hover {
   background: #e8e8e8;
   color: #3d3d3d;
 }
+
