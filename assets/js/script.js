@@ -210,6 +210,7 @@ const generateAPICallURL = function (numResults, mealTypeString) {
   const addRecipeInformationP = "addRecipeInformation=true";
   const addRecipeNutritionP = "addRecipeNutrition=true";
   const instructionsRequiredP = "instructionsRequired=true";
+  const includeIngredients = "fillIngredients=true";
   const numberP = `number=${numResults}`;
   const typeP = `type=${mealTypeString}`;
   const apiKeyP = `apiKey=${apiKey}`;
@@ -244,7 +245,7 @@ const generateAPICallURL = function (numResults, mealTypeString) {
     }
   }
 
-  let finalURL = `${urlAPI}?${addRecipeInformationP}&${addRecipeNutritionP}&${instructionsRequiredP}&${typeP}&${numberP}&${excludeCuisineP}&${dietP}&${intolerancesP}&${apiKeyP}`;
+  let finalURL = `${urlAPI}?${addRecipeInformationP}&${includeIngredients}&${addRecipeNutritionP}&${instructionsRequiredP}&${typeP}&${numberP}&${excludeCuisineP}&${dietP}&${intolerancesP}&${apiKeyP}`;
   finalURL = encodeURI(finalURL);
   console.log(finalURL);
   return finalURL;
@@ -486,19 +487,6 @@ const getMealPlan = async function () {
   return mealPlan;
 };
 
-// Gets the current meal plan in the user's Spoonacular profile
-
-const getMealPlan = async function () {
-  const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
-  const creationDate = dt.now().toFormat("yyyy-MM-dd");
-  const mealPlanURL = `https://api.spoonacular.com/mealplanner/${username}/week/${creationDate}?hash=${hash}&apiKey=${apiKey}`;
-
-  const response = await fetch(mealPlanURL);
-  const mealPlan = await response.json();
-
-  return mealPlan;
-};
-
 /* Initial Weekly Meal Plan Generation
 Function generates 21 meals and assigns 1 breakfast and 2 regular meals for each day based on user prefereneces.
 This covers 7 full days and is the initial meal plan for the user.
@@ -567,7 +555,7 @@ const openMealPage = function () {
 };
 
 const getRecipeInformation = async function (recipeID) {
-  const URL = `https://api.spoonacular.com/recipes/${recipeID}/information?includeNutrition=false&apiKey=${apiKey}`;
+  const URL = `https://api.spoonacular.com/recipes/${recipeID}/information?includeNutrition=true&apiKey=${apiKey}`;
   const response = await fetch(URL);
   const recipeInfo = await response.json();
   return recipeInfo;
@@ -578,7 +566,10 @@ const getRecipeInformation = async function (recipeID) {
 const renderMealPage = async function (recipeID) {
   /*Meal Page DOM Elements*/
   const mealTitle = document.querySelector(".meal-title");
+  const mealImage = document.querySelector(".meal-image");
   const mealSummary = document.querySelector("#meal-summary");
+  const cookTime = document.querySelector(".cooking-time");
+  const nutritionInfo = document.querySelector(".nutrition-information");
 
   // IF/ELSE statement: IF recipeID is in localStorage, recipe is pulled from localStorage. Otherwise, recipe is called from spoonacular API using getRecipeInformation() function.
   const recipe =
@@ -591,22 +582,82 @@ const renderMealPage = async function (recipeID) {
 
   // Starts setting page DOM elements to recipe properties
   mealTitle.innerHTML = recipe.title;
+  mealImage.style.backgroundImage = `url(https://spoonacular.com/recipeImages/${recipeID}-636x393.${recipe.imageType})`;
   mealSummary.innerHTML = recipe.summary;
+
+  // Displays cook time as Hrs & Minutes
+  cookTime.innerHTML = `${Math.floor(recipe.readyInMinutes / 60)} Hours & ${
+    recipe.readyInMinutes % 60
+  } Minutes`;
+
+  // Loops through recipe nutrition info and adds it to nutrition per serving
+  for (const nutrient of recipe.nutrition.nutrients) {
+    const name = nutrient.name;
+    const amount = nutrient.amount;
+    const unit = nutrient.unit;
+
+    nutritionInfo.insertAdjacentHTML(
+      "beforeend",
+      `${amount}${unit} ${name} | \n`
+    );
+  }
+
+  const tagList = document.querySelector(".tag-list");
+  for (const tag of recipe.diets) {
+    const item = document.createElement("li");
+    item.classList.add("tag-item");
+    item.textContent = tag;
+    tagList.appendChild(item);
+  }
+
+  // Loops through recipe ingredients and creates necessary elements on page
+  const ingredientsList = document.querySelector(".meal-required-ingredients");
+  ingredientsList.innerHTML = "";
+  for (const ingredient of recipe.extendedIngredients) {
+    const name = ingredient.name;
+    const amount = ingredient.amount;
+    const unit = ingredient.unit;
+    const imageSrc = `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`;
+
+    const listItem = document.createElement("li");
+    listItem.classList.add("meal-ingredient-item");
+    ingredientsList.appendChild(listItem);
+
+    const imageDiv = document.createElement("div");
+    imageDiv.classList.add("image-slot");
+    listItem.appendChild(imageDiv);
+
+    const image = document.createElement("img");
+    image.src = imageSrc;
+    image.alt, (image.title = name);
+    image.classList.add("meal-ingredient-image");
+    imageDiv.appendChild(image);
+
+    const ingredientTitle = document.createElement("div");
+    ingredientTitle.classList.add("meal-ingredient-name");
+    ingredientTitle.innerHTML = `${amount} ${unit} ${name}`;
+    listItem.appendChild(ingredientTitle);
+  }
+
+  // Loops through recipe steps and creates necessary elements on page.
+  const recipeSteps = recipe.analyzedInstructions[0].steps;
+  const instructions = document.querySelector(".meal-recipe-list");
+  for (const step of recipeSteps) {
+    const card = document.createElement("li");
+    card.classList.add("meal-recipe-step-card");
+    instructions.appendChild(card);
+
+    const stepNumber = document.createElement("div");
+    stepNumber.classList.add("meal-recipe-step-number");
+    stepNumber.innerHTML = step.number;
+    card.appendChild(stepNumber);
+
+    const recipeStep = document.createElement("div");
+    recipeStep.classList.add("meal-recipe-step");
+    recipeStep.innerHTML = step.step;
+    card.appendChild(recipeStep);
+  }
 };
-
-renderMealPage(1101375);
-
-// Initialize function
-const init = async function () {
-  // Set Interval of 10 minutes to see if a new day is here and the meal plan needs to be updated
-  checkIfDayPassed();
-  setTimeout(function () {
-    checkIfDayPassed();
-    init();
-  }, 600000);
-};
-
-//init();
 
 // Initialize function
 const init = async function () {

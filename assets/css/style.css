@@ -136,6 +136,10 @@ p {
 
 /* MEAL MODAL */
 
+.meal-page {
+  background-color: rgb(246, 246, 246);
+}
+
 .meal-details {
   margin-top: 100px;
   width: 100vw;
@@ -156,7 +160,7 @@ p {
   display: flex;
   justify-content: space-evenly;
   background-color: white;
-  width: 60vw;
+  max-width: 50vw;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
@@ -187,10 +191,6 @@ p {
 .tag-list {
   display: flex;
   flex-wrap: wrap;
-}
-
-.tag-item:first-child {
-  margin-left: 50px;
 }
 
 .tag-item,
@@ -228,7 +228,7 @@ p {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 393px;
+  height: 500px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
@@ -247,6 +247,7 @@ p {
 
 .meal-details-right {
   margin-top: 20;
+  max-width: 35%;
 }
 
 .meal-details-right h3 {
@@ -268,7 +269,7 @@ p {
 
 .meal-ingredients-wrapper,
 .meal-recipe-wrapper {
-  width: 60vw;
+  width: 50vw;
   background-color: white;
   border-radius: 20px;
   display: flex;
@@ -290,7 +291,7 @@ p {
 .meal-required-ingredients {
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   margin-left: 20px;
   margin-top: 30px;
   margin-bottom: 50px;
@@ -326,7 +327,7 @@ p {
   margin: 30px 20px;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   list-style: none;
 }
 
@@ -334,7 +335,9 @@ p {
   background-color: rgba(255, 224, 86, 0.9);
   border-radius: 10px;
   padding: 10px 10px;
-  max-width: 300px;
+  max-width: 400px;
+  row-gap: 30px;
+  margin-bottom: 30px;
 }
 
 .meal-recipe-step-number {
@@ -349,6 +352,7 @@ p {
 
 .spacer {
   height: 500px;
+  background-color: rgb(246, 246, 246);
 }
 
 /* Style the header with a white background and some padding */
