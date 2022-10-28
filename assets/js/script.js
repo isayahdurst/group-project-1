@@ -12,7 +12,7 @@ const dt = luxon.DateTime;
 // Options sourced from https://spoonacular.com/food-api/docs#Diets
 
 /* Modal */
-const preferenceModal = document.querySelector('.modal');
+const preferenceModal = document.querySelector('.pref-modal');
 const overlay = document.querySelector('.overlay');
 
 /* Modal Buttons */
@@ -110,16 +110,19 @@ const mealType = {
 // we can store that inside of localStorage on their machine. That's the plan.
 // LINK TO DOCS: https://spoonacular.com/food-api/docs#Get-Meal-Plan-Week
 
+// Opens Preference Modal and activates overlay
 const openPrefModal = function () {
     preferenceModal.classList.remove('hidden');
     overlay.classList.remove('hidden');
 }
 
+// Closes Preference Modal and deactivates overlay
 const closePrefModal = function () {
     preferenceModal.classList.add('hidden');
     overlay.classList.add('hidden');
 }
 
+// Establishes a user account with Spoonacular based on params.
 const connectUser = async function (userName, firstName, lastName, email) {
     const response = await fetch(`https://api.spoonacular.com/users/connect?apiKey=${apiKey}`, {
     method: 'POST',
@@ -153,6 +156,7 @@ const getUserInfo = function () {
     return userInfo;
 }
 
+// Adds or removes active class from preferance buttons depending on whether they are clicked or not.
 const setActiveButton = function (activeButton) {
     [dietsBtn, cuisineBtn, intoleranceBtn, ingredientsBtn].forEach(function (button) {
         if (button != activeButton) {
@@ -162,6 +166,30 @@ const setActiveButton = function (activeButton) {
         }
     })
 }
+
+// Saves preferences to local storage.
+const savePreferences = function () {
+    
+    localStorage.setItem('userPreferances', JSON.stringify({
+        dietsPref : diets.toInclude, 
+        intolerancesPref: intolerances.toInclude,
+        cuisinePref: cuisines.toExclude
+    }));
+
+}
+
+// Loads preferences from local storage.
+const loadPreferences = function () {
+    if (localStorage.getItem('userPreferances')) {
+        const {dietsPref, cuisinePref, intolerancesPref} = JSON.parse(localStorage.getItem('userPreferances'));
+        diets.toInclude = dietsPref;
+        cuisines.toExclude = cuisinePref;
+        intolerances.toInclude = intolerancesPref;
+    }
+    return diets.toInclude;
+}
+
+loadPreferences();
 
 
 // Formats preferences/diets/cuisines/intolerances lists into API call format
@@ -229,9 +257,7 @@ const generateAPICallURL = function(numResults, mealTypeString) { //mealType is 
     //type --done //need to generate 2 API calls -- one for breakfast and one for main course(lunch and dinner)
 }
 
-
-
-
+// Populates each preference category (i.E. Diets, Cuisines, Intolerances) with preference options.
 const generatePreferenceOptions = function (option) {
     preferenceItems.innerHTML = "";
     for (let [key, value] of Object.entries(option)) {
@@ -241,7 +267,9 @@ const generatePreferenceOptions = function (option) {
             item.textContent = value;
             if (key === 'noPreference' && diets.toInclude.length === 0) {
                 item.style.backgroundColor = 'var(--active-preference)';
-                diets.toInclude.push(diets.noPreference);
+                // diets.toInclude.push(diets.noPreference);
+            } else if (key=== 'noPreference' && diets.toInclude.length > 0) {
+                item.style.backgroundColor = 'var(--inactive-preference)';
             }
 
             if (option === diets) {
@@ -263,7 +291,6 @@ const generatePreferenceOptions = function (option) {
                     }
                 })
             }
-
             preferenceItems.appendChild(item);
         }
     }
@@ -315,12 +342,14 @@ preferenceItems.addEventListener('click', function (event) {
                 }
             }
         })
+        savePreferences();
     // console.log(cuisines.toExclude);
     }
 })
 
 editPreferencesBtn.addEventListener('click', openPrefModal);
 closeModalBtn.addEventListener('click', closePrefModal);
+overlay.addEventListener('click', closePrefModal);
 
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
@@ -335,7 +364,11 @@ const getRecipe = async function (number, mealType) {
     // This method will return a recipe.
 }
 
-/* Initial Weekly Meal Plan Generation */
+/* Initial Weekly Meal Plan Generation
+Function generates 21 meals and assigns 1 breakfast and 2 regular meals for each day based on user prefereneces.
+This covers 7 full days and is the initial meal plan for the user.
+Meal Plan Data is sent to Spoonacular and stored in their DB. Info can be retreived with GET MEAL PLAN WEEK API Call.
+Recipes returned are saved in local storage. */
 const initializeMealPlan = async function () {
 
     const breakfastRecipes = await getRecipe(7, mealType.breakfast);
@@ -365,7 +398,7 @@ const initializeMealPlan = async function () {
     mainRecipes.results.forEach(function(meal, index) {
         localStorage.setItem(meal.id, JSON.stringify(meal));
         // let date = Math.floor(dt.now().ts / 1000);
-        index % 2 === 0 ? timeInterval = (index / 2) * 86_400 : null;
+        index % 2 === 0 ? timeInterval = (index / 2) * 86_400 : null; // Adds 1 day to date, only on every other iteration.
         mealPlan.push({
             date: Math.floor(dt.now(). ts / 1000) + timeInterval,
             slot: index % 2 === 0 ? 2 : 3, // Alternates slot positions between lunch and dinner for each item
@@ -378,16 +411,12 @@ const initializeMealPlan = async function () {
                 imageType: meal.imageType
             }
         });
-        // index + 1 % 3 === 0 ? timeInterval += 86400 : timeInterval=timeInterval;
-        // index % 2 === 0 && index != 1 ? timeInterval *= (index/2) : null;
     })
 
-    console.table(mealPlan);
+    const {username, hash} = JSON.parse(localStorage.getItem('userInfo')); //gets username and hash from localStorage
+    const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`; 
 
-    const {username, hash} = JSON.parse(localStorage.getItem('userInfo'));
-    const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`;
-
-    const response = await fetch(mealURL, {
+    const response = await fetch(mealURL, { // Sends Meal Plan to Spoonacular
         method: 'POST',
         headers: {
             'Content-Type' : 'application/json'
@@ -395,5 +424,10 @@ const initializeMealPlan = async function () {
         body: JSON.stringify(mealPlan),
     })
 
+    console.log(response);
+}
+
+for (const [key, value] of Object.entries(intolerances)) {
+    console.log(key, value);
 }
 
