@@ -29,10 +29,16 @@ const mainPreferenceOptions = document.querySelector(".preference-options");
 const preferenceItems = document.querySelector(".preference-items");
 
 /* Main Page (With Dates and Meal Cards) */
-const mainPage = document.querySelector("main-page");
+const mainPage = document.querySelector(".main-page");
 
 /* Meal Page */
-const mealPage = document.querySelector("meal-page");
+const mealPage = document.querySelector(".meal-page");
+const mealBackButton = document.querySelector(".meal-back-button");
+const mealReplaceButton = document.querySelector(".meal-replace-button");
+const mealFavoritesButton = document.querySelector(".meal-favorite-button");
+
+/* Main Page */
+const mealCards = document.querySelectorAll(".card");
 
 const diets = {
   noPreference: "No Preference",
@@ -98,6 +104,8 @@ const intolerances = {
   wheat: "Wheat",
   toInclude: [],
 };
+
+const favoriteMeals = [];
 
 // API pull URL
 const urlAPI = "https://api.spoonacular.com/recipes/complexSearch/";
@@ -213,6 +221,7 @@ const generateAPICallURL = function (numResults, mealTypeString) {
   const includeIngredients = "fillIngredients=true";
   const numberP = `number=${numResults}`;
   const typeP = `type=${mealTypeString}`;
+  const sort = "sort=random";
   const apiKeyP = `apiKey=${apiKey}`;
 
   // Genereate string for excludeCuisine
@@ -245,7 +254,7 @@ const generateAPICallURL = function (numResults, mealTypeString) {
     }
   }
 
-  let finalURL = `${urlAPI}?${addRecipeInformationP}&${includeIngredients}&${addRecipeNutritionP}&${instructionsRequiredP}&${typeP}&${numberP}&${excludeCuisineP}&${dietP}&${intolerancesP}&${apiKeyP}`;
+  let finalURL = `${urlAPI}?${addRecipeInformationP}&${sort}&${includeIngredients}&${addRecipeNutritionP}&${instructionsRequiredP}&${typeP}&${numberP}&${excludeCuisineP}&${dietP}&${intolerancesP}&${apiKeyP}`;
   finalURL = encodeURI(finalURL);
   console.log(finalURL);
   return finalURL;
@@ -554,6 +563,11 @@ const openMealPage = function () {
   mealPage.classList.remove("hidden");
 };
 
+const closeMealPage = function () {
+  mainPage.classList.remove("hidden");
+  mealPage.classList.add("hidden");
+};
+
 const getRecipeInformation = async function (recipeID) {
   const URL = `https://api.spoonacular.com/recipes/${recipeID}/information?includeNutrition=true&apiKey=${apiKey}`;
   const response = await fetch(URL);
@@ -564,6 +578,7 @@ const getRecipeInformation = async function (recipeID) {
 // This function constructs the meal page with appropriate data. Needs recipe ID as parameter.
 
 const renderMealPage = async function (recipeID) {
+  openMealPage();
   /*Meal Page DOM Elements*/
   const mealTitle = document.querySelector(".meal-title");
   const mealImage = document.querySelector(".meal-image");
@@ -580,6 +595,10 @@ const renderMealPage = async function (recipeID) {
   // if recipe not in local storage, it is saved there.
   localStorage.setItem(recipeID, JSON.stringify(recipe));
 
+  // Adds recipeID attribute to replace meal button
+  mealReplaceButton.setAttribute("data-recipeID", recipe.id);
+  mealFavoritesButton.setAttribute("data-recipeID", recipe.id);
+
   // Starts setting page DOM elements to recipe properties
   mealTitle.innerHTML = recipe.title;
   mealImage.style.backgroundImage = `url(https://spoonacular.com/recipeImages/${recipeID}-636x393.${recipe.imageType})`;
@@ -591,6 +610,7 @@ const renderMealPage = async function (recipeID) {
   } Minutes`;
 
   // Loops through recipe nutrition info and adds it to nutrition per serving
+  nutritionInfo.innerHTML = "";
   for (const nutrient of recipe.nutrition.nutrients) {
     const name = nutrient.name;
     const amount = nutrient.amount;
@@ -603,6 +623,7 @@ const renderMealPage = async function (recipeID) {
   }
 
   const tagList = document.querySelector(".tag-list");
+  tagList.innerHTML = "";
   for (const tag of recipe.diets) {
     const item = document.createElement("li");
     item.classList.add("tag-item");
@@ -642,6 +663,7 @@ const renderMealPage = async function (recipeID) {
   // Loops through recipe steps and creates necessary elements on page.
   const recipeSteps = recipe.analyzedInstructions[0].steps;
   const instructions = document.querySelector(".meal-recipe-list");
+  instructions.innerHTML = "";
   for (const step of recipeSteps) {
     const card = document.createElement("li");
     card.classList.add("meal-recipe-step-card");
@@ -659,6 +681,11 @@ const renderMealPage = async function (recipeID) {
   }
 };
 
+renderMealPage(655186);
+
+// Evemt listener closes meal page and returns to the main page.
+mealBackButton.addEventListener("click", closeMealPage);
+
 // Initialize function
 const init = async function () {
   // Set Interval of 10 minutes to see if a new day is here and the meal plan needs to be updated
@@ -670,3 +697,46 @@ const init = async function () {
 };
 
 //init();
+
+const replaceMeal = async function (recipeID) {
+  const meal = JSON.parse(localStorage.getItem(recipeID));
+  const dishType = await meal.dishTypes;
+  let replacedDishType;
+
+  for (const type of mealType.breakfast.split(",")) {
+    if (dishType.includes(type)) {
+      replacedDishType = mealType.breakfast;
+    }
+  }
+
+  for (const type of mealType.lunchDinner.split(",")) {
+    if (dishType.includes(type)) {
+      replacedDishType = mealType.lunchDinner;
+    }
+  }
+
+  const newMeal = await getRecipe(1, replacedDishType);
+  localStorage.setItem(
+    newMeal.results[0].id,
+    JSON.stringify(newMeal.results[0])
+  );
+
+  renderMealPage(newMeal.results[0].id);
+};
+
+mealReplaceButton.addEventListener("click", function (event) {
+  const recipeID = event.target.getAttribute("data-recipeID");
+  replaceMeal(recipeID);
+});
+
+mealFavoritesButton.addEventListener("click", function (event) {
+  const recipeID = event.target.getAttribute("data-recipeID");
+  console.log(recipeID);
+  favoriteMeals.push(JSON.parse(localStorage.getItem(recipeID)));
+  localStorage.setItem("favorite meals", JSON.stringify(favoriteMeals));
+});
+
+mealCards.forEach((item) => {
+  // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
+  item.addEventListener("click", openMealPage);
+});
