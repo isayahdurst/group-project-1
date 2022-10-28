@@ -16,6 +16,7 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: rgb(246, 246, 246);
     height:100vh;
+    position: relative;
 
 }
 
@@ -46,7 +47,7 @@ font-size: 28.8px;
 display: none !important;
 }
 
-.modal {
+.pref-modal { 
 position: absolute;
 top: 50%;
 left: 50%;
@@ -60,7 +61,7 @@ box-shadow: 0 48px 80px rgba(0, 0, 0, 0.3);
 z-index: 10;
 }
 
-.modal div {
+.pref-modal div {
 margin-bottom: 20px;
 }
 
@@ -79,7 +80,7 @@ z-index: 5;
 width: 100%;
 display: grid;
 column-gap: 20px;
-grid-template-columns: repeat(4, 1fr);
+grid-template-columns: repeat( auto-fit, minmax(200px, 1fr));
 justify-content: space-evenly;
 border-radius: 20px;
 padding: 20px 20px;
@@ -108,7 +109,7 @@ background-color: var(--active);
 
 .preference-items {
 display: grid;
-grid-template-columns: repeat(4, 1fr);
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 column-gap: 20px;
 width: 100%;
 padding: 20px 20px;
@@ -517,29 +518,4 @@ position: relative;
 .weekday-btns {
   margin: 0;
   text-align: center;
-}
-button {
-  display: inline-block;
-  outline: 0;
-  text-align: center;
-  cursor: pointer;
-  height: 34px;
-  padding: 0 20px;
-  vertical-align: top;
-  border-radius: 3px;
-  border: 1px solid transparent;
-  transition: all .3s ease;
-  background: #fff;
-  border-color: #e8e8e8;
-  color: #000;
-  font-weight: 600;
-  text-transform: uppercase;
-  line-height: 16px;
-  font-size: 11px;
-  
-}
-
-button:hover {
-  background: #e8e8e8;
-  color: #3d3d3d;
 }

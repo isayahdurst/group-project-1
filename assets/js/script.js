@@ -12,7 +12,7 @@ const dt = luxon.DateTime;
 // Options sourced from https://spoonacular.com/food-api/docs#Diets
 
 /* Modal */
-const preferenceModal = document.querySelector('.modal');
+const preferenceModal = document.querySelector('.pref-modal');
 const overlay = document.querySelector('.overlay');
 
 /* Modal Buttons */
@@ -76,8 +76,6 @@ const cuisines = {
     toExclude: [],
 };
 
-// Activates all cuisines by default (first tine loading app)
-
 // Search API can filter intolerances.
 
 const intolerances = {
@@ -112,16 +110,19 @@ const mealType = {
 // we can store that inside of localStorage on their machine. That's the plan.
 // LINK TO DOCS: https://spoonacular.com/food-api/docs#Get-Meal-Plan-Week
 
+// Opens Preference Modal and activates overlay
 const openPrefModal = function () {
     preferenceModal.classList.remove('hidden');
     overlay.classList.remove('hidden');
 }
 
+// Closes Preference Modal and deactivates overlay
 const closePrefModal = function () {
     preferenceModal.classList.add('hidden');
     overlay.classList.add('hidden');
 }
 
+// Establishes a user account with Spoonacular based on params.
 const connectUser = async function (userName, firstName, lastName, email) {
     const response = await fetch(`https://api.spoonacular.com/users/connect?apiKey=${apiKey}`, {
     method: 'POST',
@@ -155,6 +156,7 @@ const getUserInfo = function () {
     return userInfo;
 }
 
+// Adds or removes active class from preferance buttons depending on whether they are clicked or not.
 const setActiveButton = function (activeButton) {
     [dietsBtn, cuisineBtn, intoleranceBtn, ingredientsBtn].forEach(function (button) {
         if (button != activeButton) {
@@ -165,39 +167,9 @@ const setActiveButton = function (activeButton) {
     })
 }
 
-// const savePreferences = function () {
-//     localStorage.setItem('diets', JSON.stringify(diets.toInclude));
-// }
-
-// const loadPreferences = function () {
-//     if (localStorage.getItem('diets')) {
-//         const dietPref = JSON.parse(localStorage.getItem('diets'));
-//         diets.toInclude = dietPref;
-//     }
-//     return diets.toInclude;
-// }
-
-// loadPreferences(); // loads preferences from local storage
-
-// console.log(loadPreferences())
-
-// const test = function () {
-//     const testObj = {key1: 'item1', key2: 'item2' };
-//     localStorage.setItem('test', JSON.stringify(testObj));
-// }
-
-// const test2 = function () {
-//     const {key1, key2} = JSON.parse(localStorage.getItem('test'));
-//     console.log(key1, key2);
-// }
-
+// Saves preferences to local storage.
 const savePreferences = function () {
-    // const preferences = {
-    //     diets: diets.toInclude,
-    //     cuisines: cuisines.toExclude,
-    //     intolerances: intolerances.toInclude,
-    // }
-
+    
     localStorage.setItem('userPreferances', JSON.stringify({
         dietsPref : diets.toInclude, 
         intolerancesPref: intolerances.toInclude,
@@ -206,15 +178,18 @@ const savePreferences = function () {
 
 }
 
+// Loads preferences from local storage.
 const loadPreferences = function () {
     if (localStorage.getItem('userPreferances')) {
-        const {diets, cuisines, intolerances} = JSON.parse(localStorage.getItem('userPreferances'));
-        diets.toInclude = diets;
-        cuisines.toExclude = cuisines;
-        intolerances.toInclude = intolerances;
+        const {dietsPref, cuisinePref, intolerancesPref} = JSON.parse(localStorage.getItem('userPreferances'));
+        diets.toInclude = dietsPref;
+        cuisines.toExclude = cuisinePref;
+        intolerances.toInclude = intolerancesPref;
     }
     return diets.toInclude;
 }
+
+loadPreferences();
 
 
 // Formats preferences/diets/cuisines/intolerances lists into API call format
@@ -282,6 +257,7 @@ const generateAPICallURL = function(numResults, mealTypeString) { //mealType is 
     //type --done //need to generate 2 API calls -- one for breakfast and one for main course(lunch and dinner)
 }
 
+// Populates each preference category (i.E. Diets, Cuisines, Intolerances) with preference options.
 const generatePreferenceOptions = function (option) {
     preferenceItems.innerHTML = "";
     for (let [key, value] of Object.entries(option)) {
@@ -291,7 +267,9 @@ const generatePreferenceOptions = function (option) {
             item.textContent = value;
             if (key === 'noPreference' && diets.toInclude.length === 0) {
                 item.style.backgroundColor = 'var(--active-preference)';
-                diets.toInclude.push(diets.noPreference);
+                // diets.toInclude.push(diets.noPreference);
+            } else if (key=== 'noPreference' && diets.toInclude.length > 0) {
+                item.style.backgroundColor = 'var(--inactive-preference)';
             }
 
             if (option === diets) {
@@ -371,6 +349,7 @@ preferenceItems.addEventListener('click', function (event) {
 
 editPreferencesBtn.addEventListener('click', openPrefModal);
 closeModalBtn.addEventListener('click', closePrefModal);
+overlay.addEventListener('click', closePrefModal);
 
 // Defaults Modal to display diet info.
 generatePreferenceOptions(diets);
@@ -446,5 +425,9 @@ const initializeMealPlan = async function () {
     })
 
     console.log(response);
+}
+
+for (const [key, value] of Object.entries(intolerances)) {
+    console.log(key, value);
 }
 
