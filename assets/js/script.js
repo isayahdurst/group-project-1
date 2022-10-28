@@ -99,6 +99,8 @@ const intolerances = {
 const urlAPI = 'https://api.spoonacular.com/recipes/complexSearch/';
 
 
+
+
 // mealType object that allows you to select breakfast or lunch/dinner options in the API call
 const mealType = {
     breakfast:'breakfast,morning meal,brunch',
@@ -267,6 +269,11 @@ const checkIfDayPassed = async function() {
     let numDaysToAdd = 7 - mealPlanTable.days.length;
     let newMealPlanTable = [];
 
+    if(numDaysToAdd === 0){
+        console.log('no change');
+        return 'no change';
+    }
+
     // For loop to populate a newMealPlanTable with the days and recipes that have not yet expired/passed
     mealPlanTable.days.forEach(function(meal,index){
         for(let i = 0; i < 3; i++){
@@ -280,9 +287,6 @@ const checkIfDayPassed = async function() {
         }
         
     })
-    
-    console.log(newMealPlanTable);
-    
 
     // Generate new recipes and add them to the list -- Code from initializeMealPlan() ----------------------------------------------
     const breakfastRecipes = await getRecipe(numDaysToAdd, mealType.breakfast);
@@ -327,10 +331,11 @@ const checkIfDayPassed = async function() {
         });
     })
 
-    
+    console.log(newMealPlanTable);
+
     const {username, hash} = JSON.parse(localStorage.getItem('userInfo')); //gets username and hash from localStorage
     const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`; 
-
+    
     const response = await fetch(mealURL, { // Sends Meal Plan to Spoonacular
         method: 'POST',
         headers: {
@@ -340,8 +345,6 @@ const checkIfDayPassed = async function() {
     })
 
     console.log(response);
-    
-
 };
 
 
@@ -539,3 +542,15 @@ for (const [key, value] of Object.entries(intolerances)) {
     console.log(key, value);
 }
 
+
+// Initialize function
+const init = async function(){
+    // Set Interval of 10 minutes to see if a new day is here and the meal plan needs to be updated
+    checkIfDayPassed();
+    setTimeout(function(){
+        checkIfDayPassed();
+        init();
+    }, 600000);
+}
+
+//init();
