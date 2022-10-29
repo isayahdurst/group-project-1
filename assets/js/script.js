@@ -575,6 +575,28 @@ const getRecipeInformation = async function (recipeID) {
   return recipeInfo;
 };
 
+// Login Modal EventListener
+const loginModal = document.getElementById('Login Modal');
+const loginBtn = document.getElementById("#contact");
+const span = document.getElementsByClassName("close")[0];
+loginBtn.onclick = function (event) {
+    loginModal.style.display = "block"
+    if (event.target == loginModal) {
+        loginModal.style.display = "none";
+    }
+    function Login() {
+        document.getElementById("Login Modal");
+
+        event.preventDefault();
+    };
+    window.onclick = function (event) {
+        if (event.target == loginModal) {
+            loginModal.style.display = "none";
+        }
+    }
+    loginModal.addEventListener("click", Login());
+};
+
 // This function constructs the meal page with appropriate data. Needs recipe ID as parameter.
 
 const renderMealPage = async function (recipeID) {
@@ -630,36 +652,7 @@ const renderMealPage = async function (recipeID) {
     item.textContent = tag;
     tagList.appendChild(item);
   }
-
-  // Loops through recipe ingredients and creates necessary elements on page
-  const ingredientsList = document.querySelector(".meal-required-ingredients");
-  ingredientsList.innerHTML = "";
-  for (const ingredient of recipe.extendedIngredients) {
-    const name = ingredient.name;
-    const amount = ingredient.amount;
-    const unit = ingredient.unit;
-    const imageSrc = `https://spoonacular.com/cdn/ingredients_100x100/${ingredient.image}`;
-
-    const listItem = document.createElement("li");
-    listItem.classList.add("meal-ingredient-item");
-    ingredientsList.appendChild(listItem);
-
-    const imageDiv = document.createElement("div");
-    imageDiv.classList.add("image-slot");
-    listItem.appendChild(imageDiv);
-
-    const image = document.createElement("img");
-    image.src = imageSrc;
-    image.alt, (image.title = name);
-    image.classList.add("meal-ingredient-image");
-    imageDiv.appendChild(image);
-
-    const ingredientTitle = document.createElement("div");
-    ingredientTitle.classList.add("meal-ingredient-name");
-    ingredientTitle.innerHTML = `${amount} ${unit} ${name}`;
-    listItem.appendChild(ingredientTitle);
-  }
-
+  
   // Loops through recipe steps and creates necessary elements on page.
   const recipeSteps = recipe.analyzedInstructions[0].steps;
   const instructions = document.querySelector(".meal-recipe-list");
@@ -683,7 +676,7 @@ const renderMealPage = async function (recipeID) {
 
 renderMealPage(655186);
 
-// Evemt listener closes meal page and returns to the main page.
+// Event listener closes meal page and returns to the main page.
 mealBackButton.addEventListener("click", closeMealPage);
 
 // Initialize function
@@ -740,3 +733,39 @@ mealCards.forEach((item) => {
   // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
   item.addEventListener("click", openMealPage);
 });
+
+// Sign Up Modal Event Listener
+const signUpModal = document.getElementById('SignUp Modal');
+const signUpBtn = document.getElementById("signup");
+const span2 = document.getElementsByClassName("close")[0];
+signUpBtn.onclick = function (event) {
+    signUpModal.style.display = "block"
+    if (event.target == signUpModal) {
+        signUpModal.style.display = "none";
+    }
+    function signup() {
+        document.getElementById("SignUp Modal");
+        event.preventDefault();
+    };
+    window.onclick = function (event) {
+        if (event.target == signUpModal) {
+            signUpModal.style.display = "none";
+        }
+    }
+    signUpModal.addEventListener("click", signup());
+};
+
+//This function will hide Login and Sign Up buttons when user is currentlyLogged in
+function hideLogin(){
+    document.getElementById('#contact').style.visibility = 'hidden';
+    document.getElementById('signup').style.visibility = 'hidden';
+    document.getElementById('logout').style.visibility = 'block';
+}
+
+function showLogin(){
+    document.getElementById('#contact').style.visibility = 'block';
+    document.getElementById('signup').style.visibility = 'block';
+    document.getElementById('logout').style.visibility = 'hidden';
+}
+
+// Write a code here that basically says, "if user status is "logged in", run the "hideLogin" function. when they click "log out" run the "showLogin" function.
