@@ -604,3 +604,20 @@ signUpBtn.onclick = function (event) {
     }
     signUpModal.addEventListener("click", signup());
 };
+
+//This function will hide Login and Sign Up buttons when user is currentlyLogged in
+function hideLogin(){
+    document.getElementById('#contact').style.visibility = 'hidden';
+    document.getElementById('signup').style.visibility = 'hidden';
+    document.getElementById('logout').style.visibility = 'block';
+}
+
+function showLogin(){
+    document.getElementById('#contact').style.visibility = 'block';
+    document.getElementById('signup').style.visibility = 'block';
+    document.getElementById('logout').style.visibility = 'hidden';
+}
+
+// Write a code here that basically says, "if user status is "logged in", run the "hideLogin" function. when they click "log out" run the "showLogin" function.
+
+    
