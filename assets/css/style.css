@@ -194,55 +194,71 @@ p {
 }
 
 .tag-item,
-.meal-favorite-button button {
+.meal-top-buttons button {
   display: inline-block;
-  list-style: none;
-  padding: 10px;
-  background-color: white;
-  border: 1px black solid;
-  border-radius: 10px;
-  margin: 20px 0px;
-  margin-left: 20px;
+  outline: 0;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  background: #fff;
+  border-color: #e8e8e8;
+  color: #000;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: large;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
-.meal-favorite-button {
+.tag-item {
+  background-color: lightgrey;
+}
+
+.meal-top-buttons {
   margin-right: 20px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
 }
 
-.meal-favorite-button button {
+.meal-top-buttons button {
   margin-left: 0;
   margin-bottom: 10px;
-  background-color: rgba(255, 224, 86, 0.8);
-  font-size: large;
 }
 
-.meal-favorite-button button:hover {
+.meal-top-buttons button:hover {
   background-color: rgba(255, 224, 86, 1);
 }
 
 .meal-image {
   background-image: url("https://marleyspoon.com/media/recipes/135171/main_photos/large/easy_prep_tilapia_with_green_chile_rice-b326f895541a9681ecef85a6c6ff656d.jpeg");
-  background-position: center;
-  background-size: cover;
+  background-position: right;
+  background-size: contain;
   background-repeat: no-repeat;
   height: 500px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   position: relative;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
 }
 
 .meal-title {
   position: absolute;
-  bottom: 50px;
+  bottom: 40%;
   left: 0;
   background-color: rgba(255, 224, 86, 0.9);
   padding: 20px;
   backdrop-filter: blur(2px);
   font-weight: 700;
+  font-size: xx-large;
+  width: 471px;
+}
+
+.meal-heading {
+  font-weight: 700;
   font-size: x-large;
+  margin-top: 10px;
 }
 
 .meal-details-right {
@@ -506,6 +522,7 @@ p {
 
 .card {
   width: 75%;
+  cursor: pointer;
 }
 
 .weekly-menu-title {
