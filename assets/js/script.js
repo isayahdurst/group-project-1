@@ -725,12 +725,12 @@ const replaceMeal = async function (recipeID) {
 };
 
 mealReplaceButton.addEventListener("click", function (event) {
-  const recipeID = event.target.getAttribute("data-recipeID");
+  const recipeID = event.currentTarget.getAttribute("data-recipeID");
   replaceMeal(recipeID);
 });
 
 mealFavoritesButton.addEventListener("click", function (event) {
-  const recipeID = event.target.getAttribute("data-recipeID");
+  const recipeID = event.currentTarget.getAttribute("data-recipeID");
   console.log(recipeID);
   favoriteMeals.push(JSON.parse(localStorage.getItem(recipeID)));
   localStorage.setItem("favorite meals", JSON.stringify(favoriteMeals));
@@ -742,45 +742,45 @@ mealCards.forEach((item) => {
 });
 
 // Login Modal EventListener
-const loginModal = document.getElementById('Login Modal');
+const loginModal = document.getElementById("Login Modal");
 const loginBtn = document.getElementById("#contact");
 const span = document.getElementsByClassName("close")[0];
 loginBtn.onclick = function (event) {
-    loginModal.style.display = "block"
-    if (event.target == loginModal) {
-        loginModal.style.display = "none";
-    }
-    function Login() {
-        document.getElementById("Login Modal");
+  loginModal.style.display = "block";
+  if (event.target == loginModal) {
+    loginModal.style.display = "none";
+  }
+  function Login() {
+    document.getElementById("Login Modal");
 
-        event.preventDefault();
-    };
-    window.onclick = function (event) {
-        if (event.target == loginModal) {
-            loginModal.style.display = "none";
-        }
+    event.preventDefault();
+  }
+  window.onclick = function (event) {
+    if (event.target == loginModal) {
+      loginModal.style.display = "none";
     }
-    loginModal.addEventListener("click", Login());
+  };
+  loginModal.addEventListener("click", Login());
 };
 
 // Sign Up Modal Event Listener
-const signUpModal = document.getElementById('SignUp Modal');
+const signUpModal = document.getElementById("SignUp Modal");
 const signUpBtn = document.getElementById("signup");
 const span2 = document.getElementsByClassName("close")[0];
 signUpBtn.onclick = function (event) {
-    signUpModal.style.display = "block"
-    if (event.target == signUpModal) {
-        signUpModal.style.display = "none";
-    }
-    function signup() {
-        document.getElementById("SignUp Modal");
+  signUpModal.style.display = "block";
+  if (event.target == signUpModal) {
+    signUpModal.style.display = "none";
+  }
+  function signup() {
+    document.getElementById("SignUp Modal");
 
-        event.preventDefault();
-    };
-    window.onclick = function (event) {
-        if (event.target == signUpModal) {
-            signUpModal.style.display = "none";
-        }
+    event.preventDefault();
+  }
+  window.onclick = function (event) {
+    if (event.target == signUpModal) {
+      signUpModal.style.display = "none";
     }
-    signUpModal.addEventListener("click", signup());
+  };
+  signUpModal.addEventListener("click", signup());
 };
