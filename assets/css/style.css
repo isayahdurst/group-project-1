@@ -98,6 +98,7 @@ p {
   transition: box-shadow 0.2s ease 0s, -ms-transform 0.1s ease 0s,
     -webkit-transform 0.1s ease 0s, transform 0.1s ease 0s;
   border: 1px solid #222222;
+  cursor: pointer;
 }
 
 .preference-category:hover {
@@ -580,7 +581,7 @@ p {
   opacity: 0;
   visibility: hidden;
   transform: scale(1.1);
-  transition: visibility 0s linear 0.0s, opacity 0.0s 0s, transform 0.0s;
+  transition: visibility 0s linear 0s, opacity 0s 0s, transform 0s;
 }
 
 .modal-content {
@@ -596,16 +597,16 @@ p {
   border-radius: 0.5rem;
 }
 
-.ForgotPsw{
+.ForgotPsw {
   text-align: center;
   font-size: large;
 }
 
-.RemMe{
+.RemMe {
   text-align: center;
 }
 
-.input{
+.input {
   position: flex;
 }
 
@@ -620,7 +621,7 @@ p {
   opacity: 0;
   visibility: hidden;
   transform: scale(1.1);
-  transition: visibility 0s linear 0.0s, opacity 0.0s 0s, transform 0.0s;
+  transition: visibility 0s linear 0s, opacity 0s 0s, transform 0s;
 }
 
 .signupmodal-content {
@@ -648,9 +649,8 @@ p {
   text-align: center;
 }
 
-
 .loading-screen {
-  display:none;
+  display: none;
   visibility: visible;
   position: absolute;
   z-index: 999;
@@ -658,11 +658,11 @@ p {
   left: 0px;
   width: 100%;
   height: 100%;
-  background-color:white;
-  vertical-align:bottom;
-  padding-top: 20%; 
-  filter: alpha(opacity=55); 
-  opacity: .8; 
+  background-color: white;
+  vertical-align: bottom;
+  padding-top: 20%;
+  filter: alpha(opacity=55);
+  opacity: 0.8;
   background-image: url("../images/loading.gif");
   background-repeat: no-repeat;
   background-attachment: fixed;
