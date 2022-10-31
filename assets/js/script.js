@@ -31,6 +31,7 @@ const preferenceItems = document.querySelector(".preference-items");
 
 /* Main Page (With Dates and Meal Cards) */
 const mainPage = document.querySelector(".main-page");
+const loadingScreen = document.getElementById('cover-screen')
 
 /* Meal Page */
 const mealPage = document.querySelector(".meal-page");
@@ -39,11 +40,12 @@ const mealReplaceButton = document.querySelector(".meal-replace-button");
 const mealFavoritesButton = document.querySelector(".meal-favorite-button");
 
 /* Main Page */
-const dateButtons = document.querySelectorAll(".menu-btn");
+const dateButtons = document.querySelectorAll(".date-btn");
 const mealCards = document.querySelectorAll(".recipe-card");
 const mealImgList = document.querySelectorAll('.recipe-image');
 const mealTitleList = document.querySelectorAll('.recipe-title');
 const mealDietList = document.querySelectorAll('.recipe-diets');
+const refreshMealPlanBtn = document.querySelector('.refresh-meal-plan');
 
 const diets = {
   noPreference: "No Preference",
@@ -558,9 +560,8 @@ const getRecipeInformation = async function (recipeID) {
 
 // This function constructs the meal page with appropriate data. Needs recipe ID as parameter.
 
-const renderMealPage = async function (event) {
+const renderMealPage = async function (recipeID) {
   openMealPage();
-  const recipeID = event.currentTarget.dataset.idrecipe;
 
   /*Meal Page DOM Elements*/
   const mealTitle = document.querySelector(".meal-title");
@@ -721,8 +722,11 @@ mealFavoritesButton.addEventListener("click", function (event) {
 
 mealCards.forEach((item) => {
   // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
-  item.addEventListener("click", renderMealPage);
-});
+  item.addEventListener("click", function(event){
+    const recipeID = event.currentTarget.dataset.idrecipe;
+    renderMealPage(recipeID);
+  });
+})
 
 // Login Modal EventListener
 const loginModal = document.getElementById("Login Modal");
@@ -778,8 +782,7 @@ const populateMainPage = async function(){
   let mealPlanTable = await getMealPlan();
 
   // Update the date buttons with the dates for the week
-  const menuBtnList = document.querySelectorAll('.menu-btn');
-  menuBtnList.forEach(function(btn,index){
+  dateButtons.forEach(function(btn,index){
     let btnDate = dt.now().ts + 86400000*index;
     btn.textContent = dt.fromMillis(btnDate,{zone:'America/Los_Angeles'}).toFormat('MM/dd');
     btn.dataset.idbreakfast = mealPlanTable.days[index].items[0].value.id;
@@ -794,9 +797,9 @@ const populateMainPage = async function(){
     let recipeID = '';
     
     switch(index){
-      case 0: recipeID = menuBtnList[0].dataset.idbreakfast; break;
-      case 1: recipeID = menuBtnList[0].dataset.idlunch; break;
-      case 2: recipeID = menuBtnList[0].dataset.iddinner; break;
+      case 0: recipeID = dateButtons[0].dataset.idbreakfast; break;
+      case 1: recipeID = dateButtons[0].dataset.idlunch; break;
+      case 2: recipeID = dateButtons[0].dataset.iddinner; break;
       default: console.log('Index is greater than 2, check to see that there are only 3 meal cards');
     }
 
@@ -879,16 +882,24 @@ dateButtons.forEach((item) => {
   item.addEventListener("click", populateMealCards);
 });
 
-const prefButtons = document.querySelectorAll('.show-modal');
+const prefButtons = document.querySelectorAll('.pref-btn');
 prefButtons.forEach((item) => {
   item.addEventListener("click", openPrefModal);
 });
 
 
+
+
 // Clear the current meal plan from API server, create a new meal plan, upload new mealplan to server
 const clearAndRefreshMealPlan = async function(){
-  const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
   
+  // Set up a loading screen while API calls run 
+  window.scrollTo(0,0);
+  loadingScreen.style.display = 'block';
+  
+  
+  const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
+
   // Delete the week's meal plans one day at a time -- API only allows for deleting one day at a time
   for(let i = 0; i < 7; i++){
     const baseDate = dt.now().ts + 86400000*i; //Calculate each day starting with today and adding 1 day for each next day
@@ -907,15 +918,29 @@ const clearAndRefreshMealPlan = async function(){
   localStorage.setItem('userInfo',JSON.stringify(userInfo));
   savePreferences();
 
+ 
+
   // Call initializeMealPlan() to create a fresh new meal plan, then populate the date buttons with the new recipe ids
   await initializeMealPlan();
   await populateMainPage();
+
+  // Remove loading screen
+  loadingScreen.style.display = 'none'
 
   // Store today's date as the date of the last mealplan update
   // This data will be used to check if 1 or more days have passed and new meals need to be added to the meal plan
   localStorage.setItem('lastUpdatedDate',JSON.stringify(dt.now().ts));
 }
 
+refreshMealPlanBtn.addEventListener("click",clearAndRefreshMealPlan);
+
+populateMainPage();
+
+const lsTest = function(){
+  loadingScreen.style.display = 'block';
+  setTimeout(() => {loadingScreen.style.display = 'none'},2000);
+
+}
 
 
 
@@ -952,4 +977,3 @@ const setUserInfo = function(){
   localStorage.setItem('userPreferances',JSON.stringify(dietsPreferences));
 }
 */
-
