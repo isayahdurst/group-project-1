@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/isayahdurst/group-project-1">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./assets/images/brand-logo.png">
   </a>
 
 <h3 align="center">Group Project 1</h3>
