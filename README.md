@@ -29,7 +29,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/isayahdurst/group-project-1">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -59,13 +59,6 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
@@ -79,7 +72,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Taylor's Kitchen][product-screenshot]](https://example.com)
 
 Of all the questions that have ever been asked, one of the oldest and most important must be: "What should I eat today?" For most of human history, people didn't really have much of a choice; they ate what was available to them. But in the modern era that we live in today, we do have a choice of what we eat, and those choices can make a drastic difference on our long-term health.
 
@@ -118,8 +111,6 @@ Customize food plan based on:
 - Cuisines
 - Intolerances
 - Ingredients (coming soon)
-
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -198,4 +189,4 @@ Project Link: [https://github.com/isayahdurst/group-project-1](https://github.co
 [license-url]: https://github.com/isayahdurst/group-project-1/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/isayah-durst-3b0395244
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: ./assets/images/main.JPG
