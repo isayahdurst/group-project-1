@@ -534,10 +534,7 @@ p {
 .media-content {
   margin-bottom: -25px;
 }
-.category {
-  display: flex;
-  flex-direction: row;
-}
+
 .is-two-fifths {
   margin-right: -100px;
 }
@@ -670,4 +667,27 @@ p {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
+}
+
+/* Style for category labels for recipe cards */
+.category span {
+  display: inline-block;
+  outline: none;
+  border-width: 0px;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-size: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  text-align: center;
+  text-decoration: none;
+  background: #091e420a;
+  height: 32px;
+  line-height: 32px;
+  padding: 0px 12px;
+  margin-left: 3px;
+  vertical-align: middle;
+  width: auto;
+  font-size: 14px;
+  color: #42526e;
 }
