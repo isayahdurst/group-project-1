@@ -1003,3 +1003,10 @@ const setUserInfo = function(){
   localStorage.setItem('userPreferances',JSON.stringify(dietsPreferences));
 }
 */
+
+var swiper = new Swiper(".mySwiper", {
+	pagination: {
+		el: ".swiper-pagination",
+		dynamicBullets: true,
+	},
+});

@@ -376,7 +376,7 @@ p {
 .header {
   overflow: hidden;
   background-color: #fff;
-  padding: 20px 150px;
+  padding: 20px 220px;
 }
 
 .header a.brand {
@@ -428,7 +428,7 @@ p {
   background-image: url("https://marleyspoon.com/images/ms/home/us/desktop_tablet/02_Homepage_Dishes@2x-c2928e2581.webp");
   display: flex;
   flex-direction: column;
-  height: 65%;
+  height: 80vh;
   align-self: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -441,23 +441,130 @@ p {
   color: #000;
   flex-direction: column;
   align-self: flex-start;
-  margin: 0 150px 20px 150px;
+  margin: 0px 0px 20px 220px;
   background-color: var(--primary-accent);
   padding: 50px;
   width: 25.33%;
+  max-width: 400px;
 }
 
 .title {
   font-weight: 900;
-
+  font-size: 44px;
   margin-bottom: 15px;
 }
 .subtitle {
   line-height: 1.5;
   margin-bottom: 25px;
-  font-size: 24px;
+  font-size: 17px;
   font-weight: 100;
 }
+
+
+
+
+
+
+.welcomeSpacer {
+  height: 17vh;
+  width: 100%;
+}
+
+
+.welcomeSpacer2 {
+  height: 4vh;
+}
+
+
+.spacerTransition {
+  background-image: linear-gradient(to bottom, rgba(233, 231, 230, 0.655), rgb(255, 255, 255, 1));
+}
+
+
+/* Welcome Page formatting for content info */
+
+.bodyDim {
+  padding: 0px 50px;
+  margin: 10px 220px;
+  text-size-adjust: auto;
+  text-align: center;
+}
+
+.bodyDim h1 {
+  margin-top: 16px;
+  font-size: 44px;
+
+}
+
+.bodyDim h2 {
+  margin: 100px 0px 70px 0;
+  font-size: 36px;
+  font-weight: 400;
+}
+
+.bodyDim img {
+  height: 570px;
+  width: 1031px;
+}
+
+.welcomeTitles {
+  margin-top: 100px 0px;
+  font-size: 1.5em;
+  font-weight: 400;
+  color: #786c6c;
+}
+
+.bodyDim p {
+  font-size: 16px;
+  color: #786c6c;
+  margin: 0 300px 50px 300px;
+}
+
+
+.swiper {
+	display: flex;
+	flex-direction: column;
+	visibility: visible;
+	width: 100%;
+	height: 120%;
+  padding: 0px 50px;
+  margin: 20px 220px;
+}
+
+.swiper-slide {
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.swiper-slide img {
+	display: block;
+	height: 570px;
+	width: 1031px;
+	object-fit: cover;
+	display: flex;
+	flex-direction: column;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #get-started {
   display: flex;
