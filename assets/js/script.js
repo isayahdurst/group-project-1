@@ -128,12 +128,14 @@ const mealType = {
 
 // Opens Preference Modal and activates overlay
 const openPrefModal = function () {
+  window.scrollTo(0,0);
   preferenceModal.classList.remove("hidden");
   overlay.classList.remove("hidden");
 };
 
 // Closes Preference Modal and deactivates overlay
 const closePrefModal = function () {
+  window.scrollTo(0,0);
   preferenceModal.classList.add("hidden");
   overlay.classList.add("hidden");
 };
@@ -445,7 +447,7 @@ preferenceItems.addEventListener("click", function (event) {
   }
 });
 
-editPreferencesBtn.addEventListener("click", openPrefModal);
+//editPreferencesBtn.addEventListener("click", openPrefModal);
 closeModalBtn.addEventListener("click", closePrefModal);
 overlay.addEventListener("click", closePrefModal);
 
@@ -877,6 +879,11 @@ dateButtons.forEach((item) => {
   item.addEventListener("click", populateMealCards);
 });
 
+const prefButtons = document.querySelectorAll('.show-modal');
+prefButtons.forEach((item) => {
+  item.addEventListener("click", openPrefModal);
+});
+
 
 // Clear the current meal plan from API server, create a new meal plan, upload new mealplan to server
 const clearAndRefreshMealPlan = async function(){
@@ -908,6 +915,9 @@ const clearAndRefreshMealPlan = async function(){
   // This data will be used to check if 1 or more days have passed and new meals need to be added to the meal plan
   localStorage.setItem('lastUpdatedDate',JSON.stringify(dt.now().ts));
 }
+
+
+
 
 /*
 const deleteMealPlan = async function(year, month, day){
