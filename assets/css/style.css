@@ -691,3 +691,7 @@ p {
   font-size: 14px;
   color: #42526e;
 }
+
+#logout {
+  display: block;
+}
