@@ -1041,6 +1041,18 @@ const lsTest = function () {
   }, 2000);
 };
 
+// checks whether the user's credentials is saved in local storage (meaning they're logged in) and directs them straight to the meal page rather than welcome page.
+const checkLoginStatus = async function () {
+  if (JSON.parse(localStorage.getItem("userInfo"))) {
+    welcomePage.classList.add("hidden");
+    toggleLoginButtons();
+    await populateMainPage();
+    populateMealCards();
+  }
+};
+
+checkLoginStatus();
+
 /*
 const deleteMealPlan = async function(year, month, day){
   const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
