@@ -110,34 +110,14 @@ The main contributors to this project are listed as follows:
 
 <!-- GETTING STARTED -->
 
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/isayahdurst/group-project-1.git
-   ```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- USAGE EXAMPLES -->
-
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Customize food plan based on:
+
+- Diets
+- Cuisines
+- Intolerances
+- Ingredients (coming soon)
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
@@ -185,7 +165,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/isayahdurst) - isayah@fungeapp.com
+Isayah Durst - [@isayahdurst](https://twitter.com/isayahdurst) - isayah@fungeapp.com
 
 Project Link: [https://github.com/isayahdurst/group-project-1](https://github.com/isayahdurst/group-project-1)
 
@@ -195,9 +175,11 @@ Project Link: [https://github.com/isayahdurst/group-project-1](https://github.co
 
 ## Acknowledgments
 
-- []()
-- []()
-- []()
+- [othneildrew](https://github.com/othneildrew/Best-README-Template/blob/master/BLANK_README.md)
+- [Spoonacular Docs](https://spoonacular.com/food-api/docs)
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
+- [Stackoverflow.com](https://stackoverflow.com/questions/1223354/undo-git-pull-how-to-bring-repos-to-old-state)
+- [Shields.io](https://shields.io/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
