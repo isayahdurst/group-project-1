@@ -168,8 +168,6 @@ const connectUser = async function (userName, firstName, lastName, email) {
     hash: userData.hash,
   };
 
-  console.log(userInfo);
-
   localStorage.setItem("userInfo", JSON.stringify(userInfo));
 };
 
@@ -734,6 +732,7 @@ const loginBtn = document.getElementById("#contact");
 const span = document.getElementsByClassName("close")[0];
 loginBtn.onclick = function (event) {
   loginModal.style.display = "block";
+  overlay.classList.remove('hidden');
   if (event.target == loginModal) {
     loginModal.style.display = "none";
   }
@@ -745,6 +744,7 @@ loginBtn.onclick = function (event) {
   window.onclick = function (event) {
     if (event.target == loginModal) {
       loginModal.style.display = "none";
+      overlay.classList.add('hidden');
     }
   };
   loginModal.addEventListener("click", Login());
@@ -756,6 +756,7 @@ const signUpBtn = document.getElementById("signup");
 const span2 = document.getElementsByClassName("close")[0];
 signUpBtn.onclick = function (event) {
   signUpModal.style.display = "block";
+  overlay.classList.remove('hidden');
   if (event.target == signUpModal) {
     signUpModal.style.display = "none";
   }
@@ -767,11 +768,36 @@ signUpBtn.onclick = function (event) {
   window.onclick = function (event) {
     if (event.target == signUpModal) {
       signUpModal.style.display = "none";
+      overlay.classList.add('hidden');
     }
   };
   signUpModal.addEventListener("click", signup());
 };
 
+// Selects "Sign Up Button Form Submit" inside sign-up modal
+const signupbutton = document.querySelector('#signup-form-button');
+
+signupbutton.addEventListener('click', function (event) {
+    const firstName = document.querySelector('#sign-up-first-name').value;
+    const lastName = document.querySelector('#sign-up-last-name').value;
+    const username = document.querySelector('#sign-up-username').value;
+    const email = document.querySelector('#sign-up-email').value;
+
+    event.preventDefault();
+    console.log(username, firstName, lastName, email);
+    connectUser(username, firstName, lastName, email);
+    initializeMealPlan();
+})
+
+// Function removes login/sign up buttons if the user is signed in.
+const toggleLoginButtons = function () {
+    if (JSON.parse(localStorage.getItem('userInfo')) != undefined) { 
+        loginBtn.classList.add('hidden');
+        signUpBtn.classList.add('hidden');
+    }
+}
+
+toggleLoginButtons();
 
 // Populate main page that shows 3 recipes for a given day
 const populateMainPage = async function(){
