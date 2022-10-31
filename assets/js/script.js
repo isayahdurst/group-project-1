@@ -2,7 +2,7 @@
 
 const apiKey = "3fe9c7b3838b43f59e74004c2179d228";
 const complexSearchURL = "https://api.spoonacular.com/recipes/complexSearch?";
-const baseURL = "https://api.spoonacular.com/"
+const baseURL = "https://api.spoonacular.com/";
 
 // date/time object from luxon.
 const dt = luxon.DateTime;
@@ -31,7 +31,7 @@ const preferenceItems = document.querySelector(".preference-items");
 
 /* Main Page (With Dates and Meal Cards) */
 const mainPage = document.querySelector(".main-page");
-const loadingScreen = document.getElementById('cover-screen')
+const loadingScreen = document.getElementById("cover-screen");
 
 /* Meal Page */
 const mealPage = document.querySelector(".meal-page");
@@ -42,10 +42,16 @@ const mealFavoritesButton = document.querySelector(".meal-favorite-button");
 /* Main Page */
 const dateButtons = document.querySelectorAll(".date-btn");
 const mealCards = document.querySelectorAll(".recipe-card");
-const mealImgList = document.querySelectorAll('.recipe-image');
-const mealTitleList = document.querySelectorAll('.recipe-title');
-const mealDietList = document.querySelectorAll('.recipe-diets');
-const refreshMealPlanBtn = document.querySelector('.refresh-meal-plan');
+const mealImgList = document.querySelectorAll(".recipe-image");
+const mealTitleList = document.querySelectorAll(".recipe-title");
+const mealDietList = document.querySelectorAll(".recipe-diets");
+const refreshMealPlanBtn = document.querySelector(".refresh-meal-plan");
+
+/* Welcome Page (pre-sign-in/sign-up)*/
+const welcomePage = document.querySelector(".hero");
+
+/* Nav Bar */
+const logoutBtn = document.querySelector("#logout");
 
 const diets = {
   noPreference: "No Preference",
@@ -130,14 +136,14 @@ const mealType = {
 
 // Opens Preference Modal and activates overlay
 const openPrefModal = function () {
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
   preferenceModal.classList.remove("hidden");
   overlay.classList.remove("hidden");
 };
 
 // Closes Preference Modal and deactivates overlay
 const closePrefModal = function () {
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
   preferenceModal.classList.add("hidden");
   overlay.classList.add("hidden");
 };
@@ -229,16 +235,15 @@ const generateAPICallURL = function (numResults, mealTypeString) {
   const typeP = `type=${mealTypeString}`;
   const sort = "sort=random";
   const apiKeyP = `apiKey=${apiKey}`;
-  
-  
+
   // Generate string for excludeCuisine
-  let excludeCuisineP = 'excludeCuisine=' + cuisines.toExclude.join(',');
+  let excludeCuisineP = "excludeCuisine=" + cuisines.toExclude.join(",");
 
   // Generate string for diet -- commas in the search represent AND. e.g. paleolithic,gluten free = paleolithic AND gluten free
-  let dietP = 'diet=' + diets.toInclude.join(',');
+  let dietP = "diet=" + diets.toInclude.join(",");
 
   // Generate string for intolerances -- commas in the search represent AND. e.g. egg,dairy = egg AND dairy
-  let intolerancesP = 'intolerances=' + intolerances.toInclude.join(',');
+  let intolerancesP = "intolerances=" + intolerances.toInclude.join(",");
 
   let finalURL = `${urlAPI}?${addRecipeInformationP}&${sort}&${includeIngredients}&${addRecipeNutritionP}&${instructionsRequiredP}&${typeP}&${numberP}&${excludeCuisineP}&${dietP}&${intolerancesP}&${apiKeyP}`;
   finalURL = encodeURI(finalURL);
@@ -260,32 +265,40 @@ const generateAPICallURL = function (numResults, mealTypeString) {
 
 // Checks to see if a full day has passed since the meal plan was created. If so, remove the current days meal plan, shift all meal plans over by one day, then add a new day's meals
 const checkIfDayPassed = async function () {
-
   //Get lastUpdatedDate from localStorage and check to see if there is a difference in date. If not, exit the function
-  const lastUpdatedRawDate = JSON.parse(localStorage.getItem('lastUpdatedDate'));
-  const lastUpdatedDate = dt.fromMillis(lastUpdatedRawDate,{zone : 'America/Los_Angeles'});
-  const todaysDate = dt.local({zone : 'America/Los_Angeles'});
+  const lastUpdatedRawDate = JSON.parse(
+    localStorage.getItem("lastUpdatedDate")
+  );
+  const lastUpdatedDate = dt.fromMillis(lastUpdatedRawDate, {
+    zone: "America/Los_Angeles",
+  });
+  const todaysDate = dt.local({ zone: "America/Los_Angeles" });
 
-  if((todaysDate.c.year - lastUpdatedDate.year) * 365 + (todaysDate.c.month - lastUpdatedDate.month) * 30 + (todaysDate.c.day - lastUpdatedDate.day) <= 0){
+  if (
+    (todaysDate.c.year - lastUpdatedDate.year) * 365 +
+      (todaysDate.c.month - lastUpdatedDate.month) * 30 +
+      (todaysDate.c.day - lastUpdatedDate.day) <=
+    0
+  ) {
     return;
   }
-  
+
   //If at least one day has passed since the last meal plan update, update meal plan so that each new day has a meal plan
   let mealPlanTable = await getMealPlan();
   let numDaysToAdd = 7 - mealPlanTable.days.length;
   let newMealPlanTable = [];
   console.log(numDaysToAdd);
-  
+
   // Generate new recipes and add them to the list -- Code from initializeMealPlan() ----------------------------------------------
   const breakfastRecipes = await getRecipe(numDaysToAdd, mealType.breakfast);
   const mainRecipes = await getRecipe(numDaysToAdd * 2, mealType.lunchDinner);
-  let latestTime = todaysDate + 86400000*(7 - numDaysToAdd); // 7 - numDaysToAdd gives you the index of the first day that needs a new meal in an array of 7 days 
+  let latestTime = todaysDate + 86400000 * (7 - numDaysToAdd); // 7 - numDaysToAdd gives you the index of the first day that needs a new meal in an array of 7 days
   let timeInterval = 0;
-  
+
   breakfastRecipes.results.forEach(function (meal, index) {
     localStorage.setItem(meal.id, JSON.stringify(meal));
     newMealPlanTable.push({
-      date: latestTime/1000 + timeInterval,
+      date: latestTime / 1000 + timeInterval,
       slot: 1,
       position: 1,
       type: "RECIPE",
@@ -304,9 +317,9 @@ const checkIfDayPassed = async function () {
   mainRecipes.results.forEach(function (meal, index) {
     localStorage.setItem(meal.id, JSON.stringify(meal));
     index % 2 === 0 ? (timeInterval = (index / 2) * 86_400) : null; // Adds 1 day to date, only on every other iteration.
-    
+
     newMealPlanTable.push({
-      date: latestTime/1000 + timeInterval,
+      date: latestTime / 1000 + timeInterval,
       slot: index % 2 === 0 ? 2 : 3, // Alternates slot positions between lunch and dinner for each item
       position: index % 2 === 0 ? 2 : 3, // Alternates positions of meals evenly
       type: "RECIPE",
@@ -322,7 +335,6 @@ const checkIfDayPassed = async function () {
   const { username, hash } = JSON.parse(localStorage.getItem("userInfo")); //gets username and hash from localStorage
   const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`;
 
-
   const response = await fetch(mealURL, {
     // Sends Meal Plan to Spoonacular
     method: "POST",
@@ -334,7 +346,7 @@ const checkIfDayPassed = async function () {
 
   console.log(response);
 
-  localStorage.setItem('lastUpdatedDate',JSON.stringify(dt.now().ts)); // Set last updated date with the current date
+  localStorage.setItem("lastUpdatedDate", JSON.stringify(dt.now().ts)); // Set last updated date with the current date
 };
 
 // Populates each preference category (i.E. Diets, Cuisines, Intolerances) with preference options.
@@ -466,7 +478,9 @@ const getRecipe = async function (number, mealType) {
 // Gets the current meal plan in the user's Spoonacular profile
 const getMealPlan = async function () {
   const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
-  const creationDate = dt.local({zone : 'America/Los_Angeles'}).toFormat("yyyy-MM-dd");
+  const creationDate = dt
+    .local({ zone: "America/Los_Angeles" })
+    .toFormat("yyyy-MM-dd");
   const mealPlanURL = `https://api.spoonacular.com/mealplanner/${username}/week/${creationDate}?hash=${hash}&apiKey=${apiKey}`;
 
   const response = await fetch(mealPlanURL);
@@ -538,13 +552,13 @@ const initializeMealPlan = async function () {
 };
 
 const openMealPage = function () {
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
   mainPage.classList.add("hidden");
   mealPage.classList.remove("hidden");
 };
 
 const closeMealPage = function () {
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
   mainPage.classList.remove("hidden");
   mealPage.classList.add("hidden");
 };
@@ -720,11 +734,11 @@ mealFavoritesButton.addEventListener("click", function (event) {
 
 mealCards.forEach((item) => {
   // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
-  item.addEventListener("click", function(event){
+  item.addEventListener("click", function (event) {
     const recipeID = event.currentTarget.dataset.idrecipe;
     renderMealPage(recipeID);
   });
-})
+});
 
 // Login Modal EventListener
 const loginModal = document.getElementById("Login Modal");
@@ -732,7 +746,8 @@ const loginBtn = document.getElementById("#contact");
 const span = document.getElementsByClassName("close")[0];
 loginBtn.onclick = function (event) {
   loginModal.style.display = "block";
-  overlay.classList.remove('hidden');
+  loginModal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
   if (event.target == loginModal) {
     loginModal.style.display = "none";
   }
@@ -744,19 +759,46 @@ loginBtn.onclick = function (event) {
   window.onclick = function (event) {
     if (event.target == loginModal) {
       loginModal.style.display = "none";
-      overlay.classList.add('hidden');
+      overlay.classList.add("hidden");
     }
   };
   loginModal.addEventListener("click", Login());
 };
+
+const loginbutton = document.querySelector("#login-form-button");
+
+loginbutton.addEventListener("click", async function () {
+  const username = document.querySelector("#login-username").value;
+  const hash = document.querySelector("#login-password").value;
+  const password = "";
+
+  console.log("clicked");
+
+  localStorage.setItem(
+    "userInfo",
+    JSON.stringify({
+      username: username,
+      password: password,
+      hash: hash,
+    })
+  );
+
+  welcomePage.classList.add("hidden");
+  toggleLoginButtons();
+  await populateMainPage();
+  populateMealCards();
+  overlay.classList.add("hidden");
+  loginModal.classList.add("hidden");
+});
 
 // Sign Up Modal Event Listener
 const signUpModal = document.getElementById("SignUp Modal");
 const signUpBtn = document.getElementById("signup");
 const span2 = document.getElementsByClassName("close")[0];
 signUpBtn.onclick = function (event) {
+  signUpModal.classList.remove("hidden");
   signUpModal.style.display = "block";
-  overlay.classList.remove('hidden');
+  overlay.classList.remove("hidden");
   if (event.target == signUpModal) {
     signUpModal.style.display = "none";
   }
@@ -768,65 +810,95 @@ signUpBtn.onclick = function (event) {
   window.onclick = function (event) {
     if (event.target == signUpModal) {
       signUpModal.style.display = "none";
-      overlay.classList.add('hidden');
+      overlay.classList.add("hidden");
     }
   };
   signUpModal.addEventListener("click", signup());
 };
 
 // Selects "Sign Up Button Form Submit" inside sign-up modal
-const signupbutton = document.querySelector('#signup-form-button');
+const signupbutton = document.querySelector("#signup-form-button");
 
-signupbutton.addEventListener('click', function (event) {
-    const firstName = document.querySelector('#sign-up-first-name').value;
-    const lastName = document.querySelector('#sign-up-last-name').value;
-    const username = document.querySelector('#sign-up-username').value;
-    const email = document.querySelector('#sign-up-email').value;
+signupbutton.addEventListener("click", async function (event) {
+  const firstName = document.querySelector("#sign-up-first-name").value;
+  const lastName = document.querySelector("#sign-up-last-name").value;
+  const username = document.querySelector("#sign-up-username").value;
+  const email = document.querySelector("#sign-up-email").value;
 
-    event.preventDefault();
-    console.log(username, firstName, lastName, email);
-    connectUser(username, firstName, lastName, email);
-    initializeMealPlan();
-})
+  event.preventDefault();
+  loadingScreen.style.display = "block";
+  await connectUser(username, firstName, lastName, email);
+  await initializeMealPlan();
+  await populateMainPage();
+  signUpModal.classList.add("hidden");
+  overlay.classList.add("hidden");
+  populateMealCards();
+  loadingScreen.classList.add("hidden");
+  welcomePage.classList.add("hidden");
+  toggleLoginButtons();
+});
 
 // Function removes login/sign up buttons if the user is signed in.
 const toggleLoginButtons = function () {
-    if (JSON.parse(localStorage.getItem('userInfo')) != undefined) { 
-        loginBtn.classList.add('hidden');
-        signUpBtn.classList.add('hidden');
-    }
-}
+  if (JSON.parse(localStorage.getItem("userInfo")) != undefined) {
+    loginBtn.classList.add("hidden");
+    signUpBtn.classList.add("hidden");
+    logoutBtn.classList.remove("hidden");
+  } else {
+    loginBtn.classList.remove("hidden");
+    signUpBtn.classList.remove("hidden");
+    logoutBtn.classList.add("hidden");
+  }
+};
 
 toggleLoginButtons();
 
-// Populate main page that shows 3 recipes for a given day
-const populateMainPage = async function(){
+// Logout button functionality:
+logoutBtn.addEventListener("click", function () {
+  localStorage.removeItem("userInfo"); // Clears userInfo from local storage.
+  toggleLoginButtons();
+  mealPage.classList.add("hidden");
+  mainPage.classList.add("hidden");
+  welcomePage.classList.remove("hidden");
+});
 
+// Populate main page that shows 3 recipes for a given day
+const populateMainPage = async function () {
   mainPage.classList.remove("hidden");
 
   // Get current meal plan so that we can update the buttons of the week with meal ids
   let mealPlanTable = await getMealPlan();
 
   // Update the date buttons with the dates for the week
-  dateButtons.forEach(function(btn,index){
-    let btnDate = dt.now().ts + 86400000*index;
-    btn.textContent = dt.fromMillis(btnDate,{zone:'America/Los_Angeles'}).toFormat('MM/dd');
+  dateButtons.forEach(function (btn, index) {
+    let btnDate = dt.now().ts + 86400000 * index;
+    btn.textContent = dt
+      .fromMillis(btnDate, { zone: "America/Los_Angeles" })
+      .toFormat("MM/dd");
     btn.dataset.idbreakfast = mealPlanTable.days[index].items[0].value.id;
     btn.dataset.idlunch = mealPlanTable.days[index].items[1].value.id;
     btn.dataset.iddinner = mealPlanTable.days[index].items[2].value.id;
-  })
+  });
 
   // Go through each of the mealCards and update the information inside of them
-  mealCards.forEach(async function(mealCard,index){
-
+  mealCards.forEach(async function (mealCard, index) {
     // Update the three meal cards to have a recipe id and pull in informational text
-    let recipeID = '';
-    
-    switch(index){
-      case 0: recipeID = dateButtons[0].dataset.idbreakfast; break;
-      case 1: recipeID = dateButtons[0].dataset.idlunch; break;
-      case 2: recipeID = dateButtons[0].dataset.iddinner; break;
-      default: console.log('Index is greater than 2, check to see that there are only 3 meal cards');
+    let recipeID = "";
+
+    switch (index) {
+      case 0:
+        recipeID = dateButtons[0].dataset.idbreakfast;
+        break;
+      case 1:
+        recipeID = dateButtons[0].dataset.idlunch;
+        break;
+      case 2:
+        recipeID = dateButtons[0].dataset.iddinner;
+        break;
+      default:
+        console.log(
+          "Index is greater than 2, check to see that there are only 3 meal cards"
+        );
     }
 
     // Add recipeID to the mealCard data attribute -- this allows us to pull the recipe data from local storage when card is clicked
@@ -839,44 +911,50 @@ const populateMainPage = async function(){
         : await getRecipeInformation(recipeID);
 
     // If recipe not in local storage, it is saved there.
-    localStorage.setItem(recipeID, JSON.stringify(recipeData));  
+    localStorage.setItem(recipeID, JSON.stringify(recipeData));
 
     // Populate the image and data on each card with the recipe date pulled from local storage
     mealImgList[index].src = recipeData.image;
     mealTitleList[index].textContent = recipeData.title;
-    mealDietList[index].innerHTML = '';
+    mealDietList[index].innerHTML = "";
 
     // Populate the diets in the mealCard -- pulled from recipe data in local storage
-    recipeData.diets.forEach(function(diet){
-      let newSpan = document.createElement('span');
-      newSpan.classList.add('subtitle');
-      newSpan.classList.add('is-6');
+    recipeData.diets.forEach(function (diet) {
+      let newSpan = document.createElement("span");
+      newSpan.classList.add("subtitle");
+      newSpan.classList.add("is-6");
       newSpan.textContent = diet;
       mealDietList[index].append(newSpan);
-    })
-  })
-
+    });
+  });
 };
 
-
- // Update the three meal cards to have a recipe id and pull in informational text
-const populateMealCards = function(event){
-
+// Update the three meal cards to have a recipe id and pull in informational text
+const populateMealCards = function (event) {
   // Go through each of the mealCards and update the information inside of them
-  mealCards.forEach(async function(mealCard,index){
+  mealCards.forEach(async function (mealCard, index) {
     // Get the recipe ID for the current recipe card depending on if it's breakfast, lunch or dinner
-    let recipeID = '';
-    
-    switch(index){
-      case 0: recipeID = event.target.dataset.idbreakfast; break;
-      case 1: recipeID = event.target.dataset.idlunch; break;
-      case 2: recipeID = event.target.dataset.iddinner; break;
-      default: console.log('Index is greater than 2, check to see that there are only 3 meal cards');
+    let recipeID = "";
+
+    switch (index) {
+      case 0:
+        recipeID = event.target.dataset.idbreakfast;
+        break;
+      case 1:
+        recipeID = event.target.dataset.idlunch;
+        break;
+      case 2:
+        recipeID = event.target.dataset.iddinner;
+        break;
+      default:
+        console.log(
+          "Index is greater than 2, check to see that there are only 3 meal cards"
+        );
     }
 
     // Add recipeID to the mealCard data attribute -- this allows us to pull the recipe data from local storage when card is clicked
     mealCard.dataset.idrecipe = recipeID;
-    
+
     // Get the recipe data from local storage
     const recipeData =
       localStorage.getItem(recipeID) != undefined
@@ -884,54 +962,50 @@ const populateMealCards = function(event){
         : await getRecipeInformation(recipeID);
 
     // If recipe not in local storage, it is saved there.
-    localStorage.setItem(recipeID, JSON.stringify(recipeData));  
+    localStorage.setItem(recipeID, JSON.stringify(recipeData));
 
     // Populate the image and data on each card with the recipe date pulled from local storage
     mealImgList[index].src = recipeData.image;
     mealTitleList[index].textContent = recipeData.title;
-    mealDietList[index].innerHTML = '';
+    mealDietList[index].innerHTML = "";
 
     // Populate the diets in the mealCard -- pulled from recipe data in local storage
-    recipeData.diets.forEach(function(diet){
-      let newSpan = document.createElement('span');
-      newSpan.classList.add('subtitle');
-      newSpan.classList.add('is-6');
+    recipeData.diets.forEach(function (diet) {
+      let newSpan = document.createElement("span");
+      newSpan.classList.add("subtitle");
+      newSpan.classList.add("is-6");
       newSpan.textContent = diet;
       mealDietList[index].append(newSpan);
-    })
-  })
+    });
+  });
 };
-
 
 // Add event listeners for each date button on the main page
 dateButtons.forEach((item) => {
   item.addEventListener("click", populateMealCards);
 });
 
-const prefButtons = document.querySelectorAll('.pref-btn');
+const prefButtons = document.querySelectorAll(".pref-btn");
 prefButtons.forEach((item) => {
   item.addEventListener("click", openPrefModal);
 });
 
-
-
-
 // Clear the current meal plan from API server, create a new meal plan, upload new mealplan to server
-const clearAndRefreshMealPlan = async function(){
-  
-  // Set up a loading screen while API calls run 
-  window.scrollTo(0,0);
-  loadingScreen.style.display = 'block';
-  
-  
+const clearAndRefreshMealPlan = async function () {
+  // Set up a loading screen while API calls run
+  window.scrollTo(0, 0);
+  loadingScreen.style.display = "block";
+
   const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
 
   // Delete the week's meal plans one day at a time -- API only allows for deleting one day at a time
-  for(let i = 0; i < 7; i++){
-    const baseDate = dt.now().ts + 86400000*i; //Calculate each day starting with today and adding 1 day for each next day
-    const date = dt.fromMillis(baseDate,{zone:'America/Los_Angeles'}).toFormat('yyyy-MM-dd');
+  for (let i = 0; i < 7; i++) {
+    const baseDate = dt.now().ts + 86400000 * i; //Calculate each day starting with today and adding 1 day for each next day
+    const date = dt
+      .fromMillis(baseDate, { zone: "America/Los_Angeles" })
+      .toFormat("yyyy-MM-dd");
     const clearMealPlanURL = `${baseURL}/mealplanner/${username}/day/${date}?hash=${hash}&apiKey=${apiKey}`;
-    const response = await fetch(clearMealPlanURL,{method: 'DELETE'});
+    const response = await fetch(clearMealPlanURL, { method: "DELETE" });
     console.log(response);
   }
 
@@ -941,34 +1015,43 @@ const clearAndRefreshMealPlan = async function(){
 
   localStorage.clear();
 
-  localStorage.setItem('userInfo',JSON.stringify(userInfo));
+  localStorage.setItem("userInfo", JSON.stringify(userInfo));
   savePreferences();
-
- 
 
   // Call initializeMealPlan() to create a fresh new meal plan, then populate the date buttons with the new recipe ids
   await initializeMealPlan();
   await populateMainPage();
 
   // Remove loading screen
-  loadingScreen.style.display = 'none'
+  loadingScreen.style.display = "none";
 
   // Store today's date as the date of the last mealplan update
   // This data will be used to check if 1 or more days have passed and new meals need to be added to the meal plan
-  localStorage.setItem('lastUpdatedDate',JSON.stringify(dt.now().ts));
-}
+  localStorage.setItem("lastUpdatedDate", JSON.stringify(dt.now().ts));
+};
 
-refreshMealPlanBtn.addEventListener("click",clearAndRefreshMealPlan);
+refreshMealPlanBtn.addEventListener("click", clearAndRefreshMealPlan);
 
-populateMainPage();
+/* populateMainPage(); */
 
-const lsTest = function(){
-  loadingScreen.style.display = 'block';
-  setTimeout(() => {loadingScreen.style.display = 'none'},2000);
+const lsTest = function () {
+  loadingScreen.style.display = "block";
+  setTimeout(() => {
+    loadingScreen.style.display = "none";
+  }, 2000);
+};
 
-}
+// checks whether the user's credentials is saved in local storage (meaning they're logged in) and directs them straight to the meal page rather than welcome page.
+const checkLoginStatus = async function () {
+  if (JSON.parse(localStorage.getItem("userInfo"))) {
+    welcomePage.classList.add("hidden");
+    toggleLoginButtons();
+    await populateMainPage();
+    populateMealCards();
+  }
+};
 
-
+checkLoginStatus();
 
 /*
 const deleteMealPlan = async function(year, month, day){

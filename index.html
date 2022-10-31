@@ -25,13 +25,15 @@
     <div class="header">
       <a href="#default" class="brand"><img class="logo" src="./assets/images/brand-logo.png" alt="brand logo" width="225" height="65"> </a>
       <div class="header-right">
-        <a id="#contact">Login</a>
-        <a id="signup">Sign up</a>
+        <a id = "#contact">Login</a>
+        <a id ="signup">Sign up</a>
+        <a id = "logout" class="'hidden">Log Out</a>
       </div>
     </div>
 
-    <!-- hero section  -->
-    <section class="hero hidden">
+
+    <!-- HERO SECTION -- STILL NEED TO FIX RESPONSIVENESS OF HERO BODY !! -->
+    <section class="hero">
       <div class="hero-body">
         <p class="title">
           Meal prepping.<br>Made easy. 
@@ -66,7 +68,7 @@
     <!-- Preferences Modal Window End -->
 
     <!-- Meal Details Start -->
-    <section class="meal-page">
+    <section class="meal-page hidden">
       <section class="meal-details">
         <div class="meal-details-header">
           <div class="meal-top-buttons">
@@ -247,7 +249,7 @@
 
 
     <!-- Menu Details Start -->
-<section class="main-page">
+<section class="main-page hidden">
   <div class="weekly-menu-title is-size-4">
     Weekly menu
     </div>
@@ -347,10 +349,10 @@
     <div id="Login Modal" class="modal">
       <form class="modal-content">
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <input type="text" placeholder="Enter Username" name="uname" id = "login-username" required>
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-        <button type="Login">Login</button>
+        <input type="password" placeholder="Enter Password" name="psw" id="login-password"required>
+        <button type="Login" id = "login-form-button">Login</button>
         <label>
           <div class="RemMe">
             <input type="checkbox" checked="checked" name="remember"> Remember me
