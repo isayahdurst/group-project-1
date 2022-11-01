@@ -31,12 +31,8 @@ const preferenceItems = document.querySelector(".preference-items");
 
 /* Main Page (With Dates and Meal Cards) */
 const mainPage = document.querySelector(".main-page");
-<<<<<<< HEAD
 const loadingScreen = document.getElementById('cover-screen');
 let mealCardClicked;
-=======
-const loadingScreen = document.getElementById("cover-screen");
->>>>>>> main
 
 /* Meal Page */
 const mealPage = document.querySelector(".meal-page");
@@ -722,37 +718,96 @@ const replaceMeal = async function (recipeID) {
     JSON.stringify(newMeal.results[0])
   );
 
-  // Add recipe ID to sessionStorage so we can assign recipeID to event.currentTarget outside of this function
-  sessionStorage.setItem(
-    'newRecipeID',
-    newMeal.results[0].id
-  );
 
-  // Store oldRecipeID so that we can check each dateButton to see which one has the oldRecipeID and replace it
-  sessionStorage.setItem(
-    'oldRecipeID',
-    recipeID
-  );
+  mealCardClicked.dataset.idrecipe = newMeal.results[0].id //set the clicked mealCard to have the newRecipeId
 
-  renderMealPage(newMeal.results[0].id);
+  //Check all date buttons and replace the old recipe ID with the newRecipeID
+  let dateIndexRemoved = 0;
+  let dateTs;
+  let newMealPlan = [];
+
+  dateButtons.forEach(function(dateBtn){
+    switch(recipeID){
+      case dateBtn.dataset.idbreakfast: 
+        dateBtn.dataset.idbreakfast = newMeal.results[0].id; 
+        dateTs = dateBtn.dataset.datets; 
+        dateIndexRemoved = dateBtn.dataset.index;
+        break;
+      case dateBtn.dataset.idlunch: 
+        dateBtn.dataset.idlunch = newMeal.results[0].id; 
+        dateTs = dateBtn.dataset.datets;  
+        dateIndexRemoved = dateBtn.dataset.index; 
+        break;
+      case dateBtn.dataset.iddinner: 
+        dateBtn.dataset.iddinner = newMeal.results[0].id; 
+        dateTs = dateBtn.dataset.datets;  
+        dateIndexRemoved = dateBtn.dataset.index; 
+        break;
+      default:;
+    }
+  });
+
+
+  // Build the deleted day's meal plan by first copying over all data from the day that was deleted
+  const oldMealPlan = await getMealPlan();
+  await deleteMealPlanDay(dateTs);
+  console.log(dateIndexRemoved);
+    
+  const deletedDay = oldMealPlan.days[dateIndexRemoved];
+  for(let i = 0; i < deletedDay.items.length; i++){
+    const meal = deletedDay.items[i];
+
+    newMealPlan.push({
+      date: deletedDay.date,
+      slot: meal.slot,
+      position: meal.position,
+      type: "RECIPE",
+      value: {
+        id: meal.value.id,
+        servings: meal.value.servings,
+        title: meal.value.title,
+        imageType: meal.value.imageType,
+      },
+    });
+  }
+
+  // Replace the data of the meal that was replaced
+  let deletedDayIndex = 0;
+  switch(mealCardClicked.children[1].children[0].children[0].children[0].textContent){
+    case "BREAKFAST": deletedDayIndex = 0; break;
+    case "LUNCH": deletedDayIndex = 1; break;
+    case "DINNER": deletedDayIndex = 2; break;
+  }
+
+  newMealPlan[deletedDayIndex].value.id = newMeal.results[0].id;
+  newMealPlan[deletedDayIndex].value.servings = newMeal.results[0].servings;
+  newMealPlan[deletedDayIndex].value.title = newMeal.results[0].title;
+  newMealPlan[deletedDayIndex].value.imageType = newMeal.results[0].imageType;
+
+
+  console.log(newMealPlan);
+
+  const { username, hash } = JSON.parse(localStorage.getItem("userInfo")); //gets username and hash from localStorage
+  const mealURL = `https://api.spoonacular.com/mealplanner/${username}/items?hash=${hash}&apiKey=${apiKey}`;
+
+  const response = await fetch(mealURL, {
+    // Sends Meal Plan to Spoonacular
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newMealPlan),
+  });
+
+  console.log(response);
+
+  await renderMealPage(newMeal.results[0].id);
 };
 
 mealReplaceButton.addEventListener("click", async function (event) {
   const recipeID = event.currentTarget.getAttribute("data-recipeID");
   await replaceMeal(recipeID);
-  mealCardClicked.dataset.idrecipe = sessionStorage.getItem('newRecipeID'); //set the clicked mealCard to have the newRecipeId
-  
-  //Check all date buttons and replace the old recipe ID with the newRecipeID
-  dateButtons.forEach(function(dateBtn){
-    switch(sessionStorage.getItem('oldRecipeID')){
-      case dateBtn.dataset.idbreakfast: dateBtn.dataset.idbreakfast = sessionStorage.getItem('newRecipeID'); break;
-      case dateBtn.dataset.idlunch: dateBtn.dataset.idlunch = sessionStorage.getItem('newRecipeID'); break;
-      case dateBtn.dataset.iddinner: dateBtn.dataset.iddinner = sessionStorage.getItem('newRecipeID'); break;
-      default: console.log('Index is greater than 2, check to see that there are only 3 meal cards');
-    }
-  });
-    
-  populateSingleMealCard(mealCardClicked); //Update the clicked mealCard with the newRecipeID info
+  await populateSingleMealCard(mealCardClicked); //Update the clicked mealCard with the newRecipeID info
 });
 
 mealFavoritesButton.addEventListener("click", function (event) {
@@ -764,13 +819,12 @@ mealFavoritesButton.addEventListener("click", function (event) {
 
 mealCards.forEach((item) => {
   // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
-  item.addEventListener("click", function (event) {
+  item.addEventListener("click", function(event){
     const recipeID = event.currentTarget.dataset.idrecipe;
     renderMealPage(recipeID);
     mealCardClicked = event.currentTarget;
-    console.log(mealCardClicked);
   });
-});
+})
 
 // Login Modal EventListener
 const loginModal = document.getElementById("Login Modal");
@@ -885,13 +939,7 @@ const toggleLoginButtons = function () {
 
 toggleLoginButtons();
 
-<<<<<<< HEAD
 
-
-// Populate main page that shows 3 recipes for a given day
-const populateMainPage = async function(){
-
-=======
 // Logout button functionality:
 logoutBtn.addEventListener("click", function () {
   localStorage.removeItem("userInfo"); // Clears userInfo from local storage.
@@ -905,40 +953,33 @@ logoutBtn.addEventListener("click", function () {
 const populateMainPage = async function () {
   mainPage.classList.remove("hidden");
 
->>>>>>> main
   // Get current meal plan so that we can update the buttons of the week with meal ids
   let mealPlanTable = await getMealPlan();
 
   // Update the date buttons with the dates for the week
-  dateButtons.forEach(function (btn, index) {
-    let btnDate = dt.now().ts + 86400000 * index;
-    btn.textContent = dt
-      .fromMillis(btnDate, { zone: "America/Los_Angeles" })
-      .toFormat("MM/dd");
+  dateButtons.forEach(function(btn,index){
+    let btnDate = dt.now().ts - 25200000 + 86400000*index;
+    btn.dataset.datets = Math.floor(btnDate/1000);
+    btn.textContent = dt.fromMillis(btnDate,{zone:'America/Los_Angeles'}).toFormat('MM/dd');
     btn.dataset.idbreakfast = mealPlanTable.days[index].items[0].value.id;
     btn.dataset.idlunch = mealPlanTable.days[index].items[1].value.id;
     btn.dataset.iddinner = mealPlanTable.days[index].items[2].value.id;
-  });
+  })
 
   // Go through each of the mealCards and update the information inside of them
-  mealCards.forEach(async function (mealCard, index) {
-    // Update the three meal cards to have a recipe id and pull in informational text
-    let recipeID = "";
+  mealCards.forEach(async function(mealCard,index){
 
-    switch (index) {
-      case 0:
-        recipeID = dateButtons[0].dataset.idbreakfast;
-        break;
-      case 1:
-        recipeID = dateButtons[0].dataset.idlunch;
-        break;
-      case 2:
-        recipeID = dateButtons[0].dataset.iddinner;
-        break;
-      default:
-        console.log(
-          "Index is greater than 2, check to see that there are only 3 meal cards"
-        );
+    // Remove height property before populating card to remove any CSS that would overwrite the height being pulled in
+    mealCard.style.removeProperty('height');
+
+    // Update the three meal cards to have a recipe id and pull in informational text
+    let recipeID = '';
+    
+    switch(index){
+      case 0: recipeID = dateButtons[0].dataset.idbreakfast; break;
+      case 1: recipeID = dateButtons[0].dataset.idlunch; break;
+      case 2: recipeID = dateButtons[0].dataset.iddinner; break;
+      default: console.log('Index is greater than 2, check to see that there are only 3 meal cards');
     }
 
     // Add recipeID to the mealCard data attribute -- this allows us to pull the recipe data from local storage when card is clicked
@@ -951,25 +992,39 @@ const populateMainPage = async function () {
         : await getRecipeInformation(recipeID);
 
     // If recipe not in local storage, it is saved there.
-    localStorage.setItem(recipeID, JSON.stringify(recipeData));
+    localStorage.setItem(recipeID, JSON.stringify(recipeData));  
 
     // Populate the image and data on each card with the recipe date pulled from local storage
     mealImgList[index].src = recipeData.image;
     mealTitleList[index].textContent = recipeData.title;
-    mealDietList[index].innerHTML = "";
+    mealDietList[index].innerHTML = '';
 
     // Populate the diets in the mealCard -- pulled from recipe data in local storage
-    recipeData.diets.forEach(function (diet) {
-      let newSpan = document.createElement("span");
-      newSpan.classList.add("subtitle");
-      newSpan.classList.add("is-6");
+    recipeData.diets.forEach(function(diet){
+      let newSpan = document.createElement('span');
+      newSpan.classList.add('subtitle');
+      newSpan.classList.add('is-6');
       newSpan.textContent = diet;
       mealDietList[index].append(newSpan);
-    });
+    })
+  })
+
+  let maxHeight = 0;
+
+  // Go through each meal card and figure out what the max height is
+  mealCards.forEach(function(card){
+      if(card.clientHeight > maxHeight){
+          maxHeight = card.clientHeight;
+      }
   });
+  
+  // Go through each meal card and set the max height to the greatest height of the meal cards
+  mealCards.forEach(function(card){
+      card.style.height = `${maxHeight}px`;
+  });
+
 };
 
-<<<<<<< HEAD
 const populateSingleMealCard = async function(element){
   const mealCard = element;
   const recipeID = mealCard.dataset.idrecipe;
@@ -1008,12 +1063,13 @@ const populateSingleMealCard = async function(element){
           maxHeight = card.clientHeight;
       }
   });
-
+  
   // Go through each meal card and set the max height to the greatest height of the meal cards
   mealCards.forEach(function(card){
       card.style.height = `${maxHeight}px`;
   });
 }
+
 
  // Update the three meal cards to have a recipe id and pull in informational text
 const populateMealCards = function(event){
@@ -1024,34 +1080,19 @@ const populateMealCards = function(event){
     // Remove height property before populating card to remove any CSS that would overwrite the height being pulled in
     mealCard.style.removeProperty('height');
       
-=======
-// Update the three meal cards to have a recipe id and pull in informational text
-const populateMealCards = function (event) {
-  // Go through each of the mealCards and update the information inside of them
-  mealCards.forEach(async function (mealCard, index) {
->>>>>>> main
     // Get the recipe ID for the current recipe card depending on if it's breakfast, lunch or dinner
-    let recipeID = "";
-
-    switch (index) {
-      case 0:
-        recipeID = event.target.dataset.idbreakfast;
-        break;
-      case 1:
-        recipeID = event.target.dataset.idlunch;
-        break;
-      case 2:
-        recipeID = event.target.dataset.iddinner;
-        break;
-      default:
-        console.log(
-          "Index is greater than 2, check to see that there are only 3 meal cards"
-        );
+    let recipeID = '';
+    
+    switch(index){
+      case 0: recipeID = event.target.dataset.idbreakfast; break;
+      case 1: recipeID = event.target.dataset.idlunch; break;
+      case 2: recipeID = event.target.dataset.iddinner; break;
+      default: console.log('Index is greater than 2, check to see that there are only 3 meal cards');
     }
 
     // Add recipeID to the mealCard data attribute -- this allows us to pull the recipe data from local storage when card is clicked
     mealCard.dataset.idrecipe = recipeID;
-
+    
     // Get the recipe data from local storage
     const recipeData =
       localStorage.getItem(recipeID) != undefined
@@ -1059,21 +1100,20 @@ const populateMealCards = function (event) {
         : await getRecipeInformation(recipeID);
 
     // If recipe not in local storage, it is saved there.
-    localStorage.setItem(recipeID, JSON.stringify(recipeData));
+    localStorage.setItem(recipeID, JSON.stringify(recipeData));  
 
     // Populate the image and data on each card with the recipe date pulled from local storage
     mealImgList[index].src = recipeData.image;
     mealTitleList[index].textContent = recipeData.title;
-    mealDietList[index].innerHTML = "";
+    mealDietList[index].innerHTML = '';
 
     // Populate the diets in the mealCard -- pulled from recipe data in local storage
-    recipeData.diets.forEach(function (diet) {
-      let newSpan = document.createElement("span");
-      newSpan.classList.add("subtitle");
-      newSpan.classList.add("is-6");
+    recipeData.diets.forEach(function(diet){
+      let newSpan = document.createElement('span');
+      newSpan.classList.add('subtitle');
+      newSpan.classList.add('is-6');
       newSpan.textContent = diet;
       mealDietList[index].append(newSpan);
-<<<<<<< HEAD
     })
   })
 
@@ -1090,10 +1130,6 @@ const populateMealCards = function (event) {
     mealCards.forEach(function(card,index){
         card.style.height = `${maxHeight}px`;
     });
-=======
-    });
-  });
->>>>>>> main
 };
 
 // Add event listeners for each date button on the main page
@@ -1150,19 +1186,19 @@ refreshMealPlanBtn.addEventListener("click", clearAndRefreshMealPlan);
 
 /* populateMainPage(); */
 
-<<<<<<< HEAD
+
+const deleteMealPlanDay = async function(timeStamp){
+  const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
+  
+  // Delete the week's meal plans one day at a time -- API only allows for deleting one day at a time
+  const date = dt.fromMillis(parseInt(timeStamp)*1000,{zone:'America/Los_Angeles'}).toFormat('yyyy-MM-dd');
+  console.log(date);
+  const clearMealPlanURL = `${baseURL}/mealplanner/${username}/day/${date}?hash=${hash}&apiKey=${apiKey}`;
+  const response = await fetch(clearMealPlanURL,{method: 'DELETE'});
+  console.log(response);
+}
 
 
-
-
-=======
-const lsTest = function () {
-  loadingScreen.style.display = "block";
-  setTimeout(() => {
-    loadingScreen.style.display = "none";
-  }, 2000);
-};
->>>>>>> main
 
 // checks whether the user's credentials is saved in local storage (meaning they're logged in) and directs them straight to the meal page rather than welcome page.
 const checkLoginStatus = async function () {
@@ -1170,7 +1206,6 @@ const checkLoginStatus = async function () {
     welcomePage.classList.add("hidden");
     toggleLoginButtons();
     await populateMainPage();
-    populateMealCards();
   }
 };
 
