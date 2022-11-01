@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/isayahdurst/group-project-1">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+    <img src="./assets/images/brand-logo.png">
   </a>
 
 <h3 align="center">Group Project 1</h3>
@@ -76,9 +76,9 @@
 
 Of all the questions that have ever been asked, one of the oldest and most important must be: "What should I eat today?" For most of human history, people didn't really have much of a choice; they ate what was available to them. But in the modern era that we live in today, we do have a choice of what we eat, and those choices can make a drastic difference on our long-term health.
 
-But bodies are different, and different bodies require different diets. There isn't a "one-sizez-fits-all" plan for personal nutrition.
+But bodies are different, and different bodies require different diets. There isn't a "one-size-fits-all" plan for personal nutrition.
 
-<b>We've created the next best thing:</b> a meal plan that's tailored to your specific diet preferences. Our website allows you to customize your diets, cusines, and food intolerances to your liking to recommend foods and recipes that compliment your tastes and needs.
+<b>We've created the next best thing:</b> a meal plan that's tailored to your specific diet preferences. Our website allows you to customize your diets, cuisines, and food intolerances to your liking to recommend foods and recipes that compliment your tastes and needs.
 
 This application has been built using two different server-side APIs and is a complete front-end solution. Without having access to a back-end, we've leveraged local-storage and third-party data storage solutions to bring this project to life and create something that we found to be challenging, exciting, and useful.
 
