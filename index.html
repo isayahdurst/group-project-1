@@ -20,28 +20,28 @@
     <script src="https://kit.fontawesome.com/5071648e37.js" crossorigin="anonymous"></script>
   </head>
   <body>
+
+    <!-- header section  -->
     <div class="header">
-      <a href="#default" class="brand">Taylor's Kitchen</a>
+      <a href="#default" class="brand"><img class="logo" src="./assets/images/brand-logo.png" alt="brand logo" width="225" height="65"> </a>
       <div class="header-right">
-        <a id="#contact">Login</a>
-        <a id="signup">Sign up</a>
+        <a id = "#contact">Login</a>
+        <a id ="signup">Sign up</a>
+        <a id = "logout" class="'hidden">Log Out</a>
       </div>
     </div>
 
+
     <!-- HERO SECTION -- STILL NEED TO FIX RESPONSIVENESS OF HERO BODY !! -->
-    <section class="hero hidden">
+    <section class="hero">
       <div class="hero-body">
-        <h1 class="title">
-          Meal prepping.<br />
-          Made easy.
-        </h1>
-        <p class="subtitle">
-          Get well portioned ingredients for the best recipes directly at your
-          fingertips!
+        <p class="title">
+          Meal prepping.<br>Made easy. 
         </p>
-        <a class="show-modal pref-btn" id="get-started"
-          >Get started now <i class="material-icons">arrow_forward</i></a
-        >
+        <p class="subtitle">
+          Get quick and easy recipes perfectly curated to meet your meal plan and health goals
+        </p>
+        <a class="show-modal" id="get-started">Get started now  <i class=" material-icons">arrow_forward</i></a>
       </div>
     </section>
 
@@ -68,7 +68,7 @@
     <!-- Preferences Modal Window End -->
 
     <!-- Meal Details Start -->
-    <section class="meal-page">
+    <section class="meal-page hidden">
       <section class="meal-details">
         <div class="meal-details-header">
           <div class="meal-top-buttons">
@@ -249,7 +249,7 @@
 
 
     <!-- Menu Details Start -->
-<section class="main-page">
+<section class="main-page hidden">
   <div class="weekly-menu-title is-size-4">
     Weekly menu
     </div>
@@ -349,10 +349,10 @@
     <div id="Login Modal" class="modal">
       <form class="modal-content">
         <label for="uname"><b>Username</b></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+        <input type="text" placeholder="Enter Username" name="uname" id = "login-username" required>
         <label for="psw"><b>Password</b></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
-        <button type="Login">Login</button>
+        <input type="password" placeholder="Enter Password" name="psw" id="login-password"required>
+        <button type="Login" id = "login-form-button">Login</button>
         <label>
           <div class="RemMe">
             <input type="checkbox" checked="checked" name="remember"> Remember me
