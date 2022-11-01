@@ -48,7 +48,7 @@ const mealDietList = document.querySelectorAll(".recipe-diets");
 const refreshMealPlanBtn = document.querySelector(".refresh-meal-plan");
 
 /* Welcome Page (pre-sign-in/sign-up)*/
-const welcomePage = document.querySelector(".hero");
+const welcomePage = document.querySelector(".welcome-page");
 
 /* Nav Bar */
 const logoutBtn = document.querySelector("#logout");
@@ -995,6 +995,7 @@ const clearAndRefreshMealPlan = async function () {
   // Set up a loading screen while API calls run
   window.scrollTo(0, 0);
   loadingScreen.style.display = "block";
+  loadingScreen.classList.remove('hidden');
 
   const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -1086,3 +1087,10 @@ const setUserInfo = function(){
   localStorage.setItem('userPreferances',JSON.stringify(dietsPreferences));
 }
 */
+
+var swiper = new Swiper(".mySwiper", {
+	pagination: {
+		el: ".swiper-pagination",
+		dynamicBullets: true,
+	},
+});
