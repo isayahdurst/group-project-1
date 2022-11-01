@@ -743,7 +743,6 @@ p {
 
 
 .loading-screen {
-  display:none;
   visibility: visible;
   position: absolute;
   z-index: 999;
