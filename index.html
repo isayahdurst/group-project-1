@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
     <script src="https://kit.fontawesome.com/5071648e37.js" crossorigin="anonymous"></script>
   </head>
-  <body>
+  <body class ='is-clipped'>
 
     <!-- header section  -->
     <div class="header">
@@ -29,6 +29,7 @@
         <a id = "#contact">Login</a>
         <a id ="signup">Sign up</a>
         <a id = "logout" class="'hidden">Log Out</a>
+        <a id = 'user-info' class="hidden"><i class="fa-solid fa-user"></i></a>
       </div>
     </div>
 
@@ -529,6 +530,16 @@
     <!-- Menu Details End -->
 
   <div id="cover-screen" class="loading-screen hidden"></div> <!--Loading screen-->
+
+  <div class="modal" id="credential-modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <div class="meal-heading">Account Credentials:</div>
+      <div class="user-username">ilikeTurtles12</div>
+      <div class="user-password">PW1234</div>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
   <script src="./assets/js/script.js"></script>

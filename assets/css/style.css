@@ -803,3 +803,10 @@ p {
   width: 60vw;
   align-items: center;
 }
+
+.user-password {
+  display: flex;
+  max-width: 100px;
+  flex-wrap: wrap;
+}
+

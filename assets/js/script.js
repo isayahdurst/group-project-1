@@ -53,6 +53,9 @@ const welcomePage = document.querySelector(".welcome-page");
 
 /* Nav Bar */
 const logoutBtn = document.querySelector("#logout");
+const userInfoBtn = document.querySelector('#user-info');
+const usernameCredential = document.querySelector('.user-username');
+const passwordCredential = document.querySelector('.user-password');
 
 const diets = {
   noPreference: "No Preference",
@@ -226,13 +229,13 @@ loadPreferences();
 
 // Formats preferences/diets/cuisines/intolerances lists into API call format
 const generateAPICallURL = function (numResults, mealTypeString) {
-  //mealType is an object with keys of breakfast or lunchDinner
-
-  const addRecipeInformationP = "addRecipeInformation=true";
-  const addRecipeNutritionP = "addRecipeNutrition=true";
-  const instructionsRequiredP = "instructionsRequired=true";
-  const includeIngredients = "fillIngredients=true";
-  const numberP = `number=${numResults}`;
+    //mealType is an object with keys of breakfast or lunchDinner
+    
+    const addRecipeInformationP = "addRecipeInformation=true";
+    const addRecipeNutritionP = "addRecipeNutrition=true";
+    const instructionsRequiredP = "instructionsRequired=true";
+    const includeIngredients = "fillIngredients=true";
+    const numberP = `number=${numResults}`;
   const typeP = `type=${mealTypeString}`;
   const sort = "sort=random";
   const apiKeyP = `apiKey=${apiKey}`;
@@ -552,18 +555,21 @@ const initializeMealPlan = async function () {
   console.log(response);
 };
 
+/* Hides main menu and displays meal page with summary, ingredients, and recipe */
 const openMealPage = function () {
   window.scrollTo(0, 0);
   mainPage.classList.add("hidden");
   mealPage.classList.remove("hidden");
 };
 
+/* Hides meal page and displays main menu */
 const closeMealPage = function () {
   window.scrollTo(0, 0);
   mainPage.classList.remove("hidden");
   mealPage.classList.add("hidden");
 };
 
+// Retrieves recipe information given a recipe ID
 const getRecipeInformation = async function (recipeID) {
   const URL = `https://api.spoonacular.com/recipes/${recipeID}/information?includeNutrition=true&apiKey=${apiKey}`;
   const response = await fetch(URL);
@@ -707,8 +713,6 @@ const init = async function () {
     init();
   }, 600000);
 };
-
-//init();
 
 const replaceMeal = async function (recipeID) {
   loadingScreen.classList.remove('hidden');
@@ -923,12 +927,14 @@ signUpBtn.onclick = function (event) {
 // Selects "Sign Up Button Form Submit" inside sign-up modal
 const signupbutton = document.querySelector("#signup-form-button");
 
+
 signupbutton.addEventListener("click", async function (event) {
   const firstName = document.querySelector("#sign-up-first-name").value;
   const lastName = document.querySelector("#sign-up-last-name").value;
   const username = document.querySelector("#sign-up-username").value;
   const email = document.querySelector("#sign-up-email").value;
-
+  
+  loadingScreen.classList.remove("hidden");
   event.preventDefault();
   await connectUser(username, firstName, lastName, email);
   await initializeMealPlan();
@@ -947,10 +953,15 @@ const toggleLoginButtons = function () {
     loginBtn.classList.add("hidden");
     signUpBtn.classList.add("hidden");
     logoutBtn.classList.remove("hidden");
+    userInfoBtn.classList.remove('hidden');
+    const {username, hash} = JSON.parse(localStorage.getItem('userInfo'));
+    usernameCredential.textContent = username;
+    passwordCredential.textContent = hash;
   } else {
     loginBtn.classList.remove("hidden");
     signUpBtn.classList.remove("hidden");
     logoutBtn.classList.add("hidden");
+    userInfoBtn.classList.add('hidden');
   }
 };
 
@@ -1274,3 +1285,19 @@ var swiper = new Swiper(".mySwiper", {
 		dynamicBullets: true,
 	},
 });
+
+const credentialModal = document.querySelector('#credential-modal');
+const modalBG = document.querySelector('.modal-background');
+const modalCloseBtn = document.querySelector('.modal-close');
+
+const closeCredentialModal = function () {
+    credentialModal.classList.remove('is-active');
+}
+
+const openCredentialModal = function () {
+    credentialModal.classList.add('is-active');
+}
+
+modalBG.addEventListener('click', closeCredentialModal);
+userInfoBtn.addEventListener('click', openCredentialModal);
+modalCloseBtn.addEventListener('click', closeCredentialModal);
