@@ -683,10 +683,15 @@ p {
   font-family: sans-serif, Courier, monospace;
   font-size: larger;
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 224, 86, 0.8);
+  /* background-color: rgba(255, 224, 86, 0.8); */
+  background-color: white;
   padding: 1rem 1.5rem;
-  width: 24rem;
+  /* width: 24rem; */
+  width: 640px;
   border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .ForgotPsw{
@@ -804,9 +809,6 @@ p {
   align-items: center;
 }
 
-.user-password {
-  display: flex;
-  max-width: 100px;
-  flex-wrap: wrap;
+.acct-password {
+  cursor: pointer;
 }
-

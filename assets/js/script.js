@@ -955,8 +955,8 @@ const toggleLoginButtons = function () {
     logoutBtn.classList.remove("hidden");
     userInfoBtn.classList.remove('hidden');
     const {username, hash} = JSON.parse(localStorage.getItem('userInfo'));
-    usernameCredential.textContent = username;
-    passwordCredential.textContent = hash;
+    usernameCredential.innerHTML="";
+    usernameCredential.textContent=` ${username}`;
   } else {
     loginBtn.classList.remove("hidden");
     signUpBtn.classList.remove("hidden");
@@ -1301,3 +1301,10 @@ const openCredentialModal = function () {
 modalBG.addEventListener('click', closeCredentialModal);
 userInfoBtn.addEventListener('click', openCredentialModal);
 modalCloseBtn.addEventListener('click', closeCredentialModal);
+
+passwordCredential.addEventListener("click", () => {
+    const {hash} = JSON.parse(localStorage.getItem('userInfo'));
+    navigator.clipboard.writeText(hash);
+    passwordCredential.textContent = ' Password Copied To Clipboard';
+    setTimeout(() => (passwordCredential.textContent = ' Click to Copy Password'), 1000);
+  });
