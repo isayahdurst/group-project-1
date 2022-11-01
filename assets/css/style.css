@@ -787,3 +787,19 @@ p {
 #logout {
   display: block;
 }
+
+.food-joke {
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-top: 40px;
+  font-size: xx-large;
+}
+
+.joke {
+  text-align: center;
+  width: 60vw;
+  align-items: center;
+}

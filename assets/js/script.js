@@ -676,6 +676,21 @@ const renderMealPage = async function (recipeID) {
     recipeStep.innerHTML = step.step;
     card.appendChild(recipeStep);
   }
+
+  const humorAPIKey = '39858bcfa42d43b98022080ba8c19567';
+  const humorBaseURL = 'https://api.humorapi.com';
+  const randomJokePath = '/jokes/random';
+  const excludeJokes = 'Clean,Relatioship,School,Animal,Deep Thoughts,Jewish,Dark,Racist,Sexual,One Liner,Insults,Knock Knock,Political,Sexist,Sport,Chuck Norris,Holiday,Blondes,Yo Momma,Analogy,Law,NSFW,Christmas,Nerdy,Religious,Kids';
+  const maxLength = '240';
+  const generateJoke = async function () {
+    const response = await fetch(encodeURI(`${humorBaseURL}${randomJokePath}?include-tags=food&exclude-tags=${excludeJokes}&max-length=${maxLength}&api-key=${humorAPIKey}`));
+    const joke = await response.json();
+    const jokeEl = document.querySelector('.joke');
+    jokeEl.textContent = joke.joke;
+  }
+
+  generateJoke();
+
 };
 
 //renderMealPage(655186);
