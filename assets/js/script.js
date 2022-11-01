@@ -1286,6 +1286,7 @@ var swiper = new Swiper(".mySwiper", {
 	},
 });
 
+// Establishes modal for account credentials
 const credentialModal = document.querySelector('#credential-modal');
 const modalBG = document.querySelector('.modal-background');
 const modalCloseBtn = document.querySelector('.modal-close');
