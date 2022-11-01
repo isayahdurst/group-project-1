@@ -696,6 +696,8 @@ const init = async function () {
 //init();
 
 const replaceMeal = async function (recipeID) {
+  loadingScreen.classList.remove('hidden');
+  
   const meal = JSON.parse(localStorage.getItem(recipeID));
   const dishType = await meal.dishTypes;
   let replacedDishType;
@@ -802,6 +804,7 @@ const replaceMeal = async function (recipeID) {
   console.log(response);
 
   await renderMealPage(newMeal.results[0].id);
+  loadingScreen.classList.add('hidden');
 };
 
 mealReplaceButton.addEventListener("click", async function (event) {
@@ -912,7 +915,6 @@ signupbutton.addEventListener("click", async function (event) {
   const email = document.querySelector("#sign-up-email").value;
 
   event.preventDefault();
-  loadingScreen.style.display = "block";
   await connectUser(username, firstName, lastName, email);
   await initializeMealPlan();
   await populateMainPage();
@@ -1146,7 +1148,7 @@ prefButtons.forEach((item) => {
 const clearAndRefreshMealPlan = async function () {
   // Set up a loading screen while API calls run
   window.scrollTo(0, 0);
-  loadingScreen.style.display = "block";
+  loadingScreen.classList.remove('hidden');
 
   const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
 
@@ -1175,7 +1177,7 @@ const clearAndRefreshMealPlan = async function () {
   await populateMainPage();
 
   // Remove loading screen
-  loadingScreen.style.display = "none";
+  loadingScreen.classList.add('hidden');
 
   // Store today's date as the date of the last mealplan update
   // This data will be used to check if 1 or more days have passed and new meals need to be added to the meal plan
