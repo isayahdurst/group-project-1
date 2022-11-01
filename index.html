@@ -11,40 +11,159 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <script src="https://kit.fontawesome.com/5071648e37.js" crossorigin="anonymous"></script>
   </head>
   <body>
+
+    <!-- header section  -->
     <div class="header">
-      <a href="#default" class="brand">Taylor's Kitchen</a>
+      <a href="#default" class="brand"><img class="logo" src="./assets/images/brand-logo.png" alt="brand logo" width="225" height="65"> </a>
       <div class="header-right">
-        <a id="#contact">Login</a>
-        <a id="signup">Sign up</a>
+        <a id = "#contact">Login</a>
+        <a id ="signup">Sign up</a>
+        <a id = "logout" class="'hidden">Log Out</a>
       </div>
     </div>
 
-    <!-- HERO SECTION -- STILL NEED TO FIX RESPONSIVENESS OF HERO BODY !! -->
-    <section class="hero">
-      <div class="hero-body">
-        <h1 class="title">
-          Meal prepping.<br> Made easy.
-        </h1>
-        <p class="subtitle">
-          Get well portioned ingredients for the best recipes directly at your fingertips!        
-        </p>
-        <a class="show-modal" id="get-started">Get started now  <i class=" material-icons">arrow_forward</i></a>
-      </div>
+    <section class="welcome-page">
+      <!-- HERO SECTION -- STILL NEED TO FIX RESPONSIVENESS OF HERO BODY !! -->
+      <section class="hero">
+        <div class="hero-body">
+          <p class="title">
+            Meal prepping.<br>Made easy. 
+          </p>
+          <p class="subtitle">
+            Get quick and easy recipes perfectly curated to meet your meal plan and health goals
+          </p>
+          <a class="show-modal" id="get-started">Get started now  <i class=" material-icons">arrow_forward</i></a>
+        </div>
+      </section>
+
+      <div class="welcomeSpacer spacerTransition"></div>
+
+      <section class="bodyDim">
+        <div>
+          <h1>Dynamic planner to enhance every meal</h1>
+          <p>Taylor's Kitchen provides you the ability to generate new and exciting meals for the whole week. Enhance your eating experience by spicing up your arsenal of foods while maintaining your goals. </p>
+        </div>
+      </section>
+      <div class="welcomeSpacer2"></div>
+
+      <section class="bodyDim">
+        <!-- Welcome page swipe cards -->
+        <!--Welcome card 1-->
+        <div class="fullPage">
+          <h2>Rotating Meals</h2>
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br>
+                <div class="welcomeTitles">Refresh</div><br>
+                <p>Enjoy unique meals every week using the automatic rotating meal generator. Change options that do not
+                  suit your tastes with the refresh button.</p>
+              </div>
+                <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+              <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br>
+                <div class="welcomeTitles">Favorites</div>
+                <p>Save all the meals that you've enjoyed and revisit the meals whenever you want. Replace meals with
+                  favorites </p>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!--Welcome card 2-->
+        <div class="fullPage">
+          <h2>Preference Editor</h2>
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br>
+                <div class="welcomeTitles">Diets</div>
+                <p>Choose from an assortment of recipes that cater to any specific diet that you follow or try out any
+                  diets that interest you.</p>
+              </div>
+              <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br>
+                <div class="welcomeTitles">Cuisine</div>
+                <p>Select cuisines to find recipes specific to different countries and areas. </p>
+              </div>
+              <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br>
+                <div class="welcomeTitles">Intolerances</div>
+                <p>Remove any types of allergens or food groups that you do not want. Cater to your own tastes of recipes.</p>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!--Welcome card 3-->
+        <div class="fullPage">
+          <h2>Nutrional Facts</h2>
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br><div class="welcomeTitles">Micros</div>
+                <p>Stay informed on the nutrtional information that each meal provides.</p>
+              </div>
+              <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br>
+                <div class="welcomeTitles">Macros</div>
+                <p>Keep Track of your total Calories and Nutrients for the week.</p>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!--Welcome card 4-->
+        <div class="fullPage">
+          <h2>Variety</h2>
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <!-- <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br>
+                <div class="welcomeTitles">Ingredients</div>
+                <p>Look through thousands of different ingredients whether they are common or unique</p>
+              </div> -->
+              <div class="swiper-slide">
+                <img src="https://the-glass-co.com/wp-content/uploads/2018/01/lazy-susan-manila-marriott-hotel.jpg" alt="">
+                <br>
+                <div class="welcomeTitles">Recipes</div>
+                <p>Browse and search through the numerous recipes to tailor your own unique meals.</p>
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
     </section>
+<!--End of Welcome Page/Hero-->
 
     <div>
       <ul class="diets"></ul>
     </div>
     <!-- <button class="show-modal">Edit Preferences</button> -->
     <!-- Preferences Modal Window -->
-    <div class="modal hidden">
+    <div class="pref-modal hidden">
       <button class="close-modal">&times;</button>
       <h1>Edit Preferences</h1>
       <div class="preference-options">
@@ -62,186 +181,348 @@
     <!-- Preferences Modal Window End -->
 
     <!-- Meal Details Start -->
-    <section class="meal-details">
-      <div class="meal-details-header">
-        <div class="meal-image">
-          <div class="meal-favorite-button">
-            <button>Add to Favorites</button>
-            <button>Replace Meal</button>
+    <section class="meal-page hidden">
+      <section class="meal-details">
+        <div class="meal-details-header">
+          <div class="meal-top-buttons">
+            <button class="meal-back-button"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="meal-replace-button"><i class="fa-regular fa-arrows-rotate"></i></button>
+            <button class="meal-favorite-button" title="Add To Favorites"><i class="fa-regular fa-heart"></i></button>
           </div>
-          <div class="meal-title">
-            <h2>Smoked Salmon with Honey Mustard Glaze</h2>
+          <div class="meal-image">
+            <div class="meal-title">
+              Smoked Salmon with Honey Mustard Glaze
+            </div>
+          </div>
+          <div class="meal-tags">
+            <ul class="tag-list">
+              <!-- <li class="tag-item">Vegan</li>
+              <li class="tag-item">Peanut-free</li> -->
+            </ul>
+          </div>
+          <div class="meal-details-wrapper">
+            <div class="meal-details-left">
+              <div class="meal-description">
+                <div class="meal-heading">Meal Summary:</div>
+                <p id="meal-summary">
+                  Enjoy your fish and veggies in a jiff with this simple sheet pan
+                  supper! We coat tilapia filets in Tex-Mex spices and broil the
+                  delicate white fish along with sweet peppers and onions. Green
+                  chiles flavor steamy jasmine rice before we toss in fresh
+                  cilantro. A tangy avocado crema is the ultimate condiment for
+                  this fresh and light supper that’s as easy to make as it is to
+                  enjoy.
+                </p>
+              </div>
+            </div>
+            <div class="meal-details-right">
+              <div>
+                <div class='meal-heading'>Cooking Time:</div>
+                <p class="cooking-time">20 - 30 minutes</p>
+              </div>
+              <div>
+                <div class="meal-heading">Nutrition Per Serving:</div>
+                <p class="nutrition-information">
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="tags">
-          <ul class="tag-list">
-            <li class="tag-item">Vegan</li>
-            <li class="tag-item">Peanut-free</li>
+      </section>
+
+      <section class="meal-ingredients">
+        <div class="meal-ingredients-wrapper">
+          <div class="meal-ingredients-left">
+            <div class="meal-heading">Ingredients:</div>
+            <ul class="meal-required-ingredients">
+              <li class="meal-ingredient-item">
+                <div class="image-slot">
+                  <img
+                    src="https://spoonacular.com/cdn/ingredients_100x100/egg.png"
+                    alt=""
+                    class="meal-ingredient-image"
+                  />
+                </div>
+
+                <h4 class="meal-ingredient-name">4 Large Eggs</h4>
+              </li>
+              <li class="meal-ingredient-item">
+                <div class="image-slot">
+                  <img
+                    src="https://spoonacular.com/cdn/ingredients_100x100/tortilla-chips.jpg"
+                    alt=""
+                    class="meal-ingredient-image"
+                  />
+                </div>
+
+                <h4 class="meal-ingredient-name">7 Ounces Corn Tortilla Chips</h4>
+              </li>
+              <li class="meal-ingredient-item">
+                <div class="image-slot">
+                  <img
+                    src="https://spoonacular.com/cdn/ingredients_100x100/cherry-tomatoes.png"
+                    alt=""
+                    class="meal-ingredient-image"
+                  />
+                </div>
+
+                <h4 class="meal-ingredient-name">10 Cherry Tomatoes</h4>
+              </li>
+              <li class="meal-ingredient-item">
+                <div class="image-slot">
+                  <img
+                    src="https://spoonacular.com/cdn/ingredients_100x100/mozzarella.png"
+                    alt=""
+                    class="meal-ingredient-image"
+                    title="8 ounces fresh mozzarella cheese, thinly sliced"
+                  />
+                </div>
+
+                <h4 class="meal-ingredient-name">
+                  8 ounces fresh mozzarella cheese,
+                </h4>
+              </li>
+              <li class="meal-ingredient-item">
+                <div class="image-slot">
+                  <img
+                    src="https://spoonacular.com/cdn/ingredients_100x100/egg.png"
+                    alt=""
+                    class="meal-ingredient-image"
+                  />
+                </div>
+
+                <h4 class="meal-ingredient-name">4 Large Eggs</h4>
+              </li>
+              <li class="meal-ingredient-item">
+                <div class="image-slot">
+                  <img
+                    src="https://spoonacular.com/cdn/ingredients_100x100/tortilla-chips.jpg"
+                    alt=""
+                    class="meal-ingredient-image"
+                  />
+                </div>
+
+                <h4 class="meal-ingredient-name">7 Ounces Corn Tortilla Chips</h4>
+              </li>
+              <li class="meal-ingredient-item">
+                <div class="image-slot">
+                  <img
+                    src="https://spoonacular.com/cdn/ingredients_100x100/cherry-tomatoes.png"
+                    alt=""
+                    class="meal-ingredient-image"
+                  />
+                </div>
+
+                <h4 class="meal-ingredient-name">10 Cherry Tomatoes</h4>
+              </li>
+              <li class="meal-ingredient-item">
+                <div class="image-slot">
+                  <img
+                    src="https://spoonacular.com/cdn/ingredients_100x100/mozzarella.png"
+                    alt=""
+                    class="meal-ingredient-image"
+                    title="8 ounces fresh mozzarella cheese, thinly sliced"
+                  />
+                </div>
+
+                <h4 class="meal-ingredient-name">
+                  8 ounces fresh mozzarella cheese,
+                </h4>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="meal-recipe">
+        <div class="meal-recipe-wrapper">
+          <div class="meal-recipe-title"><h3>Cooking Instructions:</h3></div>
+          <ul class="meal-recipe-list">
+            <!-- <li class="meal-recipe-step-card">
+              <div class="meal-recipe-step-number">1.</div>
+              <div class="meal-recipe-step">Preheat the oven to 350°F.</div>
+            </li>
+            <li class="meal-recipe-step-card">
+              <div class="meal-recipe-step-number">2.</div>
+              <div class="meal-recipe-step">
+                Heat a sauté pan over medium heat until hot.
+              </div>
+            </li>
+            <li class="meal-recipe-step-card">
+              <div class="meal-recipe-step-number">3.</div>
+              <div class="meal-recipe-step">
+                Add 1 tablespoon of the olive oil to the pan and swirl to coat.
+              </div>
+            </li> -->
           </ul>
         </div>
-        <div class="meal-details-wrapper">
-          <div class="meal-details-left">
-            <div class="meal-description">
-              <h3>Meal Summary:</h3>
-              <p id="meal-description">
-                Enjoy your fish and veggies in a jiff with this simple sheet pan
-                supper! We coat tilapia filets in Tex-Mex spices and broil the
-                delicate white fish along with sweet peppers and onions. Green
-                chiles flavor steamy jasmine rice before we toss in fresh
-                cilantro. A tangy avocado crema is the ultimate condiment for
-                this fresh and light supper that’s as easy to make as it is to
-                enjoy.
-              </p>
-            </div>
-          </div>
-          <div class="meal-details-right">
-            <div>
-              <h3>Cooking Time:</h3>
-              <p class="cooking-time">20 - 30 minutes</p>
-            </div>
-            <div>
-              <h3>Nutrition Per Serving:</h3>
-              <p class="nutrition-information">
-                960 Calories, Fat 17.1g, Protein 30.0g, Carbs 81.0g
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="meal-ingredients">
-      <div class="meal-ingredients-wrapper">
-        <div class="meal-ingredients-left">
-          <h3>Ingredients:</h3>
-          <ul class="meal-required-ingredients">
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/egg.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">4 Large Eggs</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/tortilla-chips.jpg"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">7 Ounces Corn Tortilla Chips</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/cherry-tomatoes.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">10 Cherry Tomatoes</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/mozzarella.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                  title="8 ounces fresh mozzarella cheese, thinly sliced"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">
-                8 ounces fresh mozzarella cheese,
-              </h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/egg.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">4 Large Eggs</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/tortilla-chips.jpg"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">7 Ounces Corn Tortilla Chips</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/cherry-tomatoes.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">10 Cherry Tomatoes</h4>
-            </li>
-            <li class="meal-ingredient-item">
-              <div class="image-slot">
-                <img
-                  src="https://spoonacular.com/cdn/ingredients_100x100/mozzarella.png"
-                  alt=""
-                  class="meal-ingredient-image"
-                  title="8 ounces fresh mozzarella cheese, thinly sliced"
-                />
-              </div>
-
-              <h4 class="meal-ingredient-name">
-                8 ounces fresh mozzarella cheese,
-              </h4>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-    <section class="meal-recipe">
-      <div class="meal-recipe-wrapper">
-        <div class="meal-recipe-title"><h3>Cooking Instructions:</h3></div>
-        <ul class="meal-recipe-list">
-          <li class="meal-recipe-step-card">
-            <div class="meal-recipe-step-number">1.</div>
-            <div class="meal-recipe-step">Preheat the oven to 350°F.</div>
-          </li>
-          <li class="meal-recipe-step-card">
-            <div class="meal-recipe-step-number">2.</div>
-            <div class="meal-recipe-step">
-              Heat a sauté pan over medium heat until hot.
-            </div>
-          </li>
-          <li class="meal-recipe-step-card">
-            <div class="meal-recipe-step-number">3.</div>
-            <div class="meal-recipe-step">
-              Add 1 tablespoon of the olive oil to the pan and swirl to coat.
-            </div>
-          </li>
-        </ul>
-      </div>
+      </section>
     </section>
 
     <!-- Meal Details End -->
 
-    <div class="spacer"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <!-- Menu Details Start -->
+<section class="main-page hidden">
+  <div class="weekly-menu-title is-size-4">
+    Weekly menu
+    </div>
+    <div class="columns">
+      <div class="column weekday-btns">
+        <button class="menu-btn date-btn" data-idbreakfast="" data-idlunch="" data-iddinner="">11/14</button>
+        <button class="menu-btn date-btn" data-idbreakfast="" data-idlunch="" data-iddinner="">11/15</button>
+        <button class="menu-btn date-btn" data-idbreakfast="" data-idlunch="" data-iddinner="">11/16</button>
+        <button class="menu-btn date-btn" data-idbreakfast="" data-idlunch="" data-iddinner="">11/17</button>
+        <button class="menu-btn date-btn" data-idbreakfast="" data-idlunch="" data-iddinner="">11/18</button>
+        <button class="menu-btn date-btn" data-idbreakfast="" data-idlunch="" data-iddinner="">11/19</button>
+        <button class="menu-btn date-btn" data-idbreakfast="" data-idlunch="" data-iddinner="">11/20</button>
+        <br><br>
+        <button class="menu-btn pref-btn">Edit Preferences</button>
+        <button class="menu-btn refresh-meal-plan">Generate a new mealplan</button>        <!-- <button>Generate new meal</button> -->
+      </div>
+    </div>
+      <div class="columns menu-grid">
+        <div class="column is-two-fifths">
+          <div class="card recipe-card" data-idrecipe="">
+            <div class="card-image">
+              <figure class="image is-4by1">
+                <img class="recipe-image"src="https://marleyspoon.com/media/recipes/142391/main_photos/large/tamari-767835a7cda960dde54c461569d01f7a.jpeg" alt="image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-size-6 recipe-meal-of-day">BREAKFAST</p>
+                </div>
+              </div>
+              <div class="content is-size-4 recipe-title">
+                Tamari-Glazed Steak
+              </div>
+              <div class="category recipe-diets">
+                <span class="subtitle is-6"> Meat</span>
+                <span class="subtitle is-6"> Gluten-free</span>
+                <span class="subtitle is-6"> Low-fat</span>
+              </div>
+              </div>
+            </div>  
+          </div>
+        <div class="column is-two-fifths">
+          <div class="card recipe-card" data-idrecipe="">
+            <div class="card-image">
+              <figure class="image is-4by1">
+                <img class="recipe-image" src="https://marleyspoon.com/media/recipes/142391/main_photos/large/tamari-767835a7cda960dde54c461569d01f7a.jpeg" alt="image">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-size-6 recipe-meal-of-day">LUNCH</p>
+                </div>
+              </div>
+              <div class="content is-size-4 recipe-title">
+                Tamari-Glazed Steak
+              </div>
+              <div class="category recipe-diets">
+                <span class="subtitle is-6"> Meat</span>
+                <span class="subtitle is-6"> Gluten-free</span>
+                <span class="subtitle is-6"> Low-fat</span>
+              </div>
+              </div>
+            </div>  
+          </div>
+          <div class="column is-two-fifths">
+            <div class="card recipe-card" data-idrecipe="">
+              <div class="card-image">
+                <figure class="image is-4by1">
+                  <img class="recipe-image" src="https://marleyspoon.com/media/recipes/142391/main_photos/large/tamari-767835a7cda960dde54c461569d01f7a.jpeg" alt="image">
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-content">
+                    <p class="title is-size-6 recipe-meal-of-day">DINNER</p>
+                  </div>
+                </div>
+                <div class="content is-size-4 recipe-title">
+                  Tamari-Glazed Steak
+                </div>
+                <div class="category recipe-diets">
+                  <span class="subtitle is-6"> Meat</span>
+                  <span class="subtitle is-6"> Gluten-free</span>
+                  <span class="subtitle is-6"> Low-fat</span>
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div>
+</section>
+<div class="spacer"></div>
+    
+  <!--Login Modal-->
+  <div class="#contact">
+    <div id="Login Modal" class="modal">
+      <form class="modal-content">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" id = "login-username" required>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" id="login-password"required>
+        <button type="Login" id = "login-form-button">Login</button>
+        <label>
+          <div class="RemMe">
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+    </div>
+    <div>
+      <label>
+        <div class="NoAccount">Don't have an Account? Click <a href="#">Here</a> to Sign Up!
+      </label>
+    </div>
+  </div>
+  <div class="ForgotPsw">
+    <span class="psw"> <a href="#">Forgot Password?</a></span>
+  </div>
+     </form>
+    </div>
+  </div>
+  
+  <!--Sign Up Modal Section-->
+  <div class="signup">
+    <div id="SignUp Modal" class="modal">
+      <form class="signupmodal-content">
+        <div>
+          <label for="email"><b>Email</b></label>
+          <input type="text" id="sign-up-email" name="email" placeholder="Enter Email address"
+            required>
+        </div>
+        <div>
+          <label for="Firstname"><b>First Name</b></label>
+          <input type="text" placeholder="First Name" id = "sign-up-first-name" name="Firstname" required>
+        </div>
+        <div>
+          <label for="Lastname"><b>Last Name</b></label>
+          <input type="text" placeholder="Enter Last Name" id = "sign-up-last-name" name="Lastname" required>
+        </div>
+        <div>
+          <label for="uname"><b>Create a Username</b></label>
+          <input type="text" placeholder="Create Username" name="uname" id = "sign-up-username" required>
+        </div>
+        <div class="signUpBtn">
+          <button type="Signup" id="signup-form-button">Sign Up</button>
+        </div>
+        <label>
+          <div class="RemMe">
+            <input type="checkbox" checked="checked" name="remember"> Remember me for future visits.
+        </label>
+    </div>
+    </form>
+  </div>
+  </div>
+
+    <!-- Menu Details End -->
+
+  <div id="cover-screen" class="loading-screen"></div> <!--Loading screen-->
+
+  <script src="https://cdn.jsdelivr.net/npm/luxon@3.0.4/build/global/luxon.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
   </body>
 </html>
