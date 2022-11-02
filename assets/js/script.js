@@ -271,6 +271,7 @@ const checkIfDayPassed = async function () {
   const lastUpdatedDate = dt.fromMillis(lastUpdatedRawDate, {
     zone: "America/Los_Angeles",
   });
+
   const todaysDate = dt.local({ zone: "America/Los_Angeles" });
 
   if (
@@ -346,6 +347,7 @@ const checkIfDayPassed = async function () {
   console.log(response);
 
   localStorage.setItem("lastUpdatedDate", JSON.stringify(dt.now().ts)); // Set last updated date with the current date
+  await populateMainPage();
 };
 
 // Populates each preference category (i.E. Diets, Cuisines, Intolerances) with preference options.
@@ -546,6 +548,10 @@ const initializeMealPlan = async function () {
     },
     body: JSON.stringify(mealPlan),
   });
+
+  // Store today's date as the date of the last mealplan update
+  // This data will be used to check if 1 or more days have passed and new meals need to be added to the meal plan
+  localStorage.setItem("lastUpdatedDate", JSON.stringify(dt.now().ts));
 
   console.log(response);
 };
@@ -796,6 +802,8 @@ const replaceMeal = async function (recipeID) {
         imageType: meal.value.imageType,
       },
     });
+
+
   }
 
   // Replace the data of the meal that was replaced
@@ -834,7 +842,10 @@ const replaceMeal = async function (recipeID) {
   });
 
   console.log(response);
-
+  
+  // Store today's date as the date of the last mealplan update
+  // This data will be used to check if 1 or more days have passed and new meals need to be added to the meal plan
+  localStorage.setItem("lastUpdatedDate", JSON.stringify(dt.now().ts));
   await renderMealPage(newMeal.results[0].id);
   loadingScreen.classList.add("hidden");
 };
@@ -947,6 +958,7 @@ const generateFavoritesCards = function(){
     });
   });
 
+  /*
   let maxHeight = 0;
 
   setTimeout(function(){
@@ -965,7 +977,7 @@ const generateFavoritesCards = function(){
   
   mealReplaceButton.classList.add("hidden");
   mealFavoritesButton.classList.add("hidden");
-
+  */
 };
 
 favoritesBtn.addEventListener("click", function(){
@@ -1203,6 +1215,7 @@ const populateMainPage = async function () {
     });
   });
 
+  /*
   let maxHeight = 0;
 
   // Go through each meal card and figure out what the max height is
@@ -1215,7 +1228,7 @@ const populateMainPage = async function () {
   // Go through each meal card and set the max height to the greatest height of the meal cards
   mealCards.forEach(function (card) {
     card.style.height = `${maxHeight}px`;
-  });
+  });*/
 };
 
 const populateSingleMealCard = async function (element) {
@@ -1248,6 +1261,7 @@ const populateSingleMealCard = async function (element) {
     mealCard.children[1].children[2].append(newSpan);
   });
 
+  /*
   let maxHeight = 0;
 
   // Go through each meal card and figure out what the max height is
@@ -1260,7 +1274,7 @@ const populateSingleMealCard = async function (element) {
   // Go through each meal card and set the max height to the greatest height of the meal cards
   mealCards.forEach(function (card) {
     card.style.height = `${maxHeight}px`;
-  });
+  });*/
 };
 
 // Update the three meal cards to have a recipe id and pull in informational text
@@ -1316,6 +1330,7 @@ const populateMealCards = function (event) {
     });
   });
 
+  /*
   let maxHeight = 0;
 
   // Go through each meal card and figure out what the max height is
@@ -1328,7 +1343,7 @@ const populateMealCards = function (event) {
   // Go through each meal card and set the max height to the greatest height of the meal cards
   mealCards.forEach(function (card, index) {
     card.style.height = `${maxHeight}px`;
-  });
+  });*/
 };
 
 // Add event listeners for each date button on the main page
@@ -1383,7 +1398,6 @@ const clearAndRefreshMealPlan = async function () {
 
 refreshMealPlanBtn.addEventListener("click", clearAndRefreshMealPlan);
 
-/* populateMainPage(); */
 
 const deleteMealPlanDay = async function (timeStamp) {
   const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
