@@ -1239,45 +1239,6 @@ const checkLoginStatus = async function () {
 
 checkLoginStatus();
 
-/*
-const lsTest = function(){
-  loadingScreen.style.display = 'block';
-  setTimeout(() => {loadingScreen.style.display = 'none'},2000);
-}
-
-const deleteMealPlan = async function(year, month, day){
-  const { username, hash } = JSON.parse(localStorage.getItem("userInfo"));
-  
-  // Delete the week's meal plans one day at a time -- API only allows for deleting one day at a time
-  const baseDate = dt.local(year,month,day,{zone:'America/Los_Angeles'}); //Calculate each day starting with today and adding 1 day for each next day
-  const date = dt.fromMillis(baseDate.ts,{zone:'America/Los_Angeles'}).toFormat('yyyy-MM-dd');
-  console.log(date);
-  const clearMealPlanURL = `${baseURL}/mealplanner/${username}/day/${date}?hash=${hash}&apiKey=${apiKey}`;
-  const response = await fetch(clearMealPlanURL,{method: 'DELETE'});
-  console.log(response);
-
-}
-
-// Just recording local storage information in case I accidentally delete and need it again.
-
-const userInformation = {
-  hash: "84e8d054fd80cb6df56951b8df04bc2be3f9bfa9",
-  password: "phyllopastrytartwithout41peppermint",
-  username: "test347",
-}
-
-const dietsPreferences = {
-  cuisinePref: ["American", "Cajun", "British", "Indian", "French", "European"],
-  dietsPref: ["Vegetarian", "Gluten Free"],
-  intolerancesPref: ["Egg"],
-}
-
-const setUserInfo = function(){
-  localStorage.setItem('userInfo',JSON.stringify(userInformation));
-  localStorage.setItem('userPreferances',JSON.stringify(dietsPreferences));
-}
-*/
-
 
 var swiper = new Swiper(".mySwiper", {
 	pagination: {
