@@ -53,6 +53,7 @@ const favoritesPage = document.getElementById("favorites-page");
 let favoritesCards = document.querySelectorAll(".fav-recipe-card");
 const favoritesBtn = document.getElementById("favorites-button");
 const favoritesBackBtn = document.querySelector(".fav-meal-back-button");
+let favoritesStatus = false;
 
 /* Welcome Page (pre-sign-in/sign-up)*/
 const welcomePage = document.querySelector(".welcome-page");
@@ -559,7 +560,12 @@ const openMealPage = function () {
 /* Hides meal page and displays main menu */
 const closeMealPage = function () {
   window.scrollTo(0, 0);
-  mainPage.classList.remove("hidden");
+  if(favoritesStatus){
+    favoritesPage.classList.remove('hidden')
+  }
+  else{
+    mainPage.classList.remove("hidden");
+  }
   mealPage.classList.add("hidden");
 };
 
@@ -946,6 +952,7 @@ const generateFavoritesCards = function(){
 
 favoritesBtn.addEventListener("click", function(){
   generateFavoritesCards();
+  favoritesStatus = true;
 });
 
 favoritesBackBtn.addEventListener("click", function(){
@@ -953,6 +960,7 @@ favoritesBackBtn.addEventListener("click", function(){
   mealFavoritesButton.classList.remove("hidden");
   favoritesPage.classList.add("hidden");
   mainPage.classList.remove("hidden");
+  favoritesStatus = false;
 });
 
 favoritesCards.forEach((item) => {
@@ -1453,5 +1461,6 @@ brandLogo.addEventListener("click", function () {
   favoritesPage.classList.add("hidden");
   mealReplaceButton.classList.remove("hidden");
   mealFavoritesButton.classList.remove("hidden");
+  favoritesStatus = false;
   
 });
