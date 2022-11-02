@@ -565,7 +565,6 @@ p {
   body {
     background-color: #fff;
   }
-
   .bodyDim {
     padding: 0px 50px;
     margin: 10px 100px;
@@ -604,6 +603,10 @@ p {
     max-height: 400px;
     margin-top:auto;
     margin-bottom:auto;
+  }
+
+  .header {
+    margin-top: 40px;
   }
 
   .spacer {
@@ -661,6 +664,10 @@ p {
     height: 200px;
     width: 400px;
   }
+x
+  .header {
+    margin-top: 40px;
+  }
 
   .hero {
     background-image: none;
@@ -692,6 +699,7 @@ p {
     flex-direction: column;
     justify-content: center;
     float: none;
+    margin-top: 40px;
   }
 
   .header-right {
