@@ -880,7 +880,7 @@ const generateFavoritesCards = function(){
     const recipe = JSON.parse(favoriteMeals[i]);
 
     const twoFifthsCard = document.createElement('div');
-    twoFifthsCard.classList.add("column", "is-one-third")
+    twoFifthsCard.classList.add("column", "is-two-fifths")
     favoritesContainer.append(twoFifthsCard);
 
     const recipeCard = document.createElement("div");
@@ -930,9 +930,25 @@ const generateFavoritesCards = function(){
       recipeDiets.append(newSpan);
     })
 
+    
+
   }
 
   favoritesCards = document.querySelectorAll(".fav-recipe-card");
+
+  let maxHeight = 0;
+
+  // Go through each meal card and figure out what the max height is
+  favoritesCards.forEach(function (card) {
+    if (card.clientHeight > maxHeight) {
+      maxHeight = card.clientHeight;
+    }
+  });
+
+  // Go through each meal card and set the max height to the greatest height of the meal cards
+  favoritesCards.forEach(function (card) {
+    card.style.height = `${maxHeight}px`;
+  });
 
   favoritesCards.forEach((item) => {
     // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
