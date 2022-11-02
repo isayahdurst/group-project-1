@@ -867,6 +867,7 @@ const generateFavoritesCards = function(){
   document.querySelector(".spacer").classList.add("hidden");
 
   const favoritesContainer = document.getElementById('favorites-container');
+  favoritesContainer.innerHTML = '';
   
   // For each meal in favoriteMeals, generate a mealCard
   for(let i = 0; i < favoriteMeals.length; i++){
@@ -1447,5 +1448,10 @@ const brandLogo = document.querySelector(".brand");
 
 // redirects user upon clicking logo
 brandLogo.addEventListener("click", function () {
+  mainPage.classList.remove("hidden");
   closeMealPage();
+  favoritesPage.classList.add("hidden");
+  mealBackButton.classList.remove("hidden");
+  mealFavoritesButton.classList.remove("hidden");
+  
 });
