@@ -1356,3 +1356,9 @@ document
     };
     signUpModal.addEventListener("click", signup());
   });
+
+const brandLogo = document.querySelector(".brand");
+
+brandLogo.addEventListener("click", function () {
+  closeMealPage();
+});
