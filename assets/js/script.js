@@ -48,6 +48,12 @@ const mealTitleList = document.querySelectorAll(".recipe-title");
 const mealDietList = document.querySelectorAll(".recipe-diets");
 const refreshMealPlanBtn = document.querySelector(".refresh-meal-plan");
 
+/* Favorites Page */
+const favoritesPage = document.getElementById("favorites-page");
+let favoritesCards = document.querySelectorAll(".fav-recipe-card");
+const favoritesBtn = document.getElementById("favorites-button");
+const favoritesBackBtn = document.querySelector(".fav-meal-back-button");
+
 /* Welcome Page (pre-sign-in/sign-up)*/
 const welcomePage = document.querySelector(".welcome-page");
 
@@ -122,7 +128,7 @@ const intolerances = {
   toInclude: [],
 };
 
-const favoriteMeals = [];
+let  favoriteMeals = [];
 
 // API pull URL
 const urlAPI = "https://api.spoonacular.com/recipes/complexSearch/";
@@ -253,18 +259,6 @@ const generateAPICallURL = function (numResults, mealTypeString) {
   finalURL = encodeURI(finalURL);
 
   return finalURL;
-
-  //cuisine
-  //excludeCuisine -- done
-  //diet -- done
-  //intolerances -- done
-  //includeIngredients
-  //excludeIngredients
-  //instructionsRequired -- done
-  //addRecipeInformation -- done
-  //addRecipeNutrition -- done
-  //number -- done
-  //type --done //need to generate 2 API calls -- one for breakfast and one for main course(lunch and dinner)
 };
 
 // Checks to see if a full day has passed since the meal plan was created. If so, remove the current days meal plan, shift all meal plans over by one day, then add a new day's meals
@@ -702,7 +696,11 @@ const renderMealPage = async function (recipeID) {
 //renderMealPage(655186);
 
 // Evemt listener closes meal page and returns to the main page.
-mealBackButton.addEventListener("click", closeMealPage);
+mealBackButton.addEventListener("click", function(){
+  mealReplaceButton.classList.remove("hidden");
+  mealFavoritesButton.classList.remove("hidden");
+  closeMealPage();
+});
 
 // Initialize function
 const init = async function () {
@@ -832,12 +830,132 @@ mealReplaceButton.addEventListener("click", async function (event) {
   await populateSingleMealCard(mealCardClicked); //Update the clicked mealCard with the newRecipeID info
 });
 
-mealFavoritesButton.addEventListener("click", function (event) {
+mealFavoritesButton.addEventListener("click", async function (event) {
   const recipeID = event.currentTarget.getAttribute("data-recipeID");
   console.log(recipeID);
-  favoriteMeals.push(JSON.parse(localStorage.getItem(recipeID)));
-  localStorage.setItem("favorite meals", JSON.stringify(favoriteMeals));
+
+  // IF/ELSE statement: IF recipeID is in localStorage, recipe is pulled from localStorage. Otherwise, recipe is called from spoonacular API using getRecipeInformation() function.
+  const recipe =
+  localStorage.getItem(recipeID) != undefined
+    ? JSON.parse(localStorage.getItem(recipeID))
+    : await getRecipeInformation(recipeID);
+
+  // if recipe not in local storage, it is saved there.
+  localStorage.setItem(recipeID, JSON.stringify(recipe));
+
+  if(!favoriteMeals.includes(JSON.stringify(recipe))){
+    favoriteMeals.push((localStorage.getItem(recipeID)));
+    localStorage.setItem("favorite-meals", JSON.stringify(favoriteMeals));
+  }
 });
+
+
+// Generate favorites meal cards
+const generateFavoritesCards = function(){
+  favoritesPage.classList.remove("hidden");
+  mainPage.classList.add("hidden");
+  mealPage.classList.add("hidden");
+  document.querySelector(".spacer").classList.add("hidden");
+
+  const favoritesContainer = document.getElementById('favorites-container');
+  
+  // For each meal in favoriteMeals, generate a mealCard
+  for(let i = 0; i < favoriteMeals.length; i++){
+    const recipe = JSON.parse(favoriteMeals[i]);
+
+    const twoFifthsCard = document.createElement('div');
+    twoFifthsCard.classList.add("column", "is-one-third")
+    favoritesContainer.append(twoFifthsCard);
+
+    const recipeCard = document.createElement("div");
+    recipeCard.classList.add("fav-recipe-card","card");
+    recipeCard.setAttribute("data-idrecipe",recipe.id);
+    twoFifthsCard.append(recipeCard);
+
+    const cardImage = document.createElement("div");
+    cardImage.classList.add("fav-card-image");
+    recipeCard.append(cardImage);
+
+    const favFigure = document.createElement("figure");
+    favFigure.classList.add("fav-image","image","is-4by1");
+    cardImage.append(favFigure);
+
+    const actualImage = document.createElement("img");
+    actualImage.classList.add("fav-recipe-image");
+    actualImage.setAttribute("src",recipe.image);
+    favFigure.append(actualImage);
+
+    //------------------
+    const cardContent = document.createElement("div");
+    cardContent.classList.add("card-content");
+    recipeCard.append(cardContent);
+
+    const media = document.createElement("div");
+    media.classList.add("media");
+    cardContent.append(media);
+
+
+    //-------------------
+    const recipeTitle = document.createElement("div");
+    recipeTitle.classList.add("fav-recipe-title","content","is-size-4");
+    recipeTitle.textContent = recipe.title;
+    cardContent.append(recipeTitle);
+
+    //-------------------
+    const recipeDiets = document.createElement("div");
+    recipeDiets.classList.add("fav-recipe-diets", "category");
+    cardContent.append(recipeDiets);
+    // Populate the diets in the mealCard -- pulled from recipe data in local storage
+    recipe.diets.forEach(function(diet){
+      let newSpan = document.createElement('span');
+      newSpan.classList.add('subtitle');
+      newSpan.classList.add('is-6');
+      newSpan.textContent = diet;
+      recipeDiets.append(newSpan);
+    })
+
+  }
+
+  favoritesCards = document.querySelectorAll(".fav-recipe-card");
+
+  favoritesCards.forEach((item) => {
+    // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
+    item.addEventListener("click", function(event){
+      const recipeID = event.currentTarget.dataset.idrecipe;
+      console.log(event.currentTarget.dataset.idrecipe);
+      console.log(event.currentTarget);
+      renderMealPage(recipeID);
+      mealCardClicked = event.currentTarget;
+    });
+  })
+
+  mealReplaceButton.classList.add("hidden");
+  mealFavoritesButton.classList.add("hidden");
+
+};
+
+favoritesBtn.addEventListener("click", function(){
+  generateFavoritesCards();
+});
+
+favoritesBackBtn.addEventListener("click", function(){
+  mealReplaceButton.classList.remove("hidden");
+  mealFavoritesButton.classList.remove("hidden");
+  favoritesPage.classList.add("hidden");
+  mainPage.classList.remove("hidden");
+});
+
+favoritesCards.forEach((item) => {
+  // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
+  item.addEventListener("click", function(event){
+    const recipeID = event.currentTarget.dataset.idrecipe;
+    console.log(event.currentTarget.dataset.idrecipe);
+    console.log(event.currentTarget);
+    renderMealPage(recipeID);
+    mealCardClicked = event.currentTarget;
+  });
+})
+
 
 mealCards.forEach((item) => {
   // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
@@ -939,6 +1057,9 @@ signupbutton.addEventListener("click", async function (event) {
   await connectUser(username, firstName, lastName, email);
   await initializeMealPlan();
   await populateMainPage();
+  if(localStorage.getItem("favorite-meals") != undefined){
+    favoriteMeals = JSON.parse(localStorage.getItem("favorite-meals"));
+  }
   signUpModal.classList.add("hidden");
   overlay.classList.add("hidden");
   populateMealCards();
@@ -954,6 +1075,7 @@ const toggleLoginButtons = function () {
     signUpBtn.classList.add("hidden");
     logoutBtn.classList.remove("hidden");
     userInfoBtn.classList.remove('hidden');
+    favoritesBtn.classList.remove("hidden");
     const {username, hash} = JSON.parse(localStorage.getItem('userInfo'));
     usernameCredential.textContent = username;
     passwordCredential.textContent = hash;
@@ -1234,11 +1356,13 @@ const checkLoginStatus = async function () {
     welcomePage.classList.add("hidden");
     toggleLoginButtons();
     await populateMainPage();
+    if(localStorage.getItem("favorite-meals") != undefined){
+      favoriteMeals = JSON.parse(localStorage.getItem("favorite-meals"));
+    }
   }
 };
 
 checkLoginStatus();
-
 
 var swiper = new Swiper(".mySwiper", {
 	pagination: {
