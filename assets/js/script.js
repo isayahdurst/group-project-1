@@ -1451,7 +1451,7 @@ brandLogo.addEventListener("click", function () {
   mainPage.classList.remove("hidden");
   closeMealPage();
   favoritesPage.classList.add("hidden");
-  mealBackButton.classList.remove("hidden");
+  mealReplaceButton.classList.remove("hidden");
   mealFavoritesButton.classList.remove("hidden");
   
 });
