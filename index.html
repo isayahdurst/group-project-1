@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
     <script src="https://kit.fontawesome.com/5071648e37.js" crossorigin="anonymous"></script>
   </head>
-  <body class =''>
+  <body>
 
     <!-- header section  -->
     <div class="header">
@@ -28,6 +28,7 @@
       <div class="header-right">
         <a id = "#contact">Login</a>
         <a id ="signup">Sign up</a>
+        <a id = "favorites-button" class = "hidden">Favorites</a>
         <a id = "logout" class="'hidden">Log Out</a>
         <a id = 'user-info' class="hidden"><i class="fa-solid fa-user"></i></a>
       </div>
@@ -465,7 +466,19 @@
           </div>
         </div>
 </section>
-<div class="spacer"></div>
+<div class="spacer hidden"></div>
+
+ <!-- Favorites Page Start -->
+ <section class="favorites-page hidden" id="favorites-page">
+  <div class="meal-top-buttons">
+    <button class="fav-meal-back-button"><i class="fa-solid fa-arrow-left"></i></button>
+  </div>
+  <div class="weekly-menu-title is-size-4">
+    Favorites
+  </div>
+  <div class="is-flex is-flex-wrap-wrap" id="favorites-container"></div>
+</section>
+<div class="spacer hidden"></div>
     
   <!--Login Modal-->
   <div class="#contact">
