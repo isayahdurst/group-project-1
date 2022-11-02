@@ -867,6 +867,11 @@ mealFavoritesButton.addEventListener("click", async function (event) {
 
 // Generate favorites meal cards
 const generateFavoritesCards = function(){
+
+  if(localStorage.getItem("favorite-meals") != undefined){
+    favoriteMeals = JSON.parse(localStorage.getItem("favorite-meals"));
+  }
+  
   favoritesPage.classList.remove("hidden");
   mainPage.classList.add("hidden");
   mealPage.classList.add("hidden");
@@ -929,38 +934,35 @@ const generateFavoritesCards = function(){
       newSpan.textContent = diet;
       recipeDiets.append(newSpan);
     })
-
-    
-
-  }
+  };
 
   favoritesCards = document.querySelectorAll(".fav-recipe-card");
-
-  let maxHeight = 0;
-
-  // Go through each meal card and figure out what the max height is
-  favoritesCards.forEach(function (card) {
-    if (card.clientHeight > maxHeight) {
-      maxHeight = card.clientHeight;
-    }
-  });
-
-  // Go through each meal card and set the max height to the greatest height of the meal cards
-  favoritesCards.forEach(function (card) {
-    card.style.height = `${maxHeight}px`;
-  });
 
   favoritesCards.forEach((item) => {
     // CHANGE TO RENDER MEAL PAGE ONCE ANTHONY COMPLETES FUNCTIONALITY.
     item.addEventListener("click", function(event){
       const recipeID = event.currentTarget.dataset.idrecipe;
-      console.log(event.currentTarget.dataset.idrecipe);
-      console.log(event.currentTarget);
       renderMealPage(recipeID);
       mealCardClicked = event.currentTarget;
     });
-  })
+  });
 
+  let maxHeight = 0;
+
+  setTimeout(function(){
+  // Go through each meal card and figure out what the max height is
+  favoritesCards.forEach(function (card) {
+    if (card.clientHeight > maxHeight) {
+      maxHeight = card.clientHeight;
+    }
+    });
+
+  // Go through each meal card and set the max height to the greatest height of the meal cards
+  favoritesCards.forEach(function (card) {
+    card.style.height = `${maxHeight}px`;
+    });
+  },5)
+  
   mealReplaceButton.classList.add("hidden");
   mealFavoritesButton.classList.add("hidden");
 
