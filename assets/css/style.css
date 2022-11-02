@@ -551,6 +551,161 @@ p {
 	flex-direction: column;
 }
 
+@media screen and (max-width: 1750px) {
+  .bodyDim p {
+    margin: 0 200px 50px 200px;
+  }
+}
+
+
+@media screen and (max-width: 1550px) {
+  .bodyDim p {
+    margin: 0 140px 50px 140px;
+  }
+}
+
+@media screen and (max-width: 1450px) {
+  body {
+    background-color: #fff;
+  }
+
+  .bodyDim {
+    padding: 0px 50px;
+    margin: 10px 100px;
+
+  }
+
+  .bodyDim h1 {
+    margin-top: 0px;
+    font-size: 44px;
+  }
+  
+  .bodyDim h2 {
+    margin: 10px 0px 10px 0;
+    font-size: 36px;
+    font-weight: 400;
+  }
+
+  .bodyDim p {
+    margin: 0 100px 20px 100px;
+  }
+  
+  .swiper-slide img {
+    height: 400px;
+    width: 700px;
+  }
+
+  .hero {
+    background-image: none;
+    min-height: 40vh;
+  }
+
+  .hero-body{
+    max-width: 450px;
+    background-color: var(--primary-accent);
+    margin: auto;
+    max-height: 400px;
+    margin-top:auto;
+    margin-bottom:auto;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  .welcomeSpacer {
+    display: none;
+  }
+
+  .welcomeSpacer2 {
+    display: none;
+  }
+
+  .title {
+    text-align: center;
+  }
+
+  .subtitle {
+    text-align: center;
+  }
+
+  .show-modal {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  body {
+    background-color: #fff;
+  }
+
+  .bodyDim {
+    padding: 0px 50px;
+    margin: 0px 50px;
+
+  }
+  .bodyDim h1 {
+    margin-top: 0px;
+    font-size: 30px;
+  }
+  
+  .bodyDim h2 {
+    margin: 10px 0px 10px 0;
+    font-size: 30px;
+    font-weight: 400;
+  }
+
+  .bodyDim p {
+    margin: 0 100px 20px 100px;
+    font-size: 10px;
+  }
+  
+  .swiper-slide img {
+    height: 200px;
+    width: 400px;
+  }
+
+  .hero {
+    background-image: none;
+    min-height: 40vh;
+  }
+
+  .hero-body{
+    max-width: 450px;
+    background-color: var(--primary-accent);
+    margin: auto;
+    max-height: 400px;
+    margin-top:auto;
+    margin-bottom:auto;
+  }
+
+  .spacer {
+    display: none;
+  }
+
+  #get-started {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    float: none;
+  }
+
+  .header-right {
+    display: flex;
+    justify-content: center;
+    float: none;
+    margin-bottom: 30px;
+  }
+}
+
+
 #get-started {
   display: flex;
   align-items: center;
