@@ -264,6 +264,7 @@ const generateAPICallURL = function (numResults, mealTypeString) {
 
 // Checks to see if a full day has passed since the meal plan was created. If so, remove the current days meal plan, shift all meal plans over by one day, then add a new day's meals
 const checkIfDayPassed = async function () {
+  
   //Get lastUpdatedDate from localStorage and check to see if there is a difference in date. If not, exit the function
   const lastUpdatedRawDate = JSON.parse(
     localStorage.getItem("lastUpdatedDate")
@@ -283,11 +284,12 @@ const checkIfDayPassed = async function () {
     return;
   }
 
+  loadingScreen.classList.remove('hidden');
+  
   //If at least one day has passed since the last meal plan update, update meal plan so that each new day has a meal plan
   let mealPlanTable = await getMealPlan();
   let numDaysToAdd = 7 - mealPlanTable.days.length;
   let newMealPlanTable = [];
-  console.log(numDaysToAdd);
 
   // Generate new recipes and add them to the list -- Code from initializeMealPlan() ----------------------------------------------
   const breakfastRecipes = await getRecipe(numDaysToAdd, mealType.breakfast);
@@ -348,6 +350,8 @@ const checkIfDayPassed = async function () {
 
   localStorage.setItem("lastUpdatedDate", JSON.stringify(dt.now().ts)); // Set last updated date with the current date
   await populateMainPage();
+
+  loadingScreen.classList.add('hidden');
 };
 
 // Populates each preference category (i.E. Diets, Cuisines, Intolerances) with preference options.
@@ -721,9 +725,9 @@ mealBackButton.addEventListener("click", function(){
 // Initialize function
 const init = async function () {
   // Set Interval of 10 minutes to see if a new day is here and the meal plan needs to be updated
-  checkIfDayPassed();
-  setTimeout(function () {
-    checkIfDayPassed();
+  await checkIfDayPassed();
+  setTimeout(async function () {
+    await checkIfDayPassed();
     init();
   }, 600000);
 };
@@ -896,7 +900,7 @@ const generateFavoritesCards = function(){
     const recipe = JSON.parse(favoriteMeals[i]);
 
     const twoFifthsCard = document.createElement('div');
-    twoFifthsCard.classList.add("column", "is-two-fifths")
+    twoFifthsCard.classList.add("column", "is-one-third")
     favoritesContainer.append(twoFifthsCard);
 
     const recipeCard = document.createElement("div");
@@ -1059,6 +1063,7 @@ loginbutton.addEventListener("click", async function () {
 
   welcomePage.classList.add("hidden");
   toggleLoginButtons();
+  init();
   await populateMainPage();
   populateMealCards();
   overlay.classList.add("hidden");
@@ -1102,6 +1107,7 @@ signupbutton.addEventListener("click", async function (event) {
   loadingScreen.classList.remove("hidden");
   event.preventDefault();
   await connectUser(username, firstName, lastName, email);
+  init();
   await initializeMealPlan();
   await populateMainPage();
   if(localStorage.getItem("favorite-meals") != undefined){
@@ -1387,6 +1393,7 @@ const clearAndRefreshMealPlan = async function () {
   // Call initializeMealPlan() to create a fresh new meal plan, then populate the date buttons with the new recipe ids
   await initializeMealPlan();
   await populateMainPage();
+  
 
   // Remove loading screen
   loadingScreen.classList.add("hidden");
@@ -1417,7 +1424,8 @@ const checkLoginStatus = async function () {
   if (JSON.parse(localStorage.getItem("userInfo"))) {
     welcomePage.classList.add("hidden");
     toggleLoginButtons();
-    await populateMainPage();
+    init();
+    await populateMainPage();    
     if(localStorage.getItem("favorite-meals") != undefined){
       favoriteMeals = JSON.parse(localStorage.getItem("favorite-meals"));
     }
