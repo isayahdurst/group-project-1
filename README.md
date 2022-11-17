@@ -29,23 +29,23 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/isayahdurst/group-project-1">
+  <a href="https://github.com/isayahdurst/taylors-kitchen-meal-prep-app">
     <img src="./assets/images/brand-logo.png">
   </a>
 
-<h3 align="center">Group Project 1</h3>
+<h3 align="center">Taylor's Kitchen Meal Prep App</h3>
 
   <p align="center">
     A simple meal plan generator based on your diet and needs.
     <br />
-    <a href="https://github.com/isayahdurst/group-project-1"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/isayahdurst/taylors-kitchen-meal-prep-app"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/isayahdurst/group-project-1">View Demo</a>
+    <a href="https://isayahdurst.github.io/taylors-kitchen-meal-prep-app/">View Demo</a>
     ·
-    <a href="https://github.com/isayahdurst/group-project-1/issues">Report Bug</a>
+    <a href="https://github.com/isayahdurst/taylors-kitchen-meal-prep-app/issues">Report Bug</a>
     ·
-    <a href="https://github.com/isayahdurst/group-project-1/issues">Request Feature</a>
+    <a href="https://github.com/isayahdurst/taylors-kitchen-meal-prep-app/issues">Request Feature</a>
   </p>
 </div>
 
@@ -84,20 +84,20 @@ This application has been built using two different server-side APIs and is a co
 
 The main contributors to this project are listed as follows:
 
-- Anthony Li
-- Frank Nguyen
-- Raymond Robinson
-- Benjamin Ha
-- Isayah Durst
+-   Anthony Li
+-   Frank Nguyen
+-   Raymond Robinson
+-   Benjamin Ha
+-   Isayah Durst
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Built With
 
-- ![HTML5 Badge](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=fff&style=for-the-badge)
-- ![CSS3 Badge](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=for-the-badge)
-- ![Bulma Badge](https://img.shields.io/badge/Bulma-00D1B2?logo=bulma&logoColor=fff&style=for-the-badge)
-- ![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge)
+-   ![HTML5 Badge](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=fff&style=for-the-badge)
+-   ![CSS3 Badge](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=fff&style=for-the-badge)
+-   ![Bulma Badge](https://img.shields.io/badge/Bulma-00D1B2?logo=bulma&logoColor=fff&style=for-the-badge)
+-   ![JavaScript Badge](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000&style=for-the-badge)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,10 +107,10 @@ The main contributors to this project are listed as follows:
 
 Customize food plan based on:
 
-- Diets
-- Cuisines
-- Intolerances
-- Ingredients (coming soon)
+-   Diets
+-   Cuisines
+-   Intolerances
+-   Ingredients (coming soon)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -118,12 +118,12 @@ Customize food plan based on:
 
 ## Roadmap
 
-- [ ] Allow users to target a specific number of daily calories they would like to consume and tailor their meal plan accordingly.
-- [ ] Allow users to search for ingredients they would like to have in their meals or ingredients they would specifically like to exclude.
-- [ ] Allow users to add ingredients to a shopping cart and open that shopping card with a grocery delivery service for easy ordering.
-  - [ ] Users can edit their pantry to check which items they already have and which items they need to buy.
+-   [ ] Allow users to target a specific number of daily calories they would like to consume and tailor their meal plan accordingly.
+-   [ ] Allow users to search for ingredients they would like to have in their meals or ingredients they would specifically like to exclude.
+-   [ ] Allow users to add ingredients to a shopping cart and open that shopping card with a grocery delivery service for easy ordering.
+    -   [ ] Users can edit their pantry to check which items they already have and which items they need to buy.
 
-See the [open issues](https://github.com/isayahdurst/group-project-1/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/isayahdurst/taylors-kitchen-meal-prep-app/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -158,7 +158,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Isayah Durst - [@isayahdurst](https://twitter.com/isayahdurst) - isayah@fungeapp.com
 
-Project Link: [https://github.com/isayahdurst/group-project-1](https://github.com/isayahdurst/group-project-1)
+Project Link: [https://github.com/isayahdurst/taylors-kitchen-meal-prep-app](https://github.com/isayahdurst/taylors-kitchen-meal-prep-app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -166,27 +166,27 @@ Project Link: [https://github.com/isayahdurst/group-project-1](https://github.co
 
 ## Acknowledgments
 
-- [othneildrew](https://github.com/othneildrew/Best-README-Template/blob/master/BLANK_README.md)
-- [Spoonacular Docs](https://spoonacular.com/food-api/docs)
-- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
-- [Stackoverflow.com](https://stackoverflow.com/questions/1223354/undo-git-pull-how-to-bring-repos-to-old-state)
-- [Shields.io](https://shields.io/)
+-   [othneildrew](https://github.com/othneildrew/Best-README-Template/blob/master/BLANK_README.md)
+-   [Spoonacular Docs](https://spoonacular.com/food-api/docs)
+-   [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
+-   [Stackoverflow.com](https://stackoverflow.com/questions/1223354/undo-git-pull-how-to-bring-repos-to-old-state)
+-   [Shields.io](https://shields.io/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/isayahdurst/group-project-1.svg?style=for-the-badge
-[contributors-url]: https://github.com/isayahdurst/group-project-1/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/isayahdurst/group-project-1.svg?style=for-the-badge
-[forks-url]: https://github.com/isayahdurst/group-project-1/network/members
-[stars-shield]: https://img.shields.io/github/stars/isayahdurst/group-project-1.svg?style=for-the-badge
-[stars-url]: https://github.com/isayahdurst/group-project-1/stargazers
-[issues-shield]: https://img.shields.io/github/issues/isayahdurst/group-project-1.svg?style=for-the-badge
-[issues-url]: https://github.com/isayahdurst/group-project-1/issues
-[license-shield]: https://img.shields.io/github/license/isayahdurst/group-project-1.svg?style=for-the-badge
-[license-url]: https://github.com/isayahdurst/group-project-1/blob/main/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/isayahdurst/taylors-kitchen-meal-prep-app.svg?style=for-the-badge
+[contributors-url]: https://github.com/isayahdurst/taylors-kitchen-meal-prep-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/isayahdurst/taylors-kitchen-meal-prep-app.svg?style=for-the-badge
+[forks-url]: https://github.com/isayahdurst/taylors-kitchen-meal-prep-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/isayahdurst/taylors-kitchen-meal-prep-app.svg?style=for-the-badge
+[stars-url]: https://github.com/isayahdurst/taylors-kitchen-meal-prep-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/isayahdurst/taylors-kitchen-meal-prep-app.svg?style=for-the-badge
+[issues-url]: https://github.com/isayahdurst/taylors-kitchen-meal-prep-app/issues
+[license-shield]: https://img.shields.io/github/license/isayahdurst/taylors-kitchen-meal-prep-app.svg?style=for-the-badge
+[license-url]: https://github.com/isayahdurst/taylors-kitchen-meal-prep-app/blob/main/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/isayah-durst-3b0395244
 [product-screenshot]: ./assets/images/main.JPG
